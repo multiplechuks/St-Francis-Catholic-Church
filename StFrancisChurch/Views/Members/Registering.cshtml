@@ -1,0 +1,85 @@
+﻿@using System.Web.Configuration
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Pending Registration
+        <div class="btn-group" style="float: right; margin-top: 5px; margin-right: 10px;">
+            <a class="btn btn-success" href="@Href("~/Members/Create")" title="Click to create a new member"><i class="glyphicon glypicon-add" style="margin:0px;"></i> New Member </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="membersTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Surname</th>
+                        <th>Firstname</th>
+                        <th>Othername</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Surname</th>
+                        <th>Firstname</th>
+                        <th>Othername</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+</div>
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            $('#membersTable').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    url: "@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))/Members/GetRegisteringMembers/",
+                    type: "POST",
+                    dataSrc: "data"
+                },
+                "columns": [
+                    { "data": "Serial" },
+                    { "data": "Surname" },
+                    { "data": "Firstname" },
+                    { "data": "Othername" },
+                    {
+                        "data": "Action",
+                        "render": function (data, type, full, meta) {
+                            var name = full.Surname + ' ' + full.Firstname;
+                            return '<a class="btn btn-primary" href="@Href("~/Members/View/")'+ full.Id + '" title="View this Registration"><i class="fas fa-fw fa-eye"></i></a>&nbsp;' +
+                                '<a class="btn btn-success" onclick="AcceptMember('+ full.Id + ', \'' + name + '\')" title="Accept this Registration"><i class="fas fa-fw fa-check"></i></a>&nbsp;' +
+                                '<a class="btn btn-danger" title="Reject or Delete this Registration"><i class="fas fa-fw fa-trash"></i></a>';
+                        }
+                    }
+                ]
+            });
+        });
+
+        function AcceptMember(id, name) {
+            if (confirm("Are you sure you want to approve " + name + " as a parish member?")) {
+                $.ajax({
+                    url:
+                        "@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))/Members/ConfirmMember/?id=" +
+                            id,
+                    context: document.body
+                }).done(function(returnVal) {
+                    alert(returnVal);
+                    location.reload();
+                });
+            }
+        }
+    </script>
+}

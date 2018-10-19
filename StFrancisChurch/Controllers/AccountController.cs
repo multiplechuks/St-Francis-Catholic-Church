@@ -79,7 +79,7 @@ namespace StFrancisChurch.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return Redirect("/Admin");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -134,9 +134,8 @@ namespace StFrancisChurch.Controllers
             }
         }
 
-        //
-        // GET: /Account/Register
         [AllowAnonymous]
+        // GET: /Account/Register
         public ActionResult Register()
         {
             return View();
@@ -151,11 +150,19 @@ namespace StFrancisChurch.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.Firstname,
+                    LastName = model.Lastname,
+                    PhoneNumber = model.PhoneNumber,
+                    Gender = model.Gender
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link

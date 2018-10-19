@@ -1,0 +1,98 @@
+﻿@{
+}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Parish Members
+        <div class="btn-group" style="float: right; margin-top: 5px; margin-right: 10px;">
+            <a class="btn btn-success" href="@Href("~/Members/Create")" title="Click to create a new member"><i class="glyphicon glypicon-add" style="margin:0px;"></i> New Member </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="membersTable" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Surname</th>
+                        <th>Firstname</th>
+                        <th>Othername</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Surname</th>
+                        <th>Firstname</th>
+                        <th>Othername</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+</div>
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            $('#membersTable').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    url: "@($"{Request.Url.Scheme}://{Request.Url.Authority}{Url.Content("~")}")/Members/GetActiveMembers/",
+                    type: "POST",
+                    dataSrc: "data"
+                },
+                "columns": [
+                    { "data": "Serial" },
+                    { "data": "Surname" },
+                    { "data": "Firstname" },
+                    { "data": "Othername" },
+                    {
+                        "data": "Action",
+                        "render": function (data, type, full, meta) {
+                            //use btn-sm for smaller buttons
+                            return '<a class="btn btn-primary" href="@Href("~/Members/View/")'+ full.Id + '" title="View this member"><i class="fas fa-fw fa-eye"></i></a>&nbsp;' +
+                                '<a class="btn btn-info" href="@Href("~/Members/Edit/")'+ full.Id + '" title="Edit this member\'s detail"><i class="fas fa-fw fa-edit"></i></a>&nbsp;' +
+                                '<a class="btn btn-warning" onclick="RejectMember(' + full.Id + ', \'' + name + '\')" title="Reject this member\'s registration"><i class="fas fa-fw fa-times"></i></a>&nbsp;' +
+                                '<a class="btn btn-danger" onclick="DeleteMember(' + full.Id + ', \'' + name + '\')" title="Delete this member"><i class="fas fa-fw fa-trash"></i></a>';
+                        }
+                    }
+                ]
+            });
+        });        
+
+        function RejectMember(id, name) {
+            if (confirm("Are you sure you want to reject " + name + " as a parish member?")) {
+                $.ajax({
+                    url:
+                        "@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))/Members/RejectMember/?id=" +
+                            id,
+                    context: document.body
+                }).done(function(returnVal) {
+                    alert(returnVal);
+                    location.reload();
+                });
+            }
+        }
+
+        function DeleteMember(id, name) {
+            if (confirm("Are you sure you want to deleted " + name + " from the parish membership?")) {
+                $.ajax({
+                    url:
+                        "@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))/Members/RejectMember/?id=" +
+                            id,
+                    context: document.body
+                }).done(function(returnVal) {
+                    alert(returnVal);
+                    location.reload();
+                });
+            }
+        }
+    </script>
+}

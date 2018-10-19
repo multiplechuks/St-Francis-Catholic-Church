@@ -1,0 +1,1098 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="StFrancisCCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" />
+          <Property Name="LastName" Type="nvarchar(max)" />
+          <Property Name="Code" Type="nvarchar(max)" />
+          <Property Name="Gender" Type="nvarchar(max)" />
+          <Property Name="Deleted" Type="int" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LookUpTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="LookUpId" Type="int" Nullable="false" />
+          <Property Name="LookUpName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LookUpOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Members">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Firstname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Othername" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MembershipType" Type="int" />
+          <Property Name="DateRegistered" Type="datetime" Nullable="false" />
+          <Property Name="Confirmed" Type="int" Nullable="false" />
+          <Property Name="ConfirmationDate" Type="datetime" />
+          <Property Name="ConfirmedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="PassportUrl" Type="nvarchar(max)" />
+          <Property Name="Deleted" Type="int" Nullable="false" />
+          <Property Name="DeletedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="DateDeleted" Type="datetime" />
+          <Property Name="Deceased" Type="int" Nullable="false" />
+          <Property Name="DateDeceased" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ParishEvent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="EventDescription" Type="nvarchar(max)" />
+          <Property Name="Active" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="Deleted" Type="int" Nullable="false" />
+          <Property Name="EventType" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ParishEventType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventType" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PositionName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PositionDescription" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Reflection">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Reflection" />
+            <PropertyRef Name="ReflectionType" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Reflection" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ReflectionType" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sacrament">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sacrament" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SacramentDescription" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="SacramentDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SacramentMemberLink">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberId" Type="int" Nullable="false" />
+          <Property Name="SacramentId" Type="int" Nullable="false" />
+          <Property Name="DateReceived" Type="int" Nullable="false" />
+          <Property Name="DateRecorded" Type="int" Nullable="false" />
+          <Property Name="RecordedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Deleted" Type="int" Nullable="false" />
+          <Property Name="SacramentDetailId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SacramentMemberUpdateLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UpdateType" Type="int" Nullable="false" />
+          <Property Name="SacramentMemberLinkId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Societies">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="SocietyMemberLink">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SocietyId" Type="int" Nullable="false" />
+          <Property Name="MemberId" Type="int" Nullable="false" />
+          <Property Name="MemberPositionId" Type="int" Nullable="false" />
+          <Property Name="AppointDate" Type="datetime" Nullable="false" />
+          <Property Name="Active" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StationEvent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="EventDescription" Type="nvarchar(max)" />
+          <Property Name="Active" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="Deleted" Type="int" Nullable="false" />
+          <Property Name="EventType" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParishEvent_ParishEventType">
+          <End Role="ParishEventType" Type="Self.ParishEventType" Multiplicity="1" />
+          <End Role="ParishEvent" Type="Self.ParishEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParishEventType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParishEvent">
+              <PropertyRef Name="EventType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SacramentMemberLink_Members">
+          <End Role="SacramentDetail" Type="Self.SacramentDetail" Multiplicity="1" />
+          <End Role="SacramentMemberLink" Type="Self.SacramentMemberLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SacramentDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SacramentMemberLink">
+              <PropertyRef Name="SacramentDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SacramentMemberLink_Sacrament">
+          <End Role="Sacrament" Type="Self.Sacrament" Multiplicity="1" />
+          <End Role="SacramentMemberLink" Type="Self.SacramentMemberLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sacrament">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SacramentMemberLink">
+              <PropertyRef Name="SacramentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SacramentMemberUpdateLog_SacramentMemberLink">
+          <End Role="SacramentMemberLink" Type="Self.SacramentMemberLink" Multiplicity="1" />
+          <End Role="SacramentMemberUpdateLog" Type="Self.SacramentMemberUpdateLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SacramentMemberLink">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SacramentMemberUpdateLog">
+              <PropertyRef Name="SacramentMemberLinkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SocietyMemberLink_Members">
+          <End Role="Members" Type="Self.Members" Multiplicity="1" />
+          <End Role="SocietyMemberLink" Type="Self.SocietyMemberLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SocietyMemberLink">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SocietyMemberLink_Societies">
+          <End Role="Societies" Type="Self.Societies" Multiplicity="1" />
+          <End Role="SocietyMemberLink" Type="Self.SocietyMemberLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Societies">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SocietyMemberLink">
+              <PropertyRef Name="SocietyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SocietyMemberLink_SocietyMemberLink">
+          <End Role="Position" Type="Self.Position" Multiplicity="1" />
+          <End Role="SocietyMemberLink" Type="Self.SocietyMemberLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SocietyMemberLink">
+              <PropertyRef Name="MemberPositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StationEvent_ParishEventType">
+          <End Role="ParishEventType" Type="Self.ParishEventType" Multiplicity="1" />
+          <End Role="StationEvent" Type="Self.StationEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParishEventType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StationEvent">
+              <PropertyRef Name="EventType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StFrancisCCModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LookUpTable" EntityType="Self.LookUpTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Members" EntityType="Self.Members" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParishEvent" EntityType="Self.ParishEvent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParishEventType" EntityType="Self.ParishEventType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sacrament" EntityType="Self.Sacrament" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SacramentDetail" EntityType="Self.SacramentDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SacramentMemberLink" EntityType="Self.SacramentMemberLink" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SacramentMemberUpdateLog" EntityType="Self.SacramentMemberUpdateLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Societies" EntityType="Self.Societies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SocietyMemberLink" EntityType="Self.SocietyMemberLink" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StationEvent" EntityType="Self.StationEvent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reflection" EntityType="Self.Reflection" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Reflection].[Id] AS [Id], 
+    [Reflection].[Reflection] AS [Reflection], 
+    [Reflection].[ReflectionType] AS [ReflectionType]
+    FROM [dbo].[Reflection] AS [Reflection]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParishEvent_ParishEventType" Association="Self.FK_ParishEvent_ParishEventType">
+            <End Role="ParishEventType" EntitySet="ParishEventType" />
+            <End Role="ParishEvent" EntitySet="ParishEvent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SacramentMemberLink_Members" Association="Self.FK_SacramentMemberLink_Members">
+            <End Role="SacramentDetail" EntitySet="SacramentDetail" />
+            <End Role="SacramentMemberLink" EntitySet="SacramentMemberLink" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SacramentMemberLink_Sacrament" Association="Self.FK_SacramentMemberLink_Sacrament">
+            <End Role="Sacrament" EntitySet="Sacrament" />
+            <End Role="SacramentMemberLink" EntitySet="SacramentMemberLink" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SacramentMemberUpdateLog_SacramentMemberLink" Association="Self.FK_SacramentMemberUpdateLog_SacramentMemberLink">
+            <End Role="SacramentMemberLink" EntitySet="SacramentMemberLink" />
+            <End Role="SacramentMemberUpdateLog" EntitySet="SacramentMemberUpdateLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SocietyMemberLink_Members" Association="Self.FK_SocietyMemberLink_Members">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="SocietyMemberLink" EntitySet="SocietyMemberLink" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SocietyMemberLink_Societies" Association="Self.FK_SocietyMemberLink_Societies">
+            <End Role="Societies" EntitySet="Societies" />
+            <End Role="SocietyMemberLink" EntitySet="SocietyMemberLink" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SocietyMemberLink_SocietyMemberLink" Association="Self.FK_SocietyMemberLink_SocietyMemberLink">
+            <End Role="Position" EntitySet="Position" />
+            <End Role="SocietyMemberLink" EntitySet="SocietyMemberLink" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StationEvent_ParishEventType" Association="Self.FK_StationEvent_ParishEventType">
+            <End Role="ParishEventType" EntitySet="ParishEventType" />
+            <End Role="StationEvent" EntitySet="StationEvent" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StFrancisCCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="LookUpTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="LookUpId" Type="Int32" Nullable="false" />
+          <Property Name="LookUpName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LookUpOrder" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ParishEvent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EventDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="Deleted" Type="Int32" Nullable="false" />
+          <Property Name="EventType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ParishEventType" Relationship="Self.FK_ParishEvent_ParishEventType" FromRole="ParishEvent" ToRole="ParishEventType" />
+        </EntityType>
+        <EntityType Name="ParishEventType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ParishEvents" Relationship="Self.FK_ParishEvent_ParishEventType" FromRole="ParishEventType" ToRole="ParishEvent" />
+          <NavigationProperty Name="StationEvents" Relationship="Self.FK_StationEvent_ParishEventType" FromRole="ParishEventType" ToRole="StationEvent" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PositionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PositionDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SocietyMemberLinks" Relationship="Self.FK_SocietyMemberLink_SocietyMemberLink" FromRole="Position" ToRole="SocietyMemberLink" />
+        </EntityType>
+        <EntityType Name="Sacrament">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sacrament1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SacramentDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SacramentMemberLinks" Relationship="Self.FK_SacramentMemberLink_Sacrament" FromRole="Sacrament" ToRole="SacramentMemberLink" />
+        </EntityType>
+        <EntityType Name="SacramentDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="SacramentMemberLinks" Relationship="Self.FK_SacramentMemberLink_Members" FromRole="SacramentDetail" ToRole="SacramentMemberLink" />
+        </EntityType>
+        <EntityType Name="SacramentMemberLink">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="SacramentId" Type="Int32" Nullable="false" />
+          <Property Name="DateReceived" Type="Int32" Nullable="false" />
+          <Property Name="DateRecorded" Type="Int32" Nullable="false" />
+          <Property Name="RecordedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Deleted" Type="Int32" Nullable="false" />
+          <Property Name="SacramentDetailId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Sacrament" Relationship="Self.FK_SacramentMemberLink_Sacrament" FromRole="SacramentMemberLink" ToRole="Sacrament" />
+          <NavigationProperty Name="SacramentDetail" Relationship="Self.FK_SacramentMemberLink_Members" FromRole="SacramentMemberLink" ToRole="SacramentDetail" />
+          <NavigationProperty Name="SacramentMemberUpdateLogs" Relationship="Self.FK_SacramentMemberUpdateLog_SacramentMemberLink" FromRole="SacramentMemberLink" ToRole="SacramentMemberUpdateLog" />
+        </EntityType>
+        <EntityType Name="SacramentMemberUpdateLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdateType" Type="Int32" Nullable="false" />
+          <Property Name="SacramentMemberLinkId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SacramentMemberLink" Relationship="Self.FK_SacramentMemberUpdateLog_SacramentMemberLink" FromRole="SacramentMemberUpdateLog" ToRole="SacramentMemberLink" />
+        </EntityType>
+        <EntityType Name="Society">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SocietyMemberLinks" Relationship="Self.FK_SocietyMemberLink_Societies" FromRole="Societies" ToRole="SocietyMemberLink" />
+        </EntityType>
+        <EntityType Name="SocietyMemberLink">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SocietyId" Type="Int32" Nullable="false" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="MemberPositionId" Type="Int32" Nullable="false" />
+          <Property Name="AppointDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Active" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Position" Relationship="Self.FK_SocietyMemberLink_SocietyMemberLink" FromRole="SocietyMemberLink" ToRole="Position" />
+          <NavigationProperty Name="Society" Relationship="Self.FK_SocietyMemberLink_Societies" FromRole="SocietyMemberLink" ToRole="Societies" />
+          <NavigationProperty Name="Member" Relationship="StFrancisCCModel.FK_SocietyMemberLink_Members" FromRole="SocietyMemberLink" ToRole="Member" />
+        </EntityType>
+        <EntityType Name="StationEvent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EventDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="Deleted" Type="Int32" Nullable="false" />
+          <Property Name="EventType" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ParishEventType" Relationship="Self.FK_StationEvent_ParishEventType" FromRole="StationEvent" ToRole="ParishEventType" />
+        </EntityType>
+        <EntityType Name="Reflection">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Reflection1" />
+            <PropertyRef Name="ReflectionType" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Reflection1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ReflectionType" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParishEvent_ParishEventType">
+          <End Role="ParishEventType" Type="Self.ParishEventType" Multiplicity="1" />
+          <End Role="ParishEvent" Type="Self.ParishEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParishEventType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ParishEvent">
+              <PropertyRef Name="EventType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StationEvent_ParishEventType">
+          <End Role="ParishEventType" Type="Self.ParishEventType" Multiplicity="1" />
+          <End Role="StationEvent" Type="Self.StationEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParishEventType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StationEvent">
+              <PropertyRef Name="EventType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SocietyMemberLink_SocietyMemberLink">
+          <End Role="Position" Type="Self.Position" Multiplicity="1" />
+          <End Role="SocietyMemberLink" Type="Self.SocietyMemberLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SocietyMemberLink">
+              <PropertyRef Name="MemberPositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SacramentMemberLink_Sacrament">
+          <End Role="Sacrament" Type="Self.Sacrament" Multiplicity="1" />
+          <End Role="SacramentMemberLink" Type="Self.SacramentMemberLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sacrament">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SacramentMemberLink">
+              <PropertyRef Name="SacramentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SacramentMemberLink_Members">
+          <End Role="SacramentDetail" Type="Self.SacramentDetail" Multiplicity="1" />
+          <End Role="SacramentMemberLink" Type="Self.SacramentMemberLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SacramentDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SacramentMemberLink">
+              <PropertyRef Name="SacramentDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SacramentMemberUpdateLog_SacramentMemberLink">
+          <End Role="SacramentMemberLink" Type="Self.SacramentMemberLink" Multiplicity="1" />
+          <End Role="SacramentMemberUpdateLog" Type="Self.SacramentMemberUpdateLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SacramentMemberLink">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SacramentMemberUpdateLog">
+              <PropertyRef Name="SacramentMemberLinkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SocietyMemberLink_Societies">
+          <End Role="Societies" Type="Self.Society" Multiplicity="1" />
+          <End Role="SocietyMemberLink" Type="Self.SocietyMemberLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Societies">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SocietyMemberLink">
+              <PropertyRef Name="SocietyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="StFrancisCCEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="LookUpTables" EntityType="Self.LookUpTable" />
+          <EntitySet Name="ParishEvents" EntityType="Self.ParishEvent" />
+          <EntitySet Name="ParishEventTypes" EntityType="Self.ParishEventType" />
+          <EntitySet Name="Positions" EntityType="Self.Position" />
+          <EntitySet Name="Sacraments" EntityType="Self.Sacrament" />
+          <EntitySet Name="SacramentDetails" EntityType="Self.SacramentDetail" />
+          <EntitySet Name="SacramentMemberLinks" EntityType="Self.SacramentMemberLink" />
+          <EntitySet Name="SacramentMemberUpdateLogs" EntityType="Self.SacramentMemberUpdateLog" />
+          <EntitySet Name="Societies" EntityType="Self.Society" />
+          <EntitySet Name="SocietyMemberLinks" EntityType="Self.SocietyMemberLink" />
+          <EntitySet Name="StationEvents" EntityType="Self.StationEvent" />
+          <EntitySet Name="Reflections" EntityType="Self.Reflection" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParishEvent_ParishEventType" Association="Self.FK_ParishEvent_ParishEventType">
+            <End Role="ParishEventType" EntitySet="ParishEventTypes" />
+            <End Role="ParishEvent" EntitySet="ParishEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StationEvent_ParishEventType" Association="Self.FK_StationEvent_ParishEventType">
+            <End Role="ParishEventType" EntitySet="ParishEventTypes" />
+            <End Role="StationEvent" EntitySet="StationEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SocietyMemberLink_SocietyMemberLink" Association="Self.FK_SocietyMemberLink_SocietyMemberLink">
+            <End Role="Position" EntitySet="Positions" />
+            <End Role="SocietyMemberLink" EntitySet="SocietyMemberLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SacramentMemberLink_Sacrament" Association="Self.FK_SacramentMemberLink_Sacrament">
+            <End Role="Sacrament" EntitySet="Sacraments" />
+            <End Role="SacramentMemberLink" EntitySet="SacramentMemberLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SacramentMemberLink_Members" Association="Self.FK_SacramentMemberLink_Members">
+            <End Role="SacramentDetail" EntitySet="SacramentDetails" />
+            <End Role="SacramentMemberLink" EntitySet="SacramentMemberLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SacramentMemberUpdateLog_SacramentMemberLink" Association="Self.FK_SacramentMemberUpdateLog_SacramentMemberLink">
+            <End Role="SacramentMemberLink" EntitySet="SacramentMemberLinks" />
+            <End Role="SacramentMemberUpdateLog" EntitySet="SacramentMemberUpdateLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SocietyMemberLink_Societies" Association="Self.FK_SocietyMemberLink_Societies">
+            <End Role="Societies" EntitySet="Societies" />
+            <End Role="SocietyMemberLink" EntitySet="SocietyMemberLinks" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="Members" EntityType="StFrancisCCModel.Member" />
+          <AssociationSet Name="FK_SocietyMemberLink_Members" Association="StFrancisCCModel.FK_SocietyMemberLink_Members">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="SocietyMemberLink" EntitySet="SocietyMemberLinks" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Othername" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MembershipType" Type="Int32" />
+          <Property Name="DateRegistered" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Confirmed" Type="Int32" Nullable="false" />
+          <Property Name="ConfirmationDate" Type="DateTime" Precision="3" />
+          <Property Name="ConfirmedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PassportUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Int32" Nullable="false" />
+          <Property Name="DeletedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="DateDeleted" Type="DateTime" Precision="3" />
+          <Property Name="Deceased" Type="Int32" Nullable="false" />
+          <Property Name="DateDeceased" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="SocietyMemberLinks" Relationship="StFrancisCCModel.FK_SocietyMemberLink_Members" FromRole="Member" ToRole="SocietyMemberLink" />
+        </EntityType>
+        <Association Name="FK_SocietyMemberLink_Members">
+          <End Type="StFrancisCCModel.Member" Role="Member" Multiplicity="1" />
+          <End Type="StFrancisCCModel.SocietyMemberLink" Role="SocietyMemberLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SocietyMemberLink">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StFrancisCCModelStoreContainer" CdmEntityContainer="StFrancisCCEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="StFrancisCCModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="StFrancisCCModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="StFrancisCCModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="StFrancisCCModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="StFrancisCCModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LookUpTables">
+            <EntityTypeMapping TypeName="StFrancisCCModel.LookUpTable">
+              <MappingFragment StoreEntitySet="LookUpTable">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LookUpId" ColumnName="LookUpId" />
+                <ScalarProperty Name="LookUpName" ColumnName="LookUpName" />
+                <ScalarProperty Name="LookUpOrder" ColumnName="LookUpOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParishEvents">
+            <EntityTypeMapping TypeName="StFrancisCCModel.ParishEvent">
+              <MappingFragment StoreEntitySet="ParishEvent">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EventName" ColumnName="EventName" />
+                <ScalarProperty Name="EventDescription" ColumnName="EventDescription" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="EventType" ColumnName="EventType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParishEventTypes">
+            <EntityTypeMapping TypeName="StFrancisCCModel.ParishEventType">
+              <MappingFragment StoreEntitySet="ParishEventType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EventType" ColumnName="EventType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Positions">
+            <EntityTypeMapping TypeName="StFrancisCCModel.Position">
+              <MappingFragment StoreEntitySet="Position">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PositionName" ColumnName="PositionName" />
+                <ScalarProperty Name="PositionDescription" ColumnName="PositionDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sacraments">
+            <EntityTypeMapping TypeName="StFrancisCCModel.Sacrament">
+              <MappingFragment StoreEntitySet="Sacrament">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Sacrament1" ColumnName="Sacrament" />
+                <ScalarProperty Name="SacramentDescription" ColumnName="SacramentDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SacramentDetails">
+            <EntityTypeMapping TypeName="StFrancisCCModel.SacramentDetail">
+              <MappingFragment StoreEntitySet="SacramentDetail">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SacramentMemberLinks">
+            <EntityTypeMapping TypeName="StFrancisCCModel.SacramentMemberLink">
+              <MappingFragment StoreEntitySet="SacramentMemberLink">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="SacramentId" ColumnName="SacramentId" />
+                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
+                <ScalarProperty Name="DateRecorded" ColumnName="DateRecorded" />
+                <ScalarProperty Name="RecordedBy" ColumnName="RecordedBy" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="SacramentDetailId" ColumnName="SacramentDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SacramentMemberUpdateLogs">
+            <EntityTypeMapping TypeName="StFrancisCCModel.SacramentMemberUpdateLog">
+              <MappingFragment StoreEntitySet="SacramentMemberUpdateLog">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="UpdateType" ColumnName="UpdateType" />
+                <ScalarProperty Name="SacramentMemberLinkId" ColumnName="SacramentMemberLinkId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Societies">
+            <EntityTypeMapping TypeName="StFrancisCCModel.Society">
+              <MappingFragment StoreEntitySet="Societies">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SocietyMemberLinks">
+            <EntityTypeMapping TypeName="StFrancisCCModel.SocietyMemberLink">
+              <MappingFragment StoreEntitySet="SocietyMemberLink">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SocietyId" ColumnName="SocietyId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="MemberPositionId" ColumnName="MemberPositionId" />
+                <ScalarProperty Name="AppointDate" ColumnName="AppointDate" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StationEvents">
+            <EntityTypeMapping TypeName="StFrancisCCModel.StationEvent">
+              <MappingFragment StoreEntitySet="StationEvent">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EventName" ColumnName="EventName" />
+                <ScalarProperty Name="EventDescription" ColumnName="EventDescription" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="EventType" ColumnName="EventType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reflections">
+            <EntityTypeMapping TypeName="StFrancisCCModel.Reflection">
+              <MappingFragment StoreEntitySet="Reflection">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Reflection1" ColumnName="Reflection" />
+                <ScalarProperty Name="ReflectionType" ColumnName="ReflectionType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="StFrancisCCModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="StFrancisCCModel.Member">
+              <MappingFragment StoreEntitySet="Members">
+                <ScalarProperty Name="DateDeceased" ColumnName="DateDeceased" />
+                <ScalarProperty Name="Deceased" ColumnName="Deceased" />
+                <ScalarProperty Name="DateDeleted" ColumnName="DateDeleted" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="PassportUrl" ColumnName="PassportUrl" />
+                <ScalarProperty Name="ConfirmedBy" ColumnName="ConfirmedBy" />
+                <ScalarProperty Name="ConfirmationDate" ColumnName="ConfirmationDate" />
+                <ScalarProperty Name="Confirmed" ColumnName="Confirmed" />
+                <ScalarProperty Name="DateRegistered" ColumnName="DateRegistered" />
+                <ScalarProperty Name="MembershipType" ColumnName="MembershipType" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Othername" ColumnName="Othername" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

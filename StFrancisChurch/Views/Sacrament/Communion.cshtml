@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Data Table Example
+        <div class="btn-group" style="float: right; margin-top: 5px; margin-right: 10px;">
+            <a class="btn btn-success" href="@Href("~/Members/Create")" title="Click to create a new member"><i class="glyphicon glypicon-add" style="margin:0px;"></i> New Member </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="membersTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Surname</th>
+                        <th>Firstname</th>
+                        <th>Othername</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Surname</th>
+                        <th>Firstname</th>
+                        <th>Othername</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+</div>
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            $('#membersTable').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    url: "@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))/Members/GetActiveMembers/",
+                    type: "POST",
+                    dataSrc: "data"
+                },
+                "columns": [
+                    { "data": "SN" },
+                    { "data": "Surname" },
+                    { "data": "Firstname" },
+                    { "data": "Othername" }
+                    {
+                        "data": "Action",
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-primary"><span class="">V</span></a>&nbsp;<a class="btn btn-primary"><span class="">A</span></a>';
+                        }
+                    }
+                ]
+            });
+        });        
+    </script>
+}

@@ -1,0 +1,74 @@
+﻿@using StFrancisChurch.Models.Utility
+@{
+    var member = (MemberTableModel) ViewBag.member;
+}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Parish Members Detail
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" style="width:60% !important" align="center" cellspacing="0">
+                <thead>
+                    <tr>
+                        <td>Key</td>
+                        <td>Value</td>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        Surname
+                    </td>
+                    <td>
+                        @member.Surname
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Firstname
+                    </td>
+                    <td>
+                        @member.Firstname
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Othername
+                    </td>
+                    <td>
+                        @member.Othername
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Phone
+                    </td>
+                    <td>
+                        @member.Phone
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Date Registered
+                    </td>
+                    <td>
+                        @member.DateRegistered
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+</div>
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            
+        });        
+    </script>
+}

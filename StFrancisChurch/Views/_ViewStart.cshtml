@@ -1,3 +1,30 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = "~/Views/Shared/_BaseLayout.cshtml";
+    string returnLayout = "";
+    //if (Context.Request.Path.Contains("Members"))
+    //{
+    //    returnLayout = "~/Views/Shared/_AdminBaseLayout.cshtml";
+    //}
+    //else if (Context.Request.Path.Contains("Admin") || Context.Request.Path.Contains("Sacrment"))
+    //{
+    //    returnLayout = "~/Views/Shared/_AdminBaseLayout.cshtml";
+    //}
+    var controller = HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"];
+    if (controller.Equals("Members"))
+    {
+        returnLayout = "~/Views/Shared/_AdminBaseLayout.cshtml";
+    }
+    else if (controller.Equals("Admin"))
+    {
+        returnLayout = "~/Views/Shared/_AdminBaseLayout.cshtml";
+    }
+    else if (controller.Equals("Sacrament"))
+    {
+        returnLayout = "~/Views/Shared/_AdminBaseLayout.cshtml";
+    }
+    else
+    {
+        returnLayout = "~/Views/Shared/_BaseLayout.cshtml";
+    }
+    Layout = returnLayout;
 }

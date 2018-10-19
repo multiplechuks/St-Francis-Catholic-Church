@@ -1,0 +1,48 @@
+﻿@using StFrancisChurch.Models
+@model MemberRegistrationViewModel
+@{
+    ViewBag.Title = "Parish Registration";
+}
+
+<div class="container-wrap">
+    <div id="fh5co-contact">
+        <div class="row animate-box fadeInUp animated-fast">
+            <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+                <h1>@ViewBag.Title</h1>
+                <p class="alert alert-info">Please ensure you show up physically to the Church within 10 days after this registration to complete the registration process</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 animate-box fadeInUp animated-fast">
+                @using (Html.BeginForm("MemberRegistration", "Home", FormMethod.Post, new {@role = "form"}))
+                {
+                    @Html.ValidationSummary(true, "", new {@style = "color :red"})
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="Surname" class="form-control" placeholder="Enter Surname">
+                                @Html.ValidationMessageFor(m => m.Surname, "", new { @style = "color:red" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="Firstname" class="form-control" placeholder="Enter Firstname">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="Othername" class="form-control" placeholder="Enter Othername">
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-md-push-8">
+                            <div class="form-group">
+                                <input type="submit" value="Register" class="btn btn-primary btn-modify">
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div><!-- END container-wrap -->
