@@ -48,6 +48,7 @@ namespace StFrancisChurch
             container.RegisterType<ManageController>(new InjectionConstructor());
             // TODO: Register your type's mappings here.
             container.RegisterType<IMemberRepository, MemberRepository>();
+            container.RegisterType<ISacramentRepository, SacramentRepository>();
         }
     }
 }

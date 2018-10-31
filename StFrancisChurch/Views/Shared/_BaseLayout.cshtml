@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using StFrancisChurch.Utility
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -51,8 +52,8 @@
                         </div>
                         <div class="col-md-12 col-md-offset-0 text-center menu-1">
                             <ul>
-                                <li class="active"><a href="/">Parish</a></li>
-                                <li><a href="#">Reflections</a></li>
+                                <li class="@Html.IsSelected(action:"Index",controller:"Home")"><a href="/">Parish</a></li>
+                                <li class="@Html.IsSelected(action:"Reflection",controller:"Home")"><a href="#">Reflections</a></li>
                                 <li class="has-dropdown">
                                     <a href="#">Stations</a>
                                     <ul class="dropdown">
@@ -60,7 +61,7 @@
                                         <li><a href="#">St Jerome</a></li>
                                     </ul>
                                 </li>
-                                <li class="has-dropdown">
+                                <li class="has-dropdown @Html.IsSelectedActions(actions:new[] {"About","Contact","Anouncement"},controller:"Home")">
                                     <a href="#">Information</a>
                                     <ul class="dropdown">
                                         <li><a href="@Href("~/Home/About")">About</a></li>
@@ -69,7 +70,7 @@
                                     </ul>
                                 </li>
                                 <li><a href="#">Events</a></li>
-                                <li><a href="@Href("~/Home/MemberRegistration")">Membership</a></li>
+                                <li class="@Html.IsSelected(action:"MemberRegistration",controller:"Home")"><a href="@Url.Action("MemberRegistration", "Home" )">Membership</a></li>
                                 <li><a href="#" class="donate">Donate</a></li>
                             </ul>
                         </div>

@@ -34,6 +34,7 @@
         <AssociationConnector Association="StFrancisCCModel.AspNetUserRoles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="StFrancisCCModel.Member" Width="1.5" PointX="10.375" PointY="12" />
         <AssociationConnector Association="StFrancisCCModel.FK_SocietyMemberLink_Members" />
+        <EntityTypeShape EntityType="StFrancisCCModel.Station" Width="1.5" PointX="12.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

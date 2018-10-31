@@ -197,6 +197,18 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
           <Property Name="AppointDate" Type="datetime" Nullable="false" />
           <Property Name="Active" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Station">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="255" />
+          <Property Name="Contact" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="StationEvent">
           <Key>
             <PropertyRef Name="Id" />
@@ -387,6 +399,14 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
     [Reflection].[Reflection] AS [Reflection], 
     [Reflection].[ReflectionType] AS [ReflectionType]
     FROM [dbo].[Reflection] AS [Reflection]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Station" EntityType="Self.Station" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Station].[Id] AS [Id], 
+    [Station].[Name] AS [Name], 
+    [Station].[Location] AS [Location], 
+    [Station].[Contact] AS [Contact]
+    FROM [dbo].[Station] AS [Station]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -815,6 +835,7 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
             <End Role="Member" EntitySet="Members" />
             <End Role="SocietyMemberLink" EntitySet="SocietyMemberLinks" />
           </AssociationSet>
+          <EntitySet Name="Stations" EntityType="StFrancisCCModel.Station" />
         </EntityContainer>
         <EntityType Name="Member">
           <Key>
@@ -850,6 +871,16 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Station">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1068,6 +1099,16 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
                 <ScalarProperty Name="Othername" ColumnName="Othername" />
                 <ScalarProperty Name="Firstname" ColumnName="Firstname" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stations">
+            <EntityTypeMapping TypeName="StFrancisCCModel.Station">
+              <MappingFragment StoreEntitySet="Station">
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -43,5 +43,6 @@ namespace DataAccessObject.DataModel
         public virtual DbSet<StationEvent> StationEvents { get; set; }
         public virtual DbSet<Reflection> Reflections { get; set; }
         public virtual DbSet<Member> Members { get; set; }
+        public virtual DbSet<Station> Stations { get; set; }
     }
 }

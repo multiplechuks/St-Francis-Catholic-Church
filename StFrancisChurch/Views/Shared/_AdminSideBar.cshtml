@@ -1,12 +1,13 @@
-﻿<!-- Sidebar -->
+﻿@using StFrancisChurch.Utility
+<!-- Sidebar -->
 <ul class="sidebar navbar-nav">
-    <li class="nav-item active">
+    <li class="nav-item @Html.IsSelected(action:"Index",controller:"Aamin")">
         <a class="nav-link" href="@Href("~/Admin")">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
         </a>
     </li>
-    <li class="nav-item dropdown">
+    <li class="nav-item dropdown @Html.IsSelectedActions(controller:"Members", actions: new [] {"Index", "Registering"})">
         <a class="nav-link dropdown-toggle" href="#" id="membersDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-folder"></i>
             <span>Parish Members</span>
@@ -18,17 +19,17 @@
             <a class="dropdown-item" href="#">Deceased</a>
         </div>
     </li>
-    <li class="nav-item dropdown">
+    <li class="nav-item dropdown @Html.IsSelectedActions(controller:"Sacrament", actions: new [] {"Index","Baptism","Communion","Confirmation","Matrimony"})">
         <a class="nav-link dropdown-toggle" id="sacramentDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-folder"></i>
             <span>Sacrament</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="sacramentDropdown">
-            <a class="dropdown-item" href="@Href("~/Sacrament")">Summary</a>
-            <a class="dropdown-item" href="#">Baptism</a>
-            <a class="dropdown-item" href="#">Communion</a>
-            <a class="dropdown-item" href="#">Confirmation</a>
-            <a class="dropdown-item" href="#">Matrimony</a>
+            <a class="dropdown-item" href="@Url.Action("Index", "Sacrament")">Summary</a>
+            <a class="dropdown-item" href="@Url.Action("Baptism", "Sacrament")">Baptism</a>
+            <a class="dropdown-item" href="@Url.Action("Communion", "Sacrament")">Communion</a>
+            <a class="dropdown-item" href="@Url.Action("Confirmation", "Sacrament")">Confirmation</a>
+            <a class="dropdown-item" href="@Url.Action("Matrimony", "Sacrament")">Matrimony</a>
         </div>
     </li>
     <li class="nav-item">
@@ -53,6 +54,12 @@
         <a class="nav-link" href="#">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Events</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Register New User</span>
         </a>
     </li>
     @*<li class="nav-item dropdown">

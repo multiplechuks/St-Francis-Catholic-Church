@@ -17,30 +17,143 @@
                 @using (Html.BeginForm("MemberRegistration", "Home", FormMethod.Post, new {@role = "form"}))
                 {
                     @Html.ValidationSummary(true, "", new {@style = "color :red"})
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="Surname" class="form-control" placeholder="Enter Surname">
-                                @Html.ValidationMessageFor(m => m.Surname, "", new { @style = "color:red" })
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="Firstname" class="form-control" placeholder="Enter Firstname">
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="Othername" class="form-control" placeholder="Enter Othername">
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-md-push-8">
-                            <div class="form-group">
-                                <input type="submit" value="Register" class="btn btn-primary btn-modify">
-                            </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="Surname" class="form-control" placeholder="Enter your Surname">
+                            @Html.ValidationMessageFor(m => m.Surname, "", new { @style = "color:red" })
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="Firstname" class="form-control" placeholder="Enter your Firstname">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="Othername" class="form-control" placeholder="Enter your Othername">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <select id="Gender" name="Gender" class="form-control">
+                                <option value="">Select Gender</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="HomeParish" class="form-control" placeholder="Enter your Home Parish">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="Town" class="form-control" placeholder="Enter your Town or Village">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="Nationality" class="form-control" placeholder="Enter your Nationality">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="EmailAddress" class="form-control" placeholder="Enter your Email address">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="Phone1" class="form-control" placeholder="Enter your Phone">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="Phone2" class="form-control" placeholder="Enter another Phone if any">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="EmpolymentAddress" class="form-control" placeholder="Present Employment Address">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="HomeParish" class="form-control" placeholder="Enter your Home Parish">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <select id="MaritalStatus" name="MaritalStatus" class="form-control">
+                                <option value="">Select Marital Status</option>
+                                <option value="S">Single</option>
+                                <option value="M">Married</option>
+                                <option value="S">Widow</option>
+                                <option value="M">Widower</option>
+                                <option value="M">Separated</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <select id="NexOfKinMaritalStatus" name="NexOfKinMaritalStatus" class="form-control">
+                                <option value="">Select Next of Kin Marital Status</option>
+                                <option value="S">Single</option>
+                                <option value="M">Married</option>
+                                <option value="S">Widow</option>
+                                <option value="M">Widower</option>
+                                <option value="M">Separated</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="NextOfKniAddress" class="form-control" placeholder="Enter Next of kin address">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="SpouseName" class="form-control" placeholder="Enter Fullname of spouse if married">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="SpousePhone1" class="form-control" placeholder="Enter spouse phone number">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="SpousePhone2" class="form-control" placeholder="Enter another spouse phone if any">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="number" name="SizeOfFamilyMale" class="form-control" placeholder="Enter Size of family (Male)">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="number" name="SizeOfFamilyFemale" class="form-control" placeholder="Enter Size of family (Female)">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <select id="StatutoryGroup" name="StatutoryGroup" class="form-control">
+                                <option value="">Select Statutory Group Registered</option>
+                                <option value="S">CMO</option>
+                                <option value="M">CWO</option>
+                                <option value="S">CYON</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-md-push-8">
+                        <div class="form-group">
+                            <input type="submit" value="Register" class="btn btn-primary btn-modify">
+                        </div>
+                    </div>
+                </div>
                 }
             </div>
         </div>

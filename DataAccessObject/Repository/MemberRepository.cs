@@ -10,7 +10,7 @@ namespace DataAccessObject.Repository
 {
     public class MemberRepository : IMemberRepository
     {
-        private StFrancisCCEntities _entities = new StFrancisCCEntities();
+        private readonly StFrancisCCEntities _entities = new StFrancisCCEntities();
 
         public IQueryable<Member> GetConfirmedMembers()
         {
