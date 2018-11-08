@@ -25,6 +25,23 @@ namespace DataAccessObject.DataModel
         public string Firstname { get; set; }
         public string Othername { get; set; }
         public string Phone { get; set; }
+        public string Email { get; set; }
+        public string Gender { get; set; }
+        public string HomeParish { get; set; }
+        public string Town { get; set; }
+        public string Nationality { get; set; }
+        public string Phone2 { get; set; }
+        public string EmploymentAddress { get; set; }
+        public string MaritalStatus { get; set; }
+        public string NextOfKin { get; set; }
+        public string NextOfKinAddress { get; set; }
+        public string NextOfKinMaritalStatus { get; set; }
+        public string SpouseName { get; set; }
+        public string SpousePhone { get; set; }
+        public string SpousePhone2 { get; set; }
+        public Nullable<int> FamilyMaleSize { get; set; }
+        public Nullable<int> FamilyFemaleSize { get; set; }
+        public string StatutoryGroup { get; set; }
         public Nullable<int> MembershipType { get; set; }
         public System.DateTime DateRegistered { get; set; }
         public int Confirmed { get; set; }

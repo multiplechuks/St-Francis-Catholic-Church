@@ -79,6 +79,7 @@
           <Property Name="LookUpId" Type="int" Nullable="false" />
           <Property Name="LookUpName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LookUpOrder" Type="int" Nullable="false" />
+          <Property Name="Category" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Members">
           <Key>
@@ -89,6 +90,23 @@
           <Property Name="Firstname" Type="nvarchar" MaxLength="50" />
           <Property Name="Othername" Type="nvarchar" MaxLength="50" />
           <Property Name="Phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="HomeParish" Type="nvarchar" MaxLength="255" />
+          <Property Name="Town" Type="nvarchar" MaxLength="50" />
+          <Property Name="Nationality" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone2" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmploymentAddress" Type="nvarchar" MaxLength="255" />
+          <Property Name="MaritalStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="NextOfKin" Type="nvarchar" MaxLength="255" />
+          <Property Name="NextOfKinAddress" Type="nvarchar" MaxLength="255" />
+          <Property Name="NextOfKinMaritalStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="SpouseName" Type="nvarchar" MaxLength="255" />
+          <Property Name="SpousePhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="SpousePhone2" Type="nvarchar" MaxLength="50" />
+          <Property Name="FamilyMaleSize" Type="int" />
+          <Property Name="FamilyFemaleSize" Type="int" />
+          <Property Name="StatutoryGroup" Type="nvarchar" MaxLength="50" />
           <Property Name="MembershipType" Type="int" />
           <Property Name="DateRegistered" Type="datetime" Nullable="false" />
           <Property Name="Confirmed" Type="int" Nullable="false" />
@@ -533,6 +551,7 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <Property Name="LookUpId" Type="Int32" Nullable="false" />
           <Property Name="LookUpName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LookUpOrder" Type="Int32" Nullable="false" />
+          <Property Name="Category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ParishEvent">
           <Key>
@@ -830,13 +849,23 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="Stations" EntityType="StFrancisCCModel.Station" />
           <EntitySet Name="Members" EntityType="StFrancisCCModel.Member" />
           <AssociationSet Name="FK_SocietyMemberLink_Members" Association="StFrancisCCModel.FK_SocietyMemberLink_Members">
             <End Role="Member" EntitySet="Members" />
             <End Role="SocietyMemberLink" EntitySet="SocietyMemberLinks" />
           </AssociationSet>
-          <EntitySet Name="Stations" EntityType="StFrancisCCModel.Station" />
         </EntityContainer>
+        <EntityType Name="Station">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Member">
           <Key>
             <PropertyRef Name="Id" />
@@ -846,6 +875,23 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Othername" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="HomeParish" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Town" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Nationality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmploymentAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MaritalStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NextOfKin" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NextOfKinAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NextOfKinMaritalStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SpouseName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SpousePhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SpousePhone2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FamilyMaleSize" Type="Int32" />
+          <Property Name="FamilyFemaleSize" Type="Int32" />
+          <Property Name="StatutoryGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MembershipType" Type="Int32" />
           <Property Name="DateRegistered" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Confirmed" Type="Int32" Nullable="false" />
@@ -871,16 +917,6 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Station">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="Name" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -950,6 +986,7 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <EntitySetMapping Name="LookUpTables">
             <EntityTypeMapping TypeName="StFrancisCCModel.LookUpTable">
               <MappingFragment StoreEntitySet="LookUpTable">
+                <ScalarProperty Name="Category" ColumnName="Category" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="LookUpId" ColumnName="LookUpId" />
                 <ScalarProperty Name="LookUpName" ColumnName="LookUpName" />
@@ -1081,6 +1118,16 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Stations">
+            <EntityTypeMapping TypeName="StFrancisCCModel.Station">
+              <MappingFragment StoreEntitySet="Station">
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Members">
             <EntityTypeMapping TypeName="StFrancisCCModel.Member">
               <MappingFragment StoreEntitySet="Members">
@@ -1095,20 +1142,27 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
                 <ScalarProperty Name="Confirmed" ColumnName="Confirmed" />
                 <ScalarProperty Name="DateRegistered" ColumnName="DateRegistered" />
                 <ScalarProperty Name="MembershipType" ColumnName="MembershipType" />
+                <ScalarProperty Name="StatutoryGroup" ColumnName="StatutoryGroup" />
+                <ScalarProperty Name="FamilyFemaleSize" ColumnName="FamilyFemaleSize" />
+                <ScalarProperty Name="FamilyMaleSize" ColumnName="FamilyMaleSize" />
+                <ScalarProperty Name="SpousePhone2" ColumnName="SpousePhone2" />
+                <ScalarProperty Name="SpousePhone" ColumnName="SpousePhone" />
+                <ScalarProperty Name="SpouseName" ColumnName="SpouseName" />
+                <ScalarProperty Name="NextOfKinMaritalStatus" ColumnName="NextOfKinMaritalStatus" />
+                <ScalarProperty Name="NextOfKinAddress" ColumnName="NextOfKinAddress" />
+                <ScalarProperty Name="NextOfKin" ColumnName="NextOfKin" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="EmploymentAddress" ColumnName="EmploymentAddress" />
+                <ScalarProperty Name="Phone2" ColumnName="Phone2" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+                <ScalarProperty Name="Town" ColumnName="Town" />
+                <ScalarProperty Name="HomeParish" ColumnName="HomeParish" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Othername" ColumnName="Othername" />
                 <ScalarProperty Name="Firstname" ColumnName="Firstname" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Stations">
-            <EntityTypeMapping TypeName="StFrancisCCModel.Station">
-              <MappingFragment StoreEntitySet="Station">
-                <ScalarProperty Name="Contact" ColumnName="Contact" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

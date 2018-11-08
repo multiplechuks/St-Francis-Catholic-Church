@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-10 animate-box fadeInUp animated-fast">
+            <div class="col-md-12 animate-box fadeInUp animated-fast">
                 @using (Html.BeginForm("MemberRegistration", "Home", FormMethod.Post, new {@role = "form"}))
                 {
                     @Html.ValidationSummary(true, "", new {@style = "color :red"})
@@ -36,11 +36,12 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <select id="Gender" name="Gender" class="form-control">
+                            <select name="Gender" class="form-control">
                                 <option value="">Select Gender</option>
                                 <option value="M">Male</option>
                                 <option value="F">Female</option>
                             </select>
+                            @Html.ValidationMessageFor(m => m.Gender, "", new { @style = "color:red" })
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -65,7 +66,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" name="Phone1" class="form-control" placeholder="Enter your Phone">
+                            <input type="text" name="Phone" class="form-control" placeholder="Enter your Phone">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -80,12 +81,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" name="HomeParish" class="form-control" placeholder="Enter your Home Parish">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <select id="MaritalStatus" name="MaritalStatus" class="form-control">
+                            <select name="MaritalStatus" class="form-control">
                                 <option value="">Select Marital Status</option>
                                 <option value="S">Single</option>
                                 <option value="M">Married</option>
@@ -97,7 +93,12 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <select id="NexOfKinMaritalStatus" name="NexOfKinMaritalStatus" class="form-control">
+                            <input type="text" name="NextOfKin" class="form-control" placeholder="Enter Fullname of next of kin">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <select name="NextOfKinMaritalStatus" class="form-control">
                                 <option value="">Select Next of Kin Marital Status</option>
                                 <option value="S">Single</option>
                                 <option value="M">Married</option>
@@ -109,10 +110,9 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" name="NextOfKniAddress" class="form-control" placeholder="Enter Next of kin address">
+                            <input type="text" name="NextOfKinAddress" class="form-control" placeholder="Enter Next of kin address">
                         </div>
                     </div>
-
                     <div class="col-md-6">
                         <div class="form-group">
                             <input type="text" name="SpouseName" class="form-control" placeholder="Enter Fullname of spouse if married">
@@ -138,14 +138,38 @@
                             <input type="number" name="SizeOfFamilyFemale" class="form-control" placeholder="Enter Size of family (Female)">
                         </div>
                     </div>
+                    @*<div class="col-md-6">
+                        <label>Sacraments Received</label>
+                        <div class="form-group">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="" />Baptism
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="" />Confirmation
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="" />Matrimony
+                            </label>
+                        </div>
+                    </div>*@
                     <div class="col-md-6">
                         <div class="form-group">
-                            <select id="StatutoryGroup" name="StatutoryGroup" class="form-control">
+                            <select name="StatutoryGroup" class="form-control">
                                 <option value="">Select Statutory Group Registered</option>
                                 <option value="S">CMO</option>
                                 <option value="M">CWO</option>
                                 <option value="S">CYON</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="file" name="Pasport" id="filePassport" accept="image/*" class="form-control" placeholder="Choose Passport">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <img id="blah" src="#" alt="Preview" width="150" height="150" />
                         </div>
                     </div>
                     <div class="col-md-12 col-md-push-8">
@@ -159,3 +183,23 @@
         </div>
     </div>
 </div><!-- END container-wrap -->
+@section styles{
+    
+}
+@section scripts{
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#blah').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#filePassport").change(function() {
+            readURL(this);
+        });
+    </script>
+}

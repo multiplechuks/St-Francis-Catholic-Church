@@ -18,5 +18,6 @@ namespace DataAccessObject.DataModel
         public int LookUpId { get; set; }
         public string LookUpName { get; set; }
         public int LookUpOrder { get; set; }
+        public string Category { get; set; }
     }
 }
