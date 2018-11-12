@@ -58,7 +58,7 @@
                         "render": function (data, type, full, meta) {
                             //use btn-sm for smaller buttons
                             return '<a class="btn btn-primary" href="@Href("~/Members/View/")'+ full.Id + '" title="View this member"><i class="fas fa-fw fa-eye"></i></a>&nbsp;' +
-                                '<a class="btn btn-info" href="@Href("~/Members/Edit/")'+ full.Id + '" title="Edit this member\'s detail"><i class="fas fa-fw fa-edit"></i></a>&nbsp;' +
+                                '<a class="btn btn-info" href="@Href("~/Members/Edit/")'+ full.Id + '" title="Edit/Update this member\'s detail"><i class="fas fa-fw fa-edit"></i></a>&nbsp;' +
                                 '<a class="btn btn-warning" onclick="RejectMember(' + full.Id + ', \'' + name + '\')" title="Reject this member\'s registration"><i class="fas fa-fw fa-times"></i></a>&nbsp;' +
                                 '<a class="btn btn-danger" onclick="DeleteMember(' + full.Id + ', \'' + name + '\')" title="Delete this member"><i class="fas fa-fw fa-trash"></i></a>';
                         }

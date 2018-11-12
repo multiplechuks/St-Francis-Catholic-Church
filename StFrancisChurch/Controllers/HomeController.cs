@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -51,6 +52,19 @@ namespace StFrancisChurch.Controllers
             {
                 return View(model);
             }
+            if (Request.Files.Count == 0 || string.IsNullOrEmpty(Request.Files[0]?.FileName))
+            {
+                ModelState.AddModelError(String.Empty, "Please make sure a passport was chosen");
+                return View(model);
+            }
+            var directory = System.Web.Hosting.HostingEnvironment.MapPath("~/Images/Passports");
+            if (Directory.Exists(directory) == false)
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            var filePath = directory + "_" + string.Format("{0:dd_MM_yyyy_hh_mm_ss}_{1}", DateTime.Now, model.Surname);
+            Request.Files[0].SaveAs(filePath);
             try
             {
                 var member = new Member
@@ -78,20 +92,19 @@ namespace StFrancisChurch.Controllers
                     StatutoryGroup = model.StatutoryGroup,
                     Confirmed = 0,
                     Deleted = 0,
-                    DateRegistered = DateTime.Now
+                    DateRegistered = DateTime.Now,
+                    PassportUrl = filePath
                 };
                 if (_memberRepository.AddMember(member) > 0)
                 {
                     return Redirect("MemberRegistrationSuccess");
                 }
-                else
-                {
-                    return View(model);
-                }
+                return View(model);
             }
             catch (Exception e)
             {
-                throw;
+                ModelState.AddModelError(String.Empty, "There was an error completing the registration, Please try again later");
+                return View(model);
             }
         }
 

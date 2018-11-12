@@ -14,7 +14,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 animate-box fadeInUp animated-fast">
-                @using (Html.BeginForm("MemberRegistration", "Home", FormMethod.Post, new {@role = "form"}))
+                @using (Html.BeginForm("MemberRegistration", "Home", FormMethod.Post, new {@role = "form", @enctype = "multipart/form-data" }))
                 {
                     @Html.ValidationSummary(true, "", new {@style = "color :red"})
                 <div class="row">
@@ -27,6 +27,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <input type="text" name="Firstname" class="form-control" placeholder="Enter your Firstname">
+                            @Html.ValidationMessageFor(m => m.Firstname, "", new { @style = "color:red" })
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -38,8 +39,8 @@
                         <div class="form-group">
                             <select name="Gender" class="form-control">
                                 <option value="">Select Gender</option>
-                                <option value="M">Male</option>
-                                <option value="F">Female</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
                             </select>
                             @Html.ValidationMessageFor(m => m.Gender, "", new { @style = "color:red" })
                         </div>
@@ -83,11 +84,11 @@
                         <div class="form-group">
                             <select name="MaritalStatus" class="form-control">
                                 <option value="">Select Marital Status</option>
-                                <option value="S">Single</option>
-                                <option value="M">Married</option>
-                                <option value="S">Widow</option>
-                                <option value="M">Widower</option>
-                                <option value="M">Separated</option>
+                                <option value="Single">Single</option>
+                                <option value="Married">Married</option>
+                                <option value="Widow">Widow</option>
+                                <option value="Widower">Widower</option>
+                                <option value="Seperated">Separated</option>
                             </select>
                         </div>
                     </div>
@@ -100,11 +101,11 @@
                         <div class="form-group">
                             <select name="NextOfKinMaritalStatus" class="form-control">
                                 <option value="">Select Next of Kin Marital Status</option>
-                                <option value="S">Single</option>
-                                <option value="M">Married</option>
-                                <option value="S">Widow</option>
-                                <option value="M">Widower</option>
-                                <option value="M">Separated</option>
+                                <option value="Single">Single</option>
+                                <option value="Married">Married</option>
+                                <option value="Widow">Widow</option>
+                                <option value="Widower">Widower</option>
+                                <option value="Seperated">Separated</option>
                             </select>
                         </div>
                     </div>
@@ -156,16 +157,16 @@
                         <div class="form-group">
                             <select name="StatutoryGroup" class="form-control">
                                 <option value="">Select Statutory Group Registered</option>
-                                <option value="S">CMO</option>
-                                <option value="M">CWO</option>
-                                <option value="S">CYON</option>
+                                <option value="SCMO">CMO</option>
+                                <option value="CWO">CWO</option>
+                                <option value="CYON">CYON</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input type="file" name="Pasport" id="filePassport" accept="image/*" class="form-control" placeholder="Choose Passport">
+                                <input type="file" name="Passport" id="filePassport" accept="image/*" class="form-control" placeholder="Choose Passport">
                             </div>
                         </div>
                         <div class="col-md-6">

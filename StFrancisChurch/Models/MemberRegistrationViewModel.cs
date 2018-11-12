@@ -12,6 +12,7 @@ namespace StFrancisChurch.Models
         [Display(Name = "Surname")]
         public string Surname { get; set; }
 
+        [Required]
         [Display(Name = "Firstname")]
         public string Firstname { get; set; }
         
@@ -35,9 +36,11 @@ namespace StFrancisChurch.Models
         [Display(Name = "EmailAddress")]
         public string EmailAddress { get; set; }
 
+        [DataType(DataType.PhoneNumber)]
         [Display(Name = "Ist Phone Number")]
         public string Phone { get; set; }
 
+        [DataType(DataType.PhoneNumber)]
         [Display(Name = "2nd Phone Number")]
         public string Phone2 { get; set; }
 
@@ -59,9 +62,11 @@ namespace StFrancisChurch.Models
         [Display(Name = "Spouse Name")]
         public string SpouseName { get; set; }
 
+        [DataType(DataType.PhoneNumber)]
         [Display(Name = "Spouse Ist Phone Number")]
         public string SpousePhone1 { get; set; }
 
+        [DataType(DataType.PhoneNumber)]
         [Display(Name = "Spouse 2nd Phone Number")]
         public string SpousePhone2 { get; set; }
 
@@ -73,5 +78,7 @@ namespace StFrancisChurch.Models
 
         [Display(Name = "Statutory Group")]
         public string StatutoryGroup { get; set; }
+
+        public int Id { get; set; }
     }
 }

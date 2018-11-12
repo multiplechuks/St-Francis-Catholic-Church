@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using DataAccessObject.IRepository;
 using Microsoft.AspNet.Identity;
+using StFrancisChurch.Models;
 using StFrancisChurch.Models.Utility;
 
 namespace StFrancisChurch.Controllers
@@ -199,7 +200,24 @@ namespace StFrancisChurch.Controllers
                     Firstname = member.Firstname,
                     Othername = member.Othername,
                     Phone = member.Phone,
-                    DateRegistered = member.DateRegistered.ToString("d")
+                    DateRegistered = member.DateRegistered.ToString("d"),
+                    Gender = member.Gender,
+                    Phone2 = member.Phone2,
+                    HomeParish = member.HomeParish,
+                    Town = member.Town,
+                    Nationality = member.Nationality,
+                    EmailAddress = member.Email,
+                    EmpolymentAddress = member.EmploymentAddress,
+                    MaritalStatus = member.MaritalStatus,
+                    NextOfKin = member.NextOfKin,
+                    NextOfKinMaritalStatus = member.NextOfKinMaritalStatus,
+                    NextOfKinAddress = member.NextOfKinAddress,
+                    SpouseName = member.SpouseName,
+                    SpousePhone1 = member.SpousePhone,
+                    SpousePhone2 = member.SpousePhone2,
+                    SizeOfFamilyMale = (int)member.FamilyMaleSize,
+                    SizeOfFamilyFemale = (int)member.FamilyFemaleSize,
+                    StatutoryGroup = member.StatutoryGroup
                 };
             }
             else
@@ -211,24 +229,32 @@ namespace StFrancisChurch.Controllers
 
         public ActionResult Edit(int id)
         {
-            //var member = _memberRepository.GetMember(id);
-            //if (member != null)
-            //{
-            //    ViewBag.Member = new MemberTableModel
-            //    {
-            //        Id = member.Id,
-            //        Surname = member.Surname,
-            //        Firstname = member.Firstname,
-            //        Othername = member.Othername,
-            //        Phone = member.Phone,
-            //        DateRegistered = member.DateRegistered.ToString("d")
-            //    };
-            //}
-            //else
-            //{
-            //    ViewBag.Member = new MemberTableModel();
-            //}
-            return View();
+            var member = _memberRepository.GetMember(id);
+            if (member != null)
+            {
+                var model = new MemberRegistrationViewModel
+                {
+                    Id = member.Id,
+                    Surname = member.Surname,
+                    Firstname = member.Firstname,
+                    Othername = member.Othername,
+                    Phone = member.Phone,
+                    Gender = member.Gender
+                    //DateRegistered = member.DateRegistered.ToString("d")
+                };
+                ViewBag.Sex = new List<SelectListItem>
+                {
+                    new SelectListItem {Text="Select",Value=""},
+                    new SelectListItem {Text="Male",Value="Male"},
+                    new SelectListItem {Text="Female",Value="Female"}
+                };
+                return View(model);
+            }
+            else
+            {
+                var model = new MemberTableModel();
+                return View(model);
+            }
         }
 
         [HttpGet]
@@ -237,18 +263,22 @@ namespace StFrancisChurch.Controllers
             return _memberRepository.ConfirmMember(id, User.Identity.GetUserId()) ? "Member was approved successfully" : "There was an error approving this member check the details correctly";
         }
 
-
         [HttpGet]
         public string RejectMember(int id)
         {
             return _memberRepository.ConfirmMember(id, User.Identity.GetUserId()) ? "Member was rejected successfully" : "There was an error rejecting this member check the details correctly";
         }
 
-
         [HttpGet]
         public string DeleteMember(int id)
         {
             return _memberRepository.ConfirmMember(id, User.Identity.GetUserId()) ? "Member was deleted successfully" : "There was an error deleting this member, try again.";
+        }
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
         }
     }
 }

@@ -1816,6 +1816,7 @@
     <Content Include="Views\Members\View.cshtml" />
     <Content Include="Views\Members\Edit.cshtml" />
     <Content Include="Views\Sacrament\Matrimony.cshtml" />
+    <Content Include="Views\Members\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessObject\DataAccessObject.csproj">
