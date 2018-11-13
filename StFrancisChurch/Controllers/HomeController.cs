@@ -45,7 +45,7 @@ namespace StFrancisChurch.Controllers
             return View();
         }
 
-       [HttpPost]
+        [HttpPost]
         public ActionResult MemberRegistration(MemberRegistrationViewModel model)
         {
             if (!ModelState.IsValid)
@@ -63,7 +63,8 @@ namespace StFrancisChurch.Controllers
                 Directory.CreateDirectory(directory);
             }
 
-            var filePath = directory + "_" + string.Format("{0:dd_MM_yyyy_hh_mm_ss}_{1}", DateTime.Now, model.Surname);
+            var fileName = $"{DateTime.Now:dd_MM_yyyy_hh_mm_ss}_{model.Surname}_" + Request.Files[0].FileName;
+            var filePath = directory + "_" + fileName;
             Request.Files[0].SaveAs(filePath);
             try
             {
@@ -79,21 +80,21 @@ namespace StFrancisChurch.Controllers
                     HomeParish = model.HomeParish,
                     Town = model.Town,
                     Nationality = model.Nationality,
-                    EmploymentAddress = model.EmpolymentAddress,
-                    MaritalStatus = model   .MaritalStatus,
+                    EmploymentAddress = model.EmploymentAddress,
+                    MaritalStatus = model.MaritalStatus,
                     NextOfKin = model.NextOfKin,
                     NextOfKinMaritalStatus = model.NextOfKinMaritalStatus,
                     NextOfKinAddress = model.NextOfKinAddress,
                     SpouseName = model.SpouseName,
                     SpousePhone = model.SpousePhone1,
                     SpousePhone2 = model.SpousePhone2,
-                    FamilyFemaleSize = int.Parse(model.SizeOfFamilyFemale),
-                    FamilyMaleSize = int.Parse(model.SizeOfFamilyMale),
+                    FamilyFemaleSize = model.SizeOfFamilyFemale,
+                    FamilyMaleSize = model.SizeOfFamilyMale,
                     StatutoryGroup = model.StatutoryGroup,
                     Confirmed = 0,
                     Deleted = 0,
                     DateRegistered = DateTime.Now,
-                    PassportUrl = filePath
+                    PassportUrl = "/Images/Passports/_" + fileName
                 };
                 if (_memberRepository.AddMember(member) > 0)
                 {

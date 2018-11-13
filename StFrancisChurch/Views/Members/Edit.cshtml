@@ -1,4 +1,5 @@
 ﻿@using StFrancisChurch.Models
+@using StFrancisChurch.Utility
 @model MemberRegistrationViewModel
 @{
 
@@ -10,9 +11,10 @@
         Parish Members Detail - Edit
     </div>
     <div class="card-body">
-        @using (Html.BeginForm("MemberRegistration", "Home", FormMethod.Post, new { @role = "form", @class= "form-horizontal" }))
+        @using (Html.BeginForm("Edit", "Members", FormMethod.Post, new { @role = "form", @class= "form-horizontal", @enctype = "multipart/form-data" }))
         {
             @Html.ValidationSummary(true, "", new { @style = "color :red" })
+            <input type="hidden" name="Id" value="@Model.Id"/>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group row">
@@ -44,7 +46,7 @@
                     <div class="form-group row">
                         <label class="control-label col-md-4 text-right" for="Gender">Gender</label>
                         <div class="col-md-8">
-                            @Html.DropDownListFor(m => m.Gender, (IEnumerable<SelectListItem>)ViewBag.Sex, new { @class = "form-control" })
+                            @Html.DropDownList("Gender", new SelectList(ViewUtility.GetGender(), "Id", "Name", null), "Select Gender", new { @class = "form-control" })                            
                         </div>
                         @Html.ValidationMessageFor(m => m.Gender, "", new { @style = "color:red" })
                     </div>
@@ -53,100 +55,128 @@
                     <div class="form-group row">
                         <label class="control-label col-md-4 text-right">Home Parish</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" name="HomeParish" value="@Model.HomeParish" placeholder="Enter Othername">
+                            <input type="text" class="form-control" name="HomeParish" value="@Model.HomeParish" placeholder="Enter Home Parish">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <input type="text" name="HomeParish" class="form-control" placeholder="Enter your Home Parish">
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right">Town/Village</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="Town" value="@Model.Town" placeholder="Enter Town or Village">
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <input type="text" name="Town" class="form-control" placeholder="Enter your Town or Village">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right">Nationality</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="Nationality" value="@Model.Nationality" placeholder="Enter Nationality">
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <input type="text" name="Nationality" class="form-control" placeholder="Enter your Nationality">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right">Email address</label>
+                        <div class="col-md-8">
+                            <input type="email" class="form-control" name="EmailAddress" value="@Model.EmailAddress" placeholder="Enter email address">
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <input type="text" name="EmailAddress" class="form-control" placeholder="Enter your Email address">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right">Phone number</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="Phone" value="@Model.Phone" placeholder="Enter phone number">
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <input type="text" name="Phone" class="form-control" placeholder="Enter your Phone">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right">2<sup>nd</sup> Phone number</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="Phone2" value="@Model.Phone2" placeholder="Enter another phone if any">
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <input type="text" name="Phone2" class="form-control" placeholder="Enter another Phone if any">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right">Employment address</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="EmpolymentAddress" value="@Model.EmploymentAddress" placeholder="Present Employment Address">
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <input type="text" name="EmpolymentAddress" class="form-control" placeholder="Present Employment Address">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="MaritalStatus">Marital Status</label>
+                        <div class="col-md-8">
+                            @Html.DropDownList("MaritalStatus", new SelectList(ViewUtility.GetMaritalStatus(), "Id", "Name", null), "Select Marital Status", new { @class = "form-control" })          
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <select name="MaritalStatus" class="form-control">
-                            <option value="">Select Marital Status</option>
-                            <option value="S">Single</option>
-                            <option value="M">Married</option>
-                            <option value="S">Widow</option>
-                            <option value="M">Widower</option>
-                            <option value="M">Separated</option>
-                        </select>
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right">Next of kin</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="NextOfKin" value="@Model.NextOfKin" placeholder="Enter Fullname of next of kin">
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <input type="text" name="NextOfKin" class="form-control" placeholder="Enter Fullname of next of kin">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="MaritalStatus">Next of kin Marital Status</label>
+                        <div class="col-md-8">
+                            @Html.DropDownList("NextOfKinMaritalStatus", new SelectList(ViewUtility.GetMaritalStatus(), "Id", "Name", null), "Select Kin Marital Status", new { @class = "form-control" })
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <select name="NextOfKinMaritalStatus" class="form-control">
-                            <option value="">Select Next of Kin Marital Status</option>
-                            <option value="S">Single</option>
-                            <option value="M">Married</option>
-                            <option value="S">Widow</option>
-                            <option value="M">Widower</option>
-                            <option value="M">Separated</option>
-                        </select>
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right">Next of kin address</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="NextOfKinAddress" value="@Model.NextOfKinAddress" placeholder="Enter Next of kin address">
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <input type="text" name="NextOfKinAddress" class="form-control" placeholder="Enter Next of kin address">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right">Spouse name</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="" value="@Model.SpouseName" placeholder="Enter Fullname of spouse if married">
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <input type="text" name="SpouseName" class="form-control" placeholder="Enter Fullname of spouse if married">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right">Spouse phone</label>
+                        <div class="col-md-8">
+                            <input type="tel" class="form-control" name="SpousePhone1" value="@Model.SpousePhone1" placeholder="Enter spouse phone number">
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <input type="text" name="SpousePhone1" class="form-control" placeholder="Enter spouse phone number">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right">Spouse 2<sup>nd</sup> Phone</label>
+                        <div class="col-md-8">
+                            <input type="tel" class="form-control" name="SpousePhone2" value="@Model.SpousePhone2" placeholder="Enter another spouse phone if any">
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <input type="text" name="SpousePhone2" class="form-control" placeholder="Enter another spouse phone if any">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right">Male Size of family</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="SizeOfFamilyMale" value="@Model.SizeOfFamilyMale" placeholder="Enter Size of family (Male)">
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <input type="number" name="SizeOfFamilyMale" class="form-control" placeholder="Enter Size of family (Male)">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <input type="number" name="SizeOfFamilyFemale" class="form-control" placeholder="Enter Size of family (Female)">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right">Female size of family</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="SizeOfFamilyFemale" value="@Model.SizeOfFamilyFemale" placeholder="Enter Size of family (Female)">
+                        </div>
                     </div>
                 </div>
                 @*<div class="col-md-6">
@@ -164,28 +194,27 @@
                         </div>
                     </div>*@
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <select name="StatutoryGroup" class="form-control">
-                            <option value="">Select Statutory Group Registered</option>
-                            <option value="S">CMO</option>
-                            <option value="M">CWO</option>
-                            <option value="S">CYON</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row col-md-6">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <input type="file" name="Pasport" id="filePassport" accept="image/*" class="form-control" placeholder="Choose Passport">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right">Statutory group</label>
+                        <div class="col-md-8">
+                            @Html.DropDownList("StatutoryGroup", new SelectList(ViewUtility.GetStatutoryBody(), "Id", "Name", null), "Select statutory body", new { @class = "form-control" })                            
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <img id="blah" src="#" alt="Preview" width="150" height="150" />
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-6">
+                            <input type="file" name="Pasport" id="filePassport" accept="image/*" class="form-control" placeholder="Choose Passport">
+                        </div>
+                        <div class="col-md-5">
+                            <img id="blah" src="@Model.PassportUrl" alt="Preview" width="160" height="150"/>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-12 col-md-push-8">
                     <div class="form-group">
-                        <input type="submit" value="Register" class="btn btn-primary btn-modify">
+                        <input type="submit" value="Update" class="btn btn-primary btn-modify">
                     </div>
                 </div>
             </div>
@@ -198,6 +227,19 @@
     <script>
         $(document).ready(function () {
 
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#blah').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#filePassport").change(function () {
+            readURL(this);
         });
     </script>
 }

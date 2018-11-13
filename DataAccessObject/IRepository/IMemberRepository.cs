@@ -16,5 +16,6 @@ namespace DataAccessObject.IRepository
         bool ConfirmMember(int id, string userId);
         bool DeleteMember(int id, string userId);
         bool RejectMember(int id, string userId);
+        int UpdateMember(Member member);
     }
 }

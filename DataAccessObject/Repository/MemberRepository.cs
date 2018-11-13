@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,43 @@ namespace DataAccessObject.Repository
         public int AddMember(Member member)
         {
             _entities.Members.Add(member);
+            _entities.SaveChanges();
+            return member.Id;
+        }
+
+        public int UpdateMember(Member member)
+        {
+            var existingMember = _entities.Members.FirstOrDefault(m => m.Id == member.Id && m.Confirmed == 1 && m.Deleted == 0);
+            if (existingMember != null)
+            {
+                existingMember.Firstname = member.Firstname;
+                existingMember.Surname = member.Surname;
+                existingMember.Firstname = member.Firstname;
+                existingMember.Othername = member.Othername;
+                existingMember.Email = member.Email;
+                existingMember.Phone = member.Phone;
+                existingMember.Phone2 = member.Phone2;
+                existingMember.Gender = member.Gender;
+                existingMember.HomeParish = member.HomeParish;
+                existingMember.Town = member.Town;
+                existingMember.Nationality = member.Nationality;
+                existingMember.EmploymentAddress = member.EmploymentAddress;
+                existingMember.MaritalStatus = member.MaritalStatus;
+                existingMember.NextOfKin = member.NextOfKin;
+                existingMember.NextOfKinMaritalStatus = member.NextOfKinMaritalStatus;
+                existingMember.NextOfKinAddress = member.NextOfKinAddress;
+                existingMember.SpouseName = member.SpouseName;
+                existingMember.SpousePhone = member.SpousePhone;
+                existingMember.SpousePhone2 = member.SpousePhone2;
+                existingMember.FamilyFemaleSize = member.FamilyFemaleSize;
+                existingMember.FamilyMaleSize = member.FamilyMaleSize;
+                existingMember.StatutoryGroup = member.StatutoryGroup;
+                existingMember.PassportUrl = member.PassportUrl;
+
+                existingMember.DateUpdated = DateTime.Now;
+                
+                _entities.Entry(existingMember).State = EntityState.Modified;
+            }
             _entities.SaveChanges();
             return member.Id;
         }

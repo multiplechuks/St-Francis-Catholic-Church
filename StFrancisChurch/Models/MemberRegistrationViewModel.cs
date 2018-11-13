@@ -21,7 +21,7 @@ namespace StFrancisChurch.Models
 
         [Required]
         [Display(Name = "Gender")]
-        public string Gender { get; set; }
+        public int Gender { get; set; }
 
         [Display(Name = "Home Parish")]
         public string HomeParish { get; set; }
@@ -45,16 +45,16 @@ namespace StFrancisChurch.Models
         public string Phone2 { get; set; }
 
         [Display(Name = "Employment Address")]
-        public string EmpolymentAddress { get; set; }
+        public string EmploymentAddress { get; set; }
 
         [Display(Name = "Marital Status")]
-        public string MaritalStatus { get; set; }
+        public int? MaritalStatus { get; set; }
 
         [Display(Name = "Next of kin")]
         public string NextOfKin { get; set; }
 
         [Display(Name = "Next of kin marital status")]
-        public string NextOfKinMaritalStatus { get; set; }
+        public int? NextOfKinMaritalStatus { get; set; }
 
         [Display(Name = "Next of kin address")]
         public string NextOfKinAddress { get; set; }
@@ -71,14 +71,16 @@ namespace StFrancisChurch.Models
         public string SpousePhone2 { get; set; }
 
         [Display(Name = "Size of Male in Family")]
-        public string SizeOfFamilyMale { get; set; }
+        public int SizeOfFamilyMale { get; set; }
 
         [Display(Name = "Size of Feale in Family")]
-        public string SizeOfFamilyFemale { get; set; }
+        public int SizeOfFamilyFemale { get; set; }
 
         [Display(Name = "Statutory Group")]
-        public string StatutoryGroup { get; set; }
+        public int? StatutoryGroup { get; set; }
 
         public int Id { get; set; }
+
+        public string PassportUrl { get; set; }
     }
 }

@@ -14,10 +14,27 @@ namespace DataAccessObject.DataModel
     
     public partial class LookUpTable
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public LookUpTable()
+        {
+            this.Members = new HashSet<Member>();
+            this.Members1 = new HashSet<Member>();
+            this.Members2 = new HashSet<Member>();
+            this.Members3 = new HashSet<Member>();
+        }
+    
         public int Id { get; set; }
-        public int LookUpId { get; set; }
         public string LookUpName { get; set; }
         public int LookUpOrder { get; set; }
         public string Category { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Member> Members { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Member> Members1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Member> Members2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Member> Members3 { get; set; }
     }
 }

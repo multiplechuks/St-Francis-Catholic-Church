@@ -25,5 +25,10 @@ namespace DataAccessObject.DataUtility
         {
             return _entities.Societies.AsQueryable();
         }
+
+        public static IQueryable<LookUpTable> GeLookUpTables()
+        {
+            return _entities.LookUpTables.AsQueryable();
+        }
     }
 }

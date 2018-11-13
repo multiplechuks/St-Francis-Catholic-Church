@@ -235,6 +235,7 @@
     <Compile Include="Models\MemberRegistrationViewModel.cs" />
     <Compile Include="Models\Utility\DatatableParam.cs" />
     <Compile Include="Models\Utility\MemberTableModel.cs" />
+    <Compile Include="Models\Utility\UtilModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utility\HtmlHelperExtention.cs" />

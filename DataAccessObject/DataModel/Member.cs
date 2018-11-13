@@ -26,22 +26,22 @@ namespace DataAccessObject.DataModel
         public string Othername { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public string Gender { get; set; }
+        public int Gender { get; set; }
         public string HomeParish { get; set; }
         public string Town { get; set; }
         public string Nationality { get; set; }
         public string Phone2 { get; set; }
         public string EmploymentAddress { get; set; }
-        public string MaritalStatus { get; set; }
+        public Nullable<int> MaritalStatus { get; set; }
         public string NextOfKin { get; set; }
         public string NextOfKinAddress { get; set; }
-        public string NextOfKinMaritalStatus { get; set; }
+        public Nullable<int> NextOfKinMaritalStatus { get; set; }
         public string SpouseName { get; set; }
         public string SpousePhone { get; set; }
         public string SpousePhone2 { get; set; }
         public Nullable<int> FamilyMaleSize { get; set; }
         public Nullable<int> FamilyFemaleSize { get; set; }
-        public string StatutoryGroup { get; set; }
+        public Nullable<int> StatutoryGroup { get; set; }
         public Nullable<int> MembershipType { get; set; }
         public System.DateTime DateRegistered { get; set; }
         public int Confirmed { get; set; }
@@ -53,7 +53,12 @@ namespace DataAccessObject.DataModel
         public Nullable<System.DateTime> DateDeleted { get; set; }
         public int Deceased { get; set; }
         public Nullable<System.DateTime> DateDeceased { get; set; }
+        public Nullable<System.DateTime> DateUpdated { get; set; }
     
+        public virtual LookUpTable LookUpTable { get; set; }
+        public virtual LookUpTable LookUpTable1 { get; set; }
+        public virtual LookUpTable LookUpTable2 { get; set; }
+        public virtual LookUpTable LookUpTable3 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SocietyMemberLink> SocietyMemberLinks { get; set; }
     }

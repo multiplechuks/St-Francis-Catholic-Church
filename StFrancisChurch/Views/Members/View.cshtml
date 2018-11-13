@@ -3,203 +3,244 @@
     var member = (MemberTableModel) ViewBag.member;
 }
 
-<div class="card mb-3">
+@*<div class="card mb-3">
     <div class="card-header">
         <i class="fas fa-table"></i>
         Parish Members Detail
     </div>
     <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" style="width:60% !important" align="center" cellspacing="0">
-                <thead>
-                    <tr>
-                        <td style="width:40%">Key</td>
-                        <td style="width: 60%">Value</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            Surname
-                        </td>
-                        <td>
-                            @member.Surname
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Firstname
-                        </td>
-                        <td>
-                            @member.Firstname
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Othername
-                        </td>
-                        <td>
-                            @member.Othername
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Phone
-                        </td>
-                        <td>
-                            @member.Phone
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Second Phone
-                        </td>
-                        <td>
-                            @member.Phone2
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Date Registered
-                        </td>
-                        <td>
-                            @member.DateRegistered
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Gender
-                        </td>
-                        <td>
-                            @member.Gender
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Home Parish
-                        </td>
-                        <td>
-                            @member.HomeParish
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Town
-                        </td>
-                        <td>
-                            @member.Town
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Nationality
-                        </td>
-                        <td>
-                            @member.Nationality
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Email Address
-                        </td>
-                        <td>
-                            @member.EmailAddress
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Employment Address
-                        </td>
-                        <td>
-                            @member.EmpolymentAddress
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Marital Status
-                        </td>
-                        <td>
-                            @member.MaritalStatus
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Next Of Kin
-                        </td>
-                        <td>
-                            @member.NextOfKin
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Next Of Kin Marital Status
-                        </td>
-                        <td>
-                            @member.NextOfKinMaritalStatus
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Next Of Kin Address
-                        </td>
-                        <td>
-                            @member.NextOfKinAddress
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Spouse Name
-                        </td>
-                        <td>
-                            @member.SpouseName
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Spouse First Phone
-                        </td>
-                        <td>
-                            @member.SpousePhone1
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Spouse First Phone
-                        </td>
-                        <td>
-                            @member.SpousePhone2
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Size Of Male in Family
-                        </td>
-                        <td>
-                            @member.SizeOfFamilyMale
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Size Of Female in Family
-                        </td>
-                        <td>
-                            @member.SizeOfFamilyFemale
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Statutory Group
-                        </td>
-                        <td>
-                            @member.StatutoryGroup
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        
     </div>
     <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+</div>*@
+
+<div class="row col-12">
+    <div class="col-1"></div>
+    <div class="row col-10 frame">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <img src="~/Content/images/sermon-1.jpg" width="80" height="100" id="st_francis_logo" alt="St Francis Logo" />
+            <div id="header_center">
+                <h4>CATHOLIC ARCHDIOSES OF ABUJA</h4>
+                <H3>ST FRANCIS OF ASISI PARISH BAGUSA DEI-DEI</H3>
+                <img src="@member.PassportUrl" width="120" height="120" id="member_passport" />
+                <b>email: St.francisbagusa@gmail.com</b>
+                <h2>PARISH REGISTRATION FORM</h2>
+            </div>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-borderless" style="width:60% !important" align="center" cellspacing="0">
+                    <tbody id="form_body">
+                        <tr>
+                            <td>
+                                Surname
+                            </td>
+                            <td>
+                                @member.Surname
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Firstname
+                            </td>
+                            <td>
+                                @member.Firstname
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Othername
+                            </td>
+                            <td>
+                                @member.Othername
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Phone
+                            </td>
+                            <td>
+                                @member.Phone
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Second Phone
+                            </td>
+                            <td>
+                                @member.Phone2
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Date Registered
+                            </td>
+                            <td>
+                                @member.DateRegistered
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Gender
+                            </td>
+                            <td>
+                                @member.Gender
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Home Parish
+                            </td>
+                            <td>
+                                @member.HomeParish
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Town
+                            </td>
+                            <td>
+                                @member.Town
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Nationality
+                            </td>
+                            <td>
+                                @member.Nationality
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Email Address
+                            </td>
+                            <td>
+                                @member.EmailAddress
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Employment Address
+                            </td>
+                            <td>
+                                @member.EmpolymentAddress
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Marital Status
+                            </td>
+                            <td>
+                                @member.MaritalStatus
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Next Of Kin
+                            </td>
+                            <td>
+                                @member.NextOfKin
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Next Of Kin Marital Status
+                            </td>
+                            <td>
+                                @member.NextOfKinMaritalStatus
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Next Of Kin Address
+                            </td>
+                            <td>
+                                @member.NextOfKinAddress
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Spouse Name
+                            </td>
+                            <td>
+                                @member.SpouseName
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Spouse First Phone
+                            </td>
+                            <td>
+                                @member.SpousePhone1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Spouse First Phone
+                            </td>
+                            <td>
+                                @member.SpousePhone2
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Size Of Male in Family
+                            </td>
+                            <td>
+                                @member.SizeOfFamilyMale
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Size Of Female in Family
+                            </td>
+                            <td>
+                                @member.SizeOfFamilyFemale
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Statutory Group
+                            </td>
+                            <td>
+                                @member.StatutoryGroup
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-1"></div>
 </div>
+
+@section styles{
+    <style>
+        #st_francis_logo{
+            float: left;
+            margin: 5px;
+        }
+        #header_center {
+            text-align: center;
+            padding: 5px;
+        }
+        #member_passport {
+            float: right;
+        }
+        #form_body tr{
+            border-bottom: black 2px solid;
+        }
+        .frame {
+            border: burlywood 30px double;
+            border-radius: 20px;
+            padding: 10px;
+        }
+    </style>
+}
+
 @section scripts{
 
     <script>

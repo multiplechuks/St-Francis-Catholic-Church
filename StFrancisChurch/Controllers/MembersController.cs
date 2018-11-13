@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DataAccessObject.DataModel;
 using DataAccessObject.IRepository;
 using Microsoft.AspNet.Identity;
 using StFrancisChurch.Models;
@@ -23,6 +25,11 @@ namespace StFrancisChurch.Controllers
         // GET: Member
         public ActionResult Index()
         {
+            var returnData = (ReturnData)TempData["returnMessage"] ?? new ReturnData
+            {
+                HasValue = false
+            };
+            ViewBag.returns = returnData;
             return View();
         }
 
@@ -215,9 +222,10 @@ namespace StFrancisChurch.Controllers
                     SpouseName = member.SpouseName,
                     SpousePhone1 = member.SpousePhone,
                     SpousePhone2 = member.SpousePhone2,
-                    SizeOfFamilyMale = (int)member.FamilyMaleSize,
-                    SizeOfFamilyFemale = (int)member.FamilyFemaleSize,
-                    StatutoryGroup = member.StatutoryGroup
+                    SizeOfFamilyMale = member.FamilyMaleSize,
+                    SizeOfFamilyFemale = member.FamilyFemaleSize,
+                    StatutoryGroup = member.StatutoryGroup,
+                    PassportUrl = member.PassportUrl
                 };
             }
             else
@@ -227,6 +235,7 @@ namespace StFrancisChurch.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult Edit(int id)
         {
             var member = _memberRepository.GetMember(id);
@@ -239,14 +248,24 @@ namespace StFrancisChurch.Controllers
                     Firstname = member.Firstname,
                     Othername = member.Othername,
                     Phone = member.Phone,
-                    Gender = member.Gender
-                    //DateRegistered = member.DateRegistered.ToString("d")
-                };
-                ViewBag.Sex = new List<SelectListItem>
-                {
-                    new SelectListItem {Text="Select",Value=""},
-                    new SelectListItem {Text="Male",Value="Male"},
-                    new SelectListItem {Text="Female",Value="Female"}
+                    Phone2 = member.Phone2,
+                    EmailAddress = member.Email,
+                    Gender = member.Gender,
+                    HomeParish = member.HomeParish,
+                    Town = member.Town,
+                    Nationality = member.Nationality,
+                    EmploymentAddress = member.EmploymentAddress,
+                    MaritalStatus = member.MaritalStatus,
+                    NextOfKin = member.NextOfKin,
+                    NextOfKinMaritalStatus = member.NextOfKinMaritalStatus,
+                    NextOfKinAddress = member.NextOfKinAddress,
+                    SpouseName = member.SpouseName,
+                    SpousePhone1 = member.SpousePhone,
+                    SpousePhone2 = member.SpousePhone2,
+                    SizeOfFamilyFemale = member.FamilyFemaleSize ?? 0,
+                    SizeOfFamilyMale = member.FamilyMaleSize ?? 0,
+                    StatutoryGroup = member.StatutoryGroup,
+                    PassportUrl = member.PassportUrl
                 };
                 return View(model);
             }
@@ -279,6 +298,73 @@ namespace StFrancisChurch.Controllers
         public ActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Edit(MemberRegistrationViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            if (Request.Files.Count != 0 || !string.IsNullOrEmpty(Request.Files[0]?.FileName))
+            {
+                var directory = System.Web.Hosting.HostingEnvironment.MapPath("~/Images/Passports");
+                if (Directory.Exists(directory) == false)
+                {
+                    Directory.CreateDirectory(directory);
+                }
+
+                var fileName = $"{DateTime.Now:dd_MM_yyyy_hh_mm_ss}_{model.Surname}_" + Request.Files[0].FileName;
+                var filePath = directory + "_" + fileName;
+                Request.Files[0].SaveAs(filePath);
+                model.PassportUrl = "/Images/Passports/_" + fileName;
+            }
+            try
+            {
+                var member = new Member
+                {
+                    Id = model.Id,
+                    Surname = model.Surname,
+                    Firstname = model.Firstname,
+                    Othername = model.Othername,
+                    Email = model.EmailAddress,
+                    Phone = model.Phone,
+                    Phone2 = model.Phone2,
+                    Gender = model.Gender,
+                    HomeParish = model.HomeParish,
+                    Town = model.Town,
+                    Nationality = model.Nationality,
+                    EmploymentAddress = model.EmploymentAddress,
+                    MaritalStatus = model.MaritalStatus,
+                    NextOfKin = model.NextOfKin,
+                    NextOfKinMaritalStatus = model.NextOfKinMaritalStatus,
+                    NextOfKinAddress = model.NextOfKinAddress,
+                    SpouseName = model.SpouseName,
+                    SpousePhone = model.SpousePhone1,
+                    SpousePhone2 = model.SpousePhone2,
+                    FamilyFemaleSize = model.SizeOfFamilyFemale,
+                    FamilyMaleSize = model.SizeOfFamilyMale,
+                    StatutoryGroup = model.StatutoryGroup,
+                    PassportUrl = model.PassportUrl
+                };
+                if (_memberRepository.UpdateMember(member) > 0)
+                {
+                    var returnData = new ReturnData
+                    {
+                        HasValue = true,
+                        Message = model.Surname + " " + model.Firstname + " was successfully updated"
+                    };
+                    TempData["returnMessage"] = returnData;
+                    return Redirect("/Members");
+                }
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(String.Empty, "There was an error completing the registration, Please try again later");
+                return View(model);
+            }
         }
     }
 }
