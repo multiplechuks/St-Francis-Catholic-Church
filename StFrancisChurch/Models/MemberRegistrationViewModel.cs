@@ -36,6 +36,7 @@ namespace StFrancisChurch.Models
         [Display(Name = "EmailAddress")]
         public string EmailAddress { get; set; }
 
+        [Required]
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Ist Phone Number")]
         public string Phone { get; set; }
@@ -71,10 +72,10 @@ namespace StFrancisChurch.Models
         public string SpousePhone2 { get; set; }
 
         [Display(Name = "Size of Male in Family")]
-        public int SizeOfFamilyMale { get; set; }
+        public int? SizeOfFamilyMale { get; set; }
 
-        [Display(Name = "Size of Feale in Family")]
-        public int SizeOfFamilyFemale { get; set; }
+        [Display(Name = "Size of Female in Family")]
+        public int? SizeOfFamilyFemale { get; set; }
 
         [Display(Name = "Statutory Group")]
         public int? StatutoryGroup { get; set; }

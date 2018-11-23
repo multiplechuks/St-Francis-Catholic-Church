@@ -12,17 +12,9 @@ namespace DataAccessObject.DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class SocietyMemberLink
+    public partial class Matrimony
     {
         public int Id { get; set; }
-        public int SocietyId { get; set; }
-        public int MemberId { get; set; }
-        public int MemberPositionId { get; set; }
-        public System.DateTime AppointDate { get; set; }
-        public int Active { get; set; }
-    
-        public virtual Member Member { get; set; }
-        public virtual Position Position { get; set; }
-        public virtual Society Society { get; set; }
+        public System.DateTime DateReceived { get; set; }
     }
 }

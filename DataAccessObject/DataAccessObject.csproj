@@ -63,10 +63,22 @@
     <Compile Include="DataModel\AspNetUserLogin.cs">
       <DependentUpon>StFrancisCCModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\Baptism.cs">
+      <DependentUpon>StFrancisCCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Communion.cs">
+      <DependentUpon>StFrancisCCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Confirmation.cs">
+      <DependentUpon>StFrancisCCModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModel\C__MigrationHistory.cs">
       <DependentUpon>StFrancisCCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\LookUpTable.cs">
+      <DependentUpon>StFrancisCCModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel\Matrimony.cs">
       <DependentUpon>StFrancisCCModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataModel\Member.cs">

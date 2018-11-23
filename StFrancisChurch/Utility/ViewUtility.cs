@@ -68,5 +68,20 @@ namespace StFrancisChurch.Utility
             }
             return formatted.AsQueryable();
         }
+
+        public static IEnumerable<SelectItem> GetBaptismType()
+        {
+            var type = DataUtility.GeLookUpTables().Where(m => m.Category == "BaptismType");
+            List<SelectItem> formatted = new List<SelectItem>();
+            foreach (var g in type)
+            {
+                formatted.Add(new SelectItem
+                {
+                    Id = g.Id,
+                    Name = g.LookUpName
+                });
+            }
+            return formatted.AsQueryable();
+        }
     }
 }

@@ -22,6 +22,14 @@
     {
         returnLayout = "~/Views/Shared/_AdminBaseLayout.cshtml";
     }
+    else if (controller.Equals("Account") && Context.Request.Path.Contains("Register"))
+    {
+        returnLayout = "~/Views/Shared/_AdminBaseLayout.cshtml";
+    }
+    else if (controller.Equals("Reflection"))
+    {
+        returnLayout = "~/Views/Shared/_AdminBaseLayout.cshtml";
+    }
     else
     {
         returnLayout = "~/Views/Shared/_BaseLayout.cshtml";

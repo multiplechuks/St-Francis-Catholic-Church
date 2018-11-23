@@ -57,7 +57,7 @@ namespace StFrancisChurch.Controllers
                 ModelState.AddModelError(String.Empty, "Please make sure a passport was chosen");
                 return View(model);
             }
-            var directory = System.Web.Hosting.HostingEnvironment.MapPath("~/Images/Passports");
+            var directory = System.Web.Hosting.HostingEnvironment.MapPath("~/Images/Passports/");
             if (Directory.Exists(directory) == false)
             {
                 Directory.CreateDirectory(directory);

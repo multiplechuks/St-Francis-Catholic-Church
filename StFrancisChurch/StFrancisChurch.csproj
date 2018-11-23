@@ -225,11 +225,13 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
+    <Compile Include="Controllers\ReflectionController.cs" />
     <Compile Include="Controllers\SacramentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BaptismViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MemberRegistrationViewModel.cs" />
@@ -1818,6 +1820,8 @@
     <Content Include="Views\Members\Edit.cshtml" />
     <Content Include="Views\Sacrament\Matrimony.cshtml" />
     <Content Include="Views\Members\Create.cshtml" />
+    <Content Include="Views\Sacrament\CreateBaptism.cshtml" />
+    <Content Include="Views\Reflection\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessObject\DataAccessObject.csproj">

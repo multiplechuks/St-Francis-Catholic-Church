@@ -1,4 +1,5 @@
 ﻿@using StFrancisChurch.Models
+@using StFrancisChurch.Utility
 @model MemberRegistrationViewModel
 @{
 }
@@ -9,7 +10,7 @@
         Create Member
     </div>
     <div class="card-body">
-        @using (Html.BeginForm("MemberRegistration", "Home", FormMethod.Post, new { @role = "form", @enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("Create", "Members", FormMethod.Post, new { @role = "form", @enctype = "multipart/form-data" }))
         {
             @Html.ValidationSummary(true, "", new { @style = "color :red" })
             <div class="row">
@@ -32,11 +33,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <select name="Gender" class="form-control">
-                            <option value="">Select Gender</option>
-                            <option value="M">Male</option>
-                            <option value="F">Female</option>
-                        </select>
+                        @Html.DropDownList("Gender", new SelectList(ViewUtility.GetGender(), "Id", "Name", null), "Select Gender", new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.Gender, "", new { @style = "color:red" })
                     </div>
                 </div>
@@ -63,6 +60,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <input type="text" name="Phone" class="form-control" placeholder="Enter your Phone">
+                        @Html.ValidationMessageFor(m => m.Phone, "", new { @style = "color:red" })
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -77,14 +75,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <select name="MaritalStatus" class="form-control">
-                            <option value="">Select Marital Status</option>
-                            <option value="Single">Single</option>
-                            <option value="Married">Married</option>
-                            <option value="Widow">Widow</option>
-                            <option value="Widower">Widower</option>
-                            <option value="Seperated">Separated</option>
-                        </select>
+                        @Html.DropDownList("MaritalStatus", new SelectList(ViewUtility.GetMaritalStatus(), "Id", "Name", null), "Select Marital Status", new { @class = "form-control" })
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -94,14 +85,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <select name="NextOfKinMaritalStatus" class="form-control">
-                            <option value="">Select Next of Kin Marital Status</option>
-                            <option value="Single">Single</option>
-                            <option value="Married">Married</option>
-                            <option value="Widow">Widow</option>
-                            <option value="Widower">Widower</option>
-                            <option value="Seperated">Separated</option>
-                        </select>
+                        @Html.DropDownList("NextOfKinMaritalStatus", new SelectList(ViewUtility.GetMaritalStatus(), "Id", "Name", null), "Select Kin Marital Status", new { @class = "form-control" })
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -150,15 +134,10 @@
                     </div>*@
                 <div class="col-md-6">
                     <div class="form-group">
-                        <select name="StatutoryGroup" class="form-control">
-                            <option value="">Select Statutory Group Registered</option>
-                            <option value="CMO">CMO</option>
-                            <option value="CWO">CWO</option>
-                            <option value="CYON">CYON</option>
-                        </select>
+                        @Html.DropDownList("StatutoryGroup", new SelectList(ViewUtility.GetStatutoryBody(), "Id", "Name", null), "Select statutory body", new { @class = "form-control" })
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="row col-md-6">
                     <div class="col-md-6">
                         <div class="form-group">
                             <input type="file" name="Pasport" id="filePassport" accept="image/*" class="form-control" placeholder="Choose Passport">

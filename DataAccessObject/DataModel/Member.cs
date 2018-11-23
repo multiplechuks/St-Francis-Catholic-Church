@@ -55,10 +55,10 @@ namespace DataAccessObject.DataModel
         public Nullable<System.DateTime> DateDeceased { get; set; }
         public Nullable<System.DateTime> DateUpdated { get; set; }
     
-        public virtual LookUpTable LookUpTable { get; set; }
-        public virtual LookUpTable LookUpTable1 { get; set; }
-        public virtual LookUpTable LookUpTable2 { get; set; }
-        public virtual LookUpTable LookUpTable3 { get; set; }
+        public virtual LookUpTable LookUpTable_Gender { get; set; }
+        public virtual LookUpTable LookUpTable_MaritalStatus { get; set; }
+        public virtual LookUpTable LookUpTableKinMaritalStatus { get; set; }
+        public virtual LookUpTable LookUpTable_Statutory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SocietyMemberLink> SocietyMemberLinks { get; set; }
     }

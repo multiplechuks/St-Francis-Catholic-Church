@@ -208,23 +208,23 @@ namespace StFrancisChurch.Controllers
                     Othername = member.Othername,
                     Phone = member.Phone,
                     DateRegistered = member.DateRegistered.ToString("d"),
-                    Gender = member.Gender,
+                    Gender = member.LookUpTable_Gender.LookUpName,
                     Phone2 = member.Phone2,
                     HomeParish = member.HomeParish,
                     Town = member.Town,
                     Nationality = member.Nationality,
                     EmailAddress = member.Email,
                     EmpolymentAddress = member.EmploymentAddress,
-                    MaritalStatus = member.MaritalStatus,
+                    MaritalStatus = member.MaritalStatus != null ? member.LookUpTable_MaritalStatus.LookUpName : "",
                     NextOfKin = member.NextOfKin,
-                    NextOfKinMaritalStatus = member.NextOfKinMaritalStatus,
+                    NextOfKinMaritalStatus = member.NextOfKinMaritalStatus != null ? member.LookUpTableKinMaritalStatus.LookUpName : "",
                     NextOfKinAddress = member.NextOfKinAddress,
                     SpouseName = member.SpouseName,
                     SpousePhone1 = member.SpousePhone,
                     SpousePhone2 = member.SpousePhone2,
                     SizeOfFamilyMale = member.FamilyMaleSize,
                     SizeOfFamilyFemale = member.FamilyFemaleSize,
-                    StatutoryGroup = member.StatutoryGroup,
+                    StatutoryGroup = member.StatutoryGroup != null ? member.LookUpTable_Statutory.LookUpName : "",
                     PassportUrl = member.PassportUrl
                 };
             }
@@ -309,7 +309,7 @@ namespace StFrancisChurch.Controllers
             }
             if (Request.Files.Count != 0 || !string.IsNullOrEmpty(Request.Files[0]?.FileName))
             {
-                var directory = System.Web.Hosting.HostingEnvironment.MapPath("~/Images/Passports");
+                var directory = System.Web.Hosting.HostingEnvironment.MapPath("~/Images/Passports/");
                 if (Directory.Exists(directory) == false)
                 {
                     Directory.CreateDirectory(directory);
@@ -357,6 +357,70 @@ namespace StFrancisChurch.Controllers
                     };
                     TempData["returnMessage"] = returnData;
                     return Redirect("/Members");
+                }
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(String.Empty, "There was an error completing the registration, Please try again later");
+                return View(model);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Create(MemberRegistrationViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            if (Request.Files.Count == 0 || string.IsNullOrEmpty(Request.Files[0]?.FileName))
+            {
+                ModelState.AddModelError(String.Empty, "Please make sure a passport was chosen");
+                return View(model);
+            }
+            var directory = System.Web.Hosting.HostingEnvironment.MapPath("~/Images/Passports/");
+            if (Directory.Exists(directory) == false)
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            var fileName = $"{DateTime.Now:dd_MM_yyyy_hh_mm_ss}_{model.Surname}_" + Request.Files[0].FileName;
+            var filePath = directory + "_" + fileName;
+            Request.Files[0].SaveAs(filePath);
+            try
+            {
+                var member = new Member
+                {
+                    Surname = model.Surname,
+                    Firstname = model.Firstname,
+                    Othername = model.Othername,
+                    Email = model.EmailAddress,
+                    Phone = model.Phone,
+                    Phone2 = model.Phone2,
+                    Gender = model.Gender,
+                    HomeParish = model.HomeParish,
+                    Town = model.Town,
+                    Nationality = model.Nationality,
+                    EmploymentAddress = model.EmploymentAddress,
+                    MaritalStatus = model.MaritalStatus,
+                    NextOfKin = model.NextOfKin,
+                    NextOfKinMaritalStatus = model.NextOfKinMaritalStatus,
+                    NextOfKinAddress = model.NextOfKinAddress,
+                    SpouseName = model.SpouseName,
+                    SpousePhone = model.SpousePhone1,
+                    SpousePhone2 = model.SpousePhone2,
+                    FamilyFemaleSize = model.SizeOfFamilyFemale,
+                    FamilyMaleSize = model.SizeOfFamilyMale,
+                    StatutoryGroup = model.StatutoryGroup,
+                    Confirmed = 0,
+                    Deleted = 0,
+                    DateRegistered = DateTime.Now,
+                    PassportUrl = "/Images/Passports/_" + fileName
+                };
+                if (_memberRepository.AddMember(member) > 0)
+                {
+                    return Redirect("Index");
                 }
                 return View(model);
             }
