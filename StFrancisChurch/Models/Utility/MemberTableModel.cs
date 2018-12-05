@@ -33,5 +33,25 @@ namespace StFrancisChurch.Models.Utility
         public string StatutoryGroup { get; set; }
         public string PassportUrl { get; set; }
     }
-    
+
+    public class BaptismTableModel
+    {
+        public int Serial { get; set; }
+        public string BaptismNumber { get; set; }
+        public string BaptismPlace { get; set; }
+        public string BaptismDate { get; set; }
+        public string BaptismName { get; set; }
+        public string Othername { get; set; }
+        public string Surname { get; set; }
+        public string DateOfBirth { get; set; }
+        public string PlaceOfBirth { get; set; }
+        public string HomeTown { get; set; }
+        public string FathersName { get; set; }
+        public string MothersName { get; set; }
+        public int BaptismType { get; set; }
+        public string NameOfGodParent1 { get; set; }
+        public string NameOfGodParent2 { get; set; }
+        public string NameOfMinister { get; set; }
+        public string Remarks { get; set; }
+    }
 }

@@ -1822,6 +1822,7 @@
     <Content Include="Views\Members\Create.cshtml" />
     <Content Include="Views\Sacrament\CreateBaptism.cshtml" />
     <Content Include="Views\Reflection\Index.cshtml" />
+    <Content Include="Views\Sacrament\CreateCommunion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessObject\DataAccessObject.csproj">

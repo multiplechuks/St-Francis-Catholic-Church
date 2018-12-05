@@ -71,19 +71,11 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'StFrancisCC.dbo.Baptism' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Baptism">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="BapitsmNumber" />
-            <PropertyRef Name="BaptismPlace" />
-            <PropertyRef Name="BaptismDate" />
-            <PropertyRef Name="BaptismName" />
-            <PropertyRef Name="Othername" />
-            <PropertyRef Name="BaptismType" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BapitsmNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="BaptismPlace" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="BaptismDate" Type="datetime" Nullable="false" />
@@ -215,10 +207,18 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
             <PropertyRef Name="Id" />
             <PropertyRef Name="Reflection" />
             <PropertyRef Name="ReflectionType" />
+            <PropertyRef Name="ReflectionDate" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="DeleteFlag" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Reflection" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ReflectionAuthor" Type="nvarchar" MaxLength="255" />
           <Property Name="ReflectionType" Type="int" Nullable="false" />
+          <Property Name="ReflectionDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="DeleteFlag" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Sacrament">
           <Key>
@@ -508,6 +508,7 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Baptism" EntityType="Self.Baptism" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LookUpTable" EntityType="Self.LookUpTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Members" EntityType="Self.Members" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ParishEvent" EntityType="Self.ParishEvent" Schema="dbo" store:Type="Tables" />
@@ -520,28 +521,6 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <EntitySet Name="Societies" EntityType="Self.Societies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SocietyMemberLink" EntityType="Self.SocietyMemberLink" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StationEvent" EntityType="Self.StationEvent" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Baptism" EntityType="Self.Baptism" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Baptism].[Id] AS [Id], 
-    [Baptism].[BapitsmNumber] AS [BapitsmNumber], 
-    [Baptism].[BaptismPlace] AS [BaptismPlace], 
-    [Baptism].[BaptismDate] AS [BaptismDate], 
-    [Baptism].[BaptismName] AS [BaptismName], 
-    [Baptism].[Othername] AS [Othername], 
-    [Baptism].[Surname] AS [Surname], 
-    [Baptism].[DateOfBirth] AS [DateOfBirth], 
-    [Baptism].[PlaceOfBirth] AS [PlaceOfBirth], 
-    [Baptism].[HomeTown] AS [HomeTown], 
-    [Baptism].[FathersName] AS [FathersName], 
-    [Baptism].[MothersName] AS [MothersName], 
-    [Baptism].[BaptismType] AS [BaptismType], 
-    [Baptism].[NameOfGodParent1] AS [NameOfGodParent1], 
-    [Baptism].[NameOfGodParent2] AS [NameOfGodParent2], 
-    [Baptism].[NameOfMinister] AS [NameOfMinister], 
-    [Baptism].[Remarks] AS [Remarks], 
-    [Baptism].[MemberId] AS [MemberId]
-    FROM [dbo].[Baptism] AS [Baptism]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="Communion" EntityType="Self.Communion" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Communion].[Id] AS [Id], 
@@ -564,7 +543,12 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
             <DefiningQuery>SELECT 
     [Reflection].[Id] AS [Id], 
     [Reflection].[Reflection] AS [Reflection], 
-    [Reflection].[ReflectionType] AS [ReflectionType]
+    [Reflection].[ReflectionAuthor] AS [ReflectionAuthor], 
+    [Reflection].[ReflectionType] AS [ReflectionType], 
+    [Reflection].[ReflectionDate] AS [ReflectionDate], 
+    [Reflection].[CreateDate] AS [CreateDate], 
+    [Reflection].[UpdateDate] AS [UpdateDate], 
+    [Reflection].[DeleteFlag] AS [DeleteFlag]
     FROM [dbo].[Reflection] AS [Reflection]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Station" EntityType="Self.Station" store:Type="Tables" store:Schema="dbo">
@@ -662,6 +646,9 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <EntitySet Name="Societies" EntityType="StFrancisCCModel.Society" />
           <EntitySet Name="SocietyMemberLinks" EntityType="StFrancisCCModel.SocietyMemberLink" />
           <EntitySet Name="StationEvents" EntityType="StFrancisCCModel.StationEvent" />
+          <EntitySet Name="Communions" EntityType="StFrancisCCModel.Communion" />
+          <EntitySet Name="Confirmations" EntityType="StFrancisCCModel.Confirmation" />
+          <EntitySet Name="Matrimonies" EntityType="StFrancisCCModel.Matrimony" />
           <EntitySet Name="Reflections" EntityType="StFrancisCCModel.Reflection" />
           <EntitySet Name="Stations" EntityType="StFrancisCCModel.Station" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="StFrancisCCModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -725,9 +712,6 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
           <EntitySet Name="Baptism" EntityType="StFrancisCCModel.Baptism" />
-          <EntitySet Name="Communions" EntityType="StFrancisCCModel.Communion" />
-          <EntitySet Name="Confirmations" EntityType="StFrancisCCModel.Confirmation" />
-          <EntitySet Name="Matrimonies" EntityType="StFrancisCCModel.Matrimony" />
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -844,10 +828,10 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <Property Name="Deceased" Type="Int32" Nullable="false" />
           <Property Name="DateDeceased" Type="DateTime" Precision="3" />
           <Property Name="DateUpdated" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="LookUpTable_Gender" Relationship="StFrancisCCModel.FK_Members_Gender" FromRole="Member" ToRole="LookUpTable" />
-          <NavigationProperty Name="LookUpTable_MaritalStatus" Relationship="StFrancisCCModel.FK_Members_MemberMaritalStatus" FromRole="Member" ToRole="LookUpTable" />
-          <NavigationProperty Name="LookUpTableKinMaritalStatus" Relationship="StFrancisCCModel.FK_Members_NextOfKinMaritalStatus" FromRole="Member" ToRole="LookUpTable" />
-          <NavigationProperty Name="LookUpTable_Statutory" Relationship="StFrancisCCModel.FK_Members_StatutoryGroup" FromRole="Member" ToRole="LookUpTable" />
+          <NavigationProperty Name="LookUpTable" Relationship="StFrancisCCModel.FK_Members_Gender" FromRole="Member" ToRole="LookUpTable" />
+          <NavigationProperty Name="LookUpTable1" Relationship="StFrancisCCModel.FK_Members_MemberMaritalStatus" FromRole="Member" ToRole="LookUpTable" />
+          <NavigationProperty Name="LookUpTable2" Relationship="StFrancisCCModel.FK_Members_NextOfKinMaritalStatus" FromRole="Member" ToRole="LookUpTable" />
+          <NavigationProperty Name="LookUpTable3" Relationship="StFrancisCCModel.FK_Members_StatutoryGroup" FromRole="Member" ToRole="LookUpTable" />
           <NavigationProperty Name="SocietyMemberLinks" Relationship="StFrancisCCModel.FK_SocietyMemberLink_Members" FromRole="Member" ToRole="SocietyMemberLink" />
         </EntityType>
         <EntityType Name="ParishEvent">
@@ -962,15 +946,47 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <Property Name="EventType" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ParishEventType" Relationship="StFrancisCCModel.FK_StationEvent_ParishEventType" FromRole="StationEvent" ToRole="ParishEventType" />
         </EntityType>
+        <EntityType Name="Communion">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DateReceived" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="DateReceived" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Confirmation">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DateReceived" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="DateReceived" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Matrimony">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DateReceived" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="DateReceived" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         <EntityType Name="Reflection">
           <Key>
             <PropertyRef Name="Id" />
             <PropertyRef Name="Reflection1" />
             <PropertyRef Name="ReflectionType" />
+            <PropertyRef Name="ReflectionDate" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="DeleteFlag" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Reflection1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReflectionAuthor" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ReflectionType" Type="Int32" Nullable="false" />
+          <Property Name="ReflectionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="DeleteFlag" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Station">
           <Key>
@@ -1161,14 +1177,8 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
         <EntityType Name="Baptism">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="BapitsmNumber" />
-            <PropertyRef Name="BaptismPlace" />
-            <PropertyRef Name="BaptismDate" />
-            <PropertyRef Name="BaptismName" />
-            <PropertyRef Name="Othername" />
-            <PropertyRef Name="BaptismType" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BapitsmNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BaptismPlace" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="BaptismDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -1186,30 +1196,6 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <Property Name="NameOfMinister" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="MemberId" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Communion">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="DateReceived" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="DateReceived" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="Confirmation">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="DateReceived" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="DateReceived" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="Matrimony">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="DateReceived" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="DateReceived" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1434,10 +1420,39 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Communions">
+            <EntityTypeMapping TypeName="StFrancisCCModel.Communion">
+              <MappingFragment StoreEntitySet="Communion">
+                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Confirmations">
+            <EntityTypeMapping TypeName="StFrancisCCModel.Confirmation">
+              <MappingFragment StoreEntitySet="Confirmation">
+                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Matrimonies">
+            <EntityTypeMapping TypeName="StFrancisCCModel.Matrimony">
+              <MappingFragment StoreEntitySet="Matrimony">
+                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Reflections">
             <EntityTypeMapping TypeName="StFrancisCCModel.Reflection">
               <MappingFragment StoreEntitySet="Reflection">
+                <ScalarProperty Name="DeleteFlag" ColumnName="DeleteFlag" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ReflectionDate" ColumnName="ReflectionDate" />
                 <ScalarProperty Name="ReflectionType" ColumnName="ReflectionType" />
+                <ScalarProperty Name="ReflectionAuthor" ColumnName="ReflectionAuthor" />
                 <ScalarProperty Name="Reflection1" ColumnName="Reflection" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -1481,30 +1496,6 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
                 <ScalarProperty Name="BaptismDate" ColumnName="BaptismDate" />
                 <ScalarProperty Name="BaptismPlace" ColumnName="BaptismPlace" />
                 <ScalarProperty Name="BapitsmNumber" ColumnName="BapitsmNumber" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Communions">
-            <EntityTypeMapping TypeName="StFrancisCCModel.Communion">
-              <MappingFragment StoreEntitySet="Communion">
-                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Confirmations">
-            <EntityTypeMapping TypeName="StFrancisCCModel.Confirmation">
-              <MappingFragment StoreEntitySet="Confirmation">
-                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Matrimonies">
-            <EntityTypeMapping TypeName="StFrancisCCModel.Matrimony">
-              <MappingFragment StoreEntitySet="Matrimony">
-                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

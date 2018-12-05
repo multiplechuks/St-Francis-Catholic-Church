@@ -1,0 +1,36 @@
+﻿@using StFrancisChurch.Models
+@using StFrancisChurch.Utility
+@model BaptismViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Communion Register
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm("CreateCommunion", "Sacrament", FormMethod.Post, new { @role = "form" }))
+        {
+            @Html.ValidationSummary(true, "", new { @style = "color :red" })
+            <div class="row">
+                
+                <div class="col-md-12 col-md-push-8">
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary btn-modify">
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    
+</div>
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+}

@@ -16,6 +16,11 @@ namespace DataAccessObject.DataModel
     {
         public int Id { get; set; }
         public string Reflection1 { get; set; }
+        public string ReflectionAuthor { get; set; }
         public int ReflectionType { get; set; }
+        public System.DateTime ReflectionDate { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public int DeleteFlag { get; set; }
     }
 }

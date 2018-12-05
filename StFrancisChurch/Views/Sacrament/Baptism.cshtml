@@ -7,7 +7,7 @@
         <i class="fas fa-table"></i>
         Baptism Register
         <div class="btn-group" style="float: right; margin-top: 5px; margin-right: 10px;">
-            <a class="btn btn-success" href="@Href("~/Sacrament/CreateBaptism")" title="Click to create a new member"><i class="glyphicon glypicon-add" style="margin:0px;"></i> New Record</a>
+            <a class="btn btn-success" href="@Href("~/Sacrament/CreateBaptism")" title="Click to create a new baptismal record"><i class="fa fa-plus" style="margin:0px;"></i> New Record</a>
         </div>
     </div>
     <div class="card-body">
@@ -16,18 +16,20 @@
                 <thead>
                     <tr>
                         <th>S/N</th>
+                        <th>Baptismal Name</th>
                         <th>Surname</th>
-                        <th>Firstname</th>
                         <th>Othername</th>
+                        <th>Date</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>S/N</th>
+                        <th>Baptismal Name</th>
                         <th>Surname</th>
-                        <th>Firstname</th>
                         <th>Othername</th>
+                        <th>Date</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
@@ -41,28 +43,29 @@
 
     <script>
         $(document).ready(function () {
-            $('#membersTable').DataTable();
-            @*$('#membersTable').DataTable({
+            $('#membersTable').DataTable({
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    url: "@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))/Members/GetActiveMembers/",
+                    url: "@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))/Sacrament/GetBaptisedMembers/",
                     type: "POST",
                     dataSrc: "data"
                 },
                 "columns": [
-                    { "data": "SN" },
+                    { "data": "Serial" },
+                    { "data": "BaptismName" },
                     { "data": "Surname" },
-                    { "data": "Firstname" },
                     { "data": "Othername" },
+                    { "data": "BaptismDate" },
                     {
                         "data": "Action",
                         "render": function (data, type, full, meta) {
-                            return '<a class="btn btn-primary"><span class="">V</span></a>&nbsp;<a class="btn btn-primary"><span class="">A</span></a>';
+                            return '<a class="btn btn-primary" title="View this Baptismal Record"><i class="fas fa-fw fa-eye"></i></a>&nbsp;' +
+                                '<a class="btn btn-primary" title="Edit this Baptismal Record"><i class="fas fa-fw fa-edit"></i></a>';
                         }
                     }
                 ]
-            });*@
+            });
         });        
     </script>
 }

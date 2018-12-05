@@ -28,7 +28,7 @@
                 <div class="form-group row">
                     <label class="control-label col-md-4 text-right" for="BaptismDate">Baptism Date</label>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" name="BaptismDate" id="BaptismDate" placeholder="Enter Baptismal date">
+                        <input type="date" class="form-control" name="BaptismDate" id="BaptismDate" placeholder="Enter Baptismal date">
                         @Html.ValidationMessageFor(m => m.BaptismDate, "", new { @style = "color:red" })
                     </div>
                 </div>
@@ -129,14 +129,6 @@
                     <label class="control-label col-md-4 text-right" for="NameOfGodParent2">Name of 2<sup>nd</sup> God parent</label>
                     <div class="col-md-8">
                         <input type="text" class="form-control" name="NameOfGodParent2" id="NameOfGodParent2" placeholder="Enter name of 2nd God parent">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group row">
-                    <label class="control-label col-md-4 text-right" for="Othername">Othername</label>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" name="Othername" id="Othername" placeholder="Enter othername">
                     </div>
                 </div>
             </div>
