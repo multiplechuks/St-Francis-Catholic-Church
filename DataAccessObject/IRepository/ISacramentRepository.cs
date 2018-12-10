@@ -11,5 +11,9 @@ namespace DataAccessObject.IRepository
     {
         bool AddBaptism(Baptism baptism);
         IQueryable<Baptism> GetBaptisedMembers();
+        bool AddMatrimony(Matrimony matrimony);
+        IQueryable<Matrimony> GetMatrimonyMembers();
+        bool AddCommunion(Communion communion);
+        IQueryable<Communion> GetCommunionMembers();
     }
 }

@@ -179,20 +179,6 @@
                         </div>
                     </div>
                 </div>
-                @*<div class="col-md-6">
-                        <label>Sacraments Received</label>
-                        <div class="form-group">
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="" />Baptism
-                            </label>
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="" />Confirmation
-                            </label>
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="" />Matrimony
-                            </label>
-                        </div>
-                    </div>*@
                 <div class="col-md-6">
                     <div class="form-group row">
                         <label class="control-label col-md-4 text-right">Statutory group</label>
@@ -212,6 +198,43 @@
                         </div>
                     </div>
                 </div>
+                <fieldset class="col-md-12">
+                    <legend class="text-center badge badge-info" style="padding: 8px">To be Completed</legend>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <label class="control-label col-md-4 text-right">Sacraments Received</label>
+                                <div class="col-md-8 form-group">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="" />Baptism
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="" />Confirmation
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="" />Matrimony
+                                    </label>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="control-label col-md-4 text-right">Societies Belonged</label>
+                                <div class="col-md-8">
+                                    @Html.ListBox("SocietiesBelonged", new MultiSelectList(ViewUtility.GetSocieties(), "Id", "Name", null), new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="control-label col-md-4 text-right">Station</label>
+                                <div class="col-md-8">
+                                    @Html.DropDownList("Station", new SelectList(ViewUtility.GetStations(), "Id", "Name", null), "Select station", new { @class = "form-control" })                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
                 <div class="col-md-12 col-md-push-8">
                     <div class="form-group">
                         <input type="submit" value="Update" class="btn btn-primary btn-modify">

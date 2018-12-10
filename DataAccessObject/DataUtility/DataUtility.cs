@@ -30,5 +30,40 @@ namespace DataAccessObject.DataUtility
         {
             return _entities.LookUpTables.AsQueryable();
         }
+
+        public static int GetBaptisms()
+        {
+            return _entities.Baptism.Count();
+        }
+
+        public static int GetCommunion()
+        {
+            return _entities.Communions.Count();
+        }
+
+        public static int GetMatrimony()
+        {
+            return _entities.Matrimonies.Count();
+        }
+
+        public static int GetConfirmation()
+        {
+            return _entities.Confirmations.Count();
+        }
+
+        public static IQueryable<MemberFamilyMetaData> GetFamilyMembers(int memberId)
+        {
+            return _entities.MemberFamilyMetaDatas.Where(m => m.MemberId == memberId);
+        }
+
+        public static IQueryable<SocietyMemberLink> GetMembersSocieties(int memberId)
+        {
+            return _entities.SocietyMemberLinks.Where(m => m.MemberId == memberId);
+        }
+        
+        public static IQueryable<Position> GetAllPositons()
+        {
+            return _entities.Positions.AsQueryable();
+        }
     }
 }

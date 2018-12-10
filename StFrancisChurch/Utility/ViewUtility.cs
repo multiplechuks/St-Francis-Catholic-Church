@@ -83,5 +83,109 @@ namespace StFrancisChurch.Utility
             }
             return formatted.AsQueryable();
         }
+
+        public static SacramentIndex GetSacramentsCount()
+        {
+            var communion = DataUtility.GetCommunion();
+            var matrimony = DataUtility.GetMatrimony();
+            var baptism = DataUtility.GetBaptisms();
+            var confirmation = DataUtility.GetConfirmation();
+
+            return new SacramentIndex
+            {
+                Communion = communion,
+                Baptism = baptism,
+                Matrimony = matrimony,
+                Confirmation = confirmation
+            };
+        }
+
+        public static IEnumerable<SelectItem> GetSocieties()
+        {
+            var body = DataUtility.GetAllSocieties();
+            List<SelectItem> formatted = new List<SelectItem>();
+            foreach (var g in body)
+            {
+                formatted.Add(new SelectItem
+                {
+                    Id = g.Id,
+                    Name = g.Name
+                });
+            }
+            return formatted.AsQueryable();
+        }
+
+        public static IEnumerable<SelectItem> GetStations()
+        {
+            var body = DataUtility.GetAllStations();
+            List<SelectItem> formatted = new List<SelectItem>();
+            foreach (var g in body)
+            {
+                formatted.Add(new SelectItem
+                {
+                    Id = g.Id,
+                    Name = g.Name
+                });
+            }
+            return formatted.AsQueryable();
+        }
+
+        public static string GetStationName(int id)
+        {
+            return DataUtility.GetAllStations().FirstOrDefault(m => m.Id == id)?.Name;
+        }
+
+        public static List<FamilyMembers> GetFamilyMembers(int memberId)
+        {
+            List<FamilyMembers> familyMembers = new List<FamilyMembers>();
+            var families = DataUtility.GetFamilyMembers(memberId);
+            var count = 0;
+            foreach (var family in families)
+            {
+                count++;
+                familyMembers.Add(new FamilyMembers
+                {
+                    Id = count,
+                    Name = family.Name,
+                    DateOfBirth = family.DateOfBirth,
+                    Gender = family.LookUpTable.LookUpName,
+                    Relationship = family.Relationship
+                });
+            }
+            return familyMembers;
+        }
+
+        public static List<MembersSociety> GetMembersSociety(int memberId)
+        {
+            List<MembersSociety> societyMembers = new List<MembersSociety>();
+            var societies = DataUtility.GetMembersSocieties(memberId);
+            var count = 0;
+            foreach (var society in societies)
+            {
+                count++;
+                societyMembers.Add(new MembersSociety
+                {
+                    Id = count,
+                    Society = society.Society.Name,
+                    Position = society.Position.PositionName
+                });
+            }
+            return societyMembers;
+        }
+
+        public static IEnumerable<SelectItem> GetPositions()
+        {
+            var body = DataUtility.GetAllPositons();
+            List<SelectItem> formatted = new List<SelectItem>();
+            foreach (var g in body)
+            {
+                formatted.Add(new SelectItem
+                {
+                    Id = g.Id,
+                    Name = g.PositionName
+                });
+            }
+            return formatted.AsQueryable();
+        }
     }
 }

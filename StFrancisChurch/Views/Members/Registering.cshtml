@@ -59,7 +59,8 @@
                         "data": "Action",
                         "render": function (data, type, full, meta) {
                             var name = full.Surname + ' ' + full.Firstname;
-                            return '<a class="btn btn-primary" href="@Href("~/Members/View/")'+ full.Id + '" title="View this Registration"><i class="fas fa-fw fa-eye"></i></a>&nbsp;' +
+                            return '<a class="btn btn-primary" href="@Href("~/Members/View/")' + full.Id + '" title="View this Registration"><i class="fas fa-fw fa-eye"></i></a>&nbsp;' +
+                                '<a class="btn btn-info" href="@Href("~/Members/Edit/")'+ full.Id + '" title="Edit/Update this member\'s detail"><i class="fas fa-fw fa-edit"></i></a>&nbsp;' +
                                 '<a class="btn btn-success" onclick="AcceptMember('+ full.Id + ', \'' + name + '\')" title="Accept this Registration"><i class="fas fa-fw fa-check"></i></a>&nbsp;' +
                                 '<a class="btn btn-danger" title="Reject or Delete this Registration"><i class="fas fa-fw fa-trash"></i></a>';
                         }

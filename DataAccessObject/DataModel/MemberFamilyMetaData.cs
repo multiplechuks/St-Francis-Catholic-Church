@@ -12,17 +12,16 @@ namespace DataAccessObject.DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class SocietyMemberLink
+    public partial class MemberFamilyMetaData
     {
         public int Id { get; set; }
-        public int SocietyId { get; set; }
+        public string Name { get; set; }
+        public int Sex { get; set; }
+        public string DateOfBirth { get; set; }
+        public string Relationship { get; set; }
         public int MemberId { get; set; }
-        public int MemberPositionId { get; set; }
-        public string AppointDate { get; set; }
-        public int Active { get; set; }
     
+        public virtual LookUpTable LookUpTable { get; set; }
         public virtual Member Member { get; set; }
-        public virtual Position Position { get; set; }
-        public virtual Society Society { get; set; }
     }
 }

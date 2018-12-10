@@ -17,5 +17,7 @@ namespace DataAccessObject.IRepository
         bool DeleteMember(int id, string userId);
         bool RejectMember(int id, string userId);
         int UpdateMember(Member member);
+        bool UpdateFamilyMembers(MemberFamilyMetaData family);
+        bool UpdateMembersSociety(SocietyMemberLink society);
     }
 }

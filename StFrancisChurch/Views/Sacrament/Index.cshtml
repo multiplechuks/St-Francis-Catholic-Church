@@ -1,5 +1,7 @@
-﻿@{
+﻿@using StFrancisChurch.Models.Utility
+@{
     ViewBag.Title = "Home Page";
+    var counts = (SacramentIndex) ViewBag.SacramentCounts;
 }
 
 <div class="card mb-3">
@@ -15,7 +17,7 @@
                         Confirmation
                     </div>
                     <div class="card-body">
-                        <b style="font-size: 80px">0</b>
+                        <b style="font-size: 80px">@counts.Confirmation</b>
                     </div>
                 </div>
             </div>
@@ -25,7 +27,7 @@
                         Baptism
                     </div>
                     <div class="card-body">
-                        <b style="font-size: 80px">0</b>
+                        <b style="font-size: 80px">@counts.Baptism</b>
                     </div>
                 </div>
             </div>
@@ -35,7 +37,7 @@
                         Matrimony
                     </div>
                     <div class="card-body">
-                        <b style="font-size: 80px">0</b>
+                        <b style="font-size: 80px">@counts.Matrimony</b>
                     </div>
                 </div>
             </div>
@@ -45,7 +47,7 @@
                         Holy Communion
                     </div>
                     <div class="card-body">
-                        <b style="font-size: 80px">0</b>
+                        <b style="font-size: 80px">@counts.Communion</b>
                     </div>
                 </div>
             </div>

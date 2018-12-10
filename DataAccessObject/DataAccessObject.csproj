@@ -84,6 +84,9 @@
     <Compile Include="DataModel\Member.cs">
       <DependentUpon>StFrancisCCModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\MemberFamilyMetaData.cs">
+      <DependentUpon>StFrancisCCModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModel\ParishEvent.cs">
       <DependentUpon>StFrancisCCModel.tt</DependentUpon>
     </Compile>

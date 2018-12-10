@@ -1,0 +1,254 @@
+﻿@using StFrancisChurch.Models
+@using StFrancisChurch.Utility
+@model MatrimonyViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Marraige Register
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm("CreateMatrimony", "Sacrament", FormMethod.Post, new { @role = "form" }))
+        {
+            @Html.ValidationSummary(true, "", new { @style = "color :red" })
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="DateOfMarriage">Date Of Marriage</label>
+                        <div class="col-md-8">
+                            <input type="date" class="form-control" name="DateOfMarriage" id="DateOfMarriage" placeholder="Enter Date of marriage">
+                            @Html.ValidationMessageFor(m => m.DateOfMarriage, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="PlaceOfMarriage">Place Of Marriage</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="PlaceOfMarriage" id="PlaceOfMarriage" placeholder="Enter place of marriage">
+                            @Html.ValidationMessageFor(m => m.PlaceOfMarriage, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <hr width="100%"/>
+                <div class="col-md-6" style="padding: 0;">
+                    <fieldset>
+                        <legend class="text-center badge badge-secondary" style="padding: 8px">Bride</legend>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label col-md-4 text-right" for="BrideFullName">Bride's FullName</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" name="BrideFullName" id="BrideFullName" placeholder="Enter bride's fullname">
+                                    @Html.ValidationMessageFor(m => m.BrideFullName, "", new { @style = "color:red" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label col-md-4 text-right" for="BrideAddress">Bride's Address</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" name="BrideAddress" id="BrideAddress" placeholder="Enter bride's address">
+                                    @Html.ValidationMessageFor(m => m.BrideAddress, "", new { @style = "color:red" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label col-md-4 text-right" for="BrideAge">Bride's Age</label>
+                                <div class="col-md-8">
+                                    <input type="number" class="form-control" name="BrideAge" id="BrideAge" placeholder="Enter bride's age">
+                                    @Html.ValidationMessageFor(m => m.BrideAge, "", new { @style = "color:red" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label col-md-4 text-right" for="BrideBaptismPlace">Bride's Baptism Place</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" name="BrideBaptismPlace" id="BrideBaptismPlace" placeholder="Enter bride's baptism place">
+                                    @Html.ValidationMessageFor(m => m.BrideBaptismPlace, "", new { @style = "color:red" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label col-md-4 text-right" for="BrideBaptismDate">Bride's Baptism Date</label>
+                                <div class="col-md-8">
+                                    <input type="date" class="form-control" name="BrideBaptismDate" id="BrideBaptismDate" placeholder="Enter bride's baptism date">
+                                    @Html.ValidationMessageFor(m => m.BrideBaptismDate, "", new { @style = "color:red" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label col-md-4 text-right" for="BrideBaptismNo">Bride's Baptism Number</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" name="BrideBaptismNo" id="BrideBaptismNo" placeholder="Enter bride's baptism number">
+                                    @Html.ValidationMessageFor(m => m.BrideBaptismNo, "", new { @style = "color:red" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label col-md-4 text-right" for="BrideParentName">Bride's Parent Name</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" name="BrideParentName" id="BrideParentName" placeholder="Enter bride's parent name">
+                                    @Html.ValidationMessageFor(m => m.BrideParentName, "", new { @style = "color:red" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label col-md-4 text-right" for="BrideParentHomeTown">Bride's Parent Home Town</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" name="BrideParentHomeTown" id="BrideParentHomeTown" placeholder="Enter bride's parent hometown">
+                                    @Html.ValidationMessageFor(m => m.BrideParentHomeTown, "", new { @style = "color:red" })
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-md-6" style="padding: 0;">
+                    <fieldset>
+                        <legend class="text-center badge badge-info" style="padding: 8px">Groom</legend>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label col-md-4 text-right" for="GroomFullName">Groom's FullName</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" name="GroomFullName" id="GroomFullName" placeholder="Enter Groom's fullname">
+                                    @Html.ValidationMessageFor(m => m.GroomFullName, "", new { @style = "color:red" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label col-md-4 text-right" for="GroomAddress">Groom's Address</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" name="GroomAddress" id="GroomAddress" placeholder="Enter Groom's address">
+                                    @Html.ValidationMessageFor(m => m.GroomAddress, "", new { @style = "color:red" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label col-md-4 text-right" for="GroomAge">Groom's Age</label>
+                                <div class="col-md-8">
+                                    <input type="number" class="form-control" name="GroomAge" id="GroomAge" placeholder="Enter Groom's age">
+                                    @Html.ValidationMessageFor(m => m.GroomAge, "", new { @style = "color:red" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label col-md-4 text-right" for="GroomBaptismPlace">Groom's Baptism Place</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" name="GroomBaptismPlace" id="GroomBaptismPlace" placeholder="Enter Groom's baptism place">
+                                    @Html.ValidationMessageFor(m => m.GroomBaptismPlace, "", new { @style = "color:red" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label col-md-4 text-right" for="GroomBaptismDate">Groom's Baptism Date</label>
+                                <div class="col-md-8">
+                                    <input type="date" class="form-control" name="GroomBaptismDate" id="GroomBaptismDate" placeholder="Enter Groom's baptism date">
+                                    @Html.ValidationMessageFor(m => m.GroomBaptismDate, "", new { @style = "color:red" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label col-md-4 text-right" for="GroomBaptismNo">Groom's Baptism Number</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" name="GroomBaptismNo" id="GroomBaptismNo" placeholder="Enter Groom's baptism number">
+                                    @Html.ValidationMessageFor(m => m.GroomBaptismNo, "", new { @style = "color:red" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label col-md-4 text-right" for="GroomParentName">Groom's Parent Name</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" name="GroomParentName" id="GroomParentName" placeholder="Enter Groom's parent name">
+                                    @Html.ValidationMessageFor(m => m.GroomParentName, "", new { @style = "color:red" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="control-label col-md-4 text-right" for="GroomParentHomeTown">Groom's Parent Home Town</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" name="GroomParentHomeTown" id="GroomParentHomeTown" placeholder="Enter Groom's parent hometown">
+                                    @Html.ValidationMessageFor(m => m.GroomParentHomeTown, "", new { @style = "color:red" })
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <hr width="100%"/>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="AssistingPriest">Assisting Priest</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="AssistingPriest" id="AssistingPriest" placeholder="Enter assisting priest">
+                            @Html.ValidationMessageFor(m => m.AssistingPriest, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="BannDetails">Bann Details</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="BannDetails" id="BannDetails" placeholder="Enter bann details ">
+                            @Html.ValidationMessageFor(m => m.BannDetails, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="Witness1">Witness 1</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="Witness1" id="Witness1" placeholder="Enter witness 1">
+                            @Html.ValidationMessageFor(m => m.Witness1, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="Witness2">Witness 2</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="Witness2" id="Witness2" placeholder="Enter witness 2">
+                            @Html.ValidationMessageFor(m => m.Witness2, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="Remark">Remark</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="Remark" id="Remark" placeholder="Enter remark">
+                            @Html.ValidationMessageFor(m => m.Remark, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-md-push-8">
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary btn-modify">
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    
+</div>
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+}

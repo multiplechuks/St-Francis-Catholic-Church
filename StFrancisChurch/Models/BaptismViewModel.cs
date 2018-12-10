@@ -62,5 +62,67 @@ namespace StFrancisChurch.Models
         public string Remarks { get; set; }
         
         public int MemberId { get; set; }
+
+        public int StationId { get; set; }
+    }
+
+    public class MatrimonyViewModel
+    {
+        [Required]
+        [Display(Name = "Date Of Marraige")]
+        public string DateOfMarriage { get; set; }
+
+        [Required]
+        [Display(Name = "Place Of Marraige")]
+        public string PlaceOfMarriage { get; set; }
+
+        [Required]
+        [Display(Name = "Bride Fullname")]
+        public string BrideFullName { get; set; }
+
+        [Required]
+        [Display(Name = "Groom Fullname")]
+        public string GroomFullName { get; set; }
+        
+        public string BrideAddress { get; set; }
+
+        public string GroomAddress { get; set; }
+
+        public int BrideAge { get; set; }
+
+        public int GroomAge { get; set; }
+
+        public string BrideBaptismPlace { get; set; }
+
+        public string BrideBaptismDate { get; set; }
+
+        [Required]
+        [Display(Name = "Bride Baptism number")]
+        public string BrideBaptismNo { get; set; }
+
+        public string GroomBaptismPlace { get; set; }
+
+        public string GroomBaptismDate { get; set; }
+
+        [Required]
+        [Display(Name = "Groom Baptism number")]
+        public string GroomBaptismNo { get; set; }
+
+        [Required]
+        [Display(Name = "Assisting Priest")]
+        public string AssistingPriest { get; set; }
+
+        public string BannDetails { get; set; }
+
+        public string BrideParentName { get; set; }
+        public string BrideParentHomeTown { get; set; }
+        public string GroomParentName { get; set; }
+        public string GroomParentHomeTown { get; set; }
+
+        [Required]
+        [Display(Name = "Witness Name")]
+        public string Witness1 { get; set; }
+        public string Witness2 { get; set; }
+        public string Remark { get; set; }
     }
 }

@@ -28,5 +28,32 @@ namespace DataAccessObject.Repository
         {
             return _entities.Baptism.AsQueryable();
         }
+
+        public bool AddMatrimony(Matrimony matrimony)
+        {
+            //var existingBaptism = _entities.Matrimonies.FirstOrDefault(m => m.BapitsmNumber == baptism.BapitsmNumber);
+            _entities.Matrimonies.Add(matrimony);
+            _entities.SaveChanges();
+            return true;
+        }
+
+        public IQueryable<Matrimony> GetMatrimonyMembers()
+        {
+            return _entities.Matrimonies.AsQueryable();
+        }
+
+        public bool AddCommunion(Communion communion)
+        {
+            _entities.Communions.Add(communion);
+            _entities.SaveChanges();
+            return true;
+        }
+
+        public IQueryable<Communion> GetCommunionMembers()
+        {
+            return _entities.Communions.AsQueryable();
+        }
+
+        
     }
 }

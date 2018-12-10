@@ -6,9 +6,9 @@
     <div class="card-header">
         <i class="fas fa-table"></i>
         Matrimonial Register
-        @*<div class="btn-group" style="float: right; margin-top: 5px; margin-right: 10px;">
-            <a class="btn btn-success" href="@Href("~/Members/Create")" title="Click to create a new member"><i class="glyphicon glypicon-add" style="margin:0px;"></i> New Member </a>
-        </div>*@
+        <div class="btn-group" style="float: right; margin-top: 5px; margin-right: 10px;">
+            <a class="btn btn-success" href="@Href("~/Sacrament/CreateMatrimony")" title="Click to create a new marraige record"><i class="fa fa-plus" style="margin:0px;"></i> New Record</a>
+        </div>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -16,18 +16,20 @@
                 <thead>
                     <tr>
                         <th>S/N</th>
-                        <th>Surname</th>
-                        <th>Firstname</th>
-                        <th>Othername</th>
+                        <th>Bride's name</th>
+                        <th>Groom's name</th>
+                        <th>Marriage date</th>
+                        <th>Marriage place</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>S/N</th>
-                        <th>Surname</th>
-                        <th>Firstname</th>
-                        <th>Othername</th>
+                        <th>Bride's name</th>
+                        <th>Groom's name</th>
+                        <th>Marriage date</th>
+                        <th>Marriage place</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
@@ -41,28 +43,29 @@
 
     <script>
         $(document).ready(function () {
-            $('#membersTable').DataTable();
-            @*$('#membersTable').DataTable({
+            $('#membersTable').DataTable({
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    url: "@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))/Members/GetActiveMembers/",
+                    url: "@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))/Sacrament/GetMatrimonyMembers/",
                     type: "POST",
                     dataSrc: "data"
                 },
                 "columns": [
-                    { "data": "SN" },
-                    { "data": "Surname" },
-                    { "data": "Firstname" },
-                    { "data": "Othername" },
+                    { "data": "Serial" },
+                    { "data": "BrideFullName" },
+                    { "data": "GroomFullName" },
+                    { "data": "DateOfMarriage" },
+                    { "data": "PlaceOfMarriage" },
                     {
                         "data": "Action",
                         "render": function (data, type, full, meta) {
-                            return '<a class="btn btn-primary"><span class="">V</span></a>&nbsp;<a class="btn btn-primary"><span class="">A</span></a>';
+                            return '<a class="btn btn-primary" title="View this Marriage Record"><i class="fas fa-fw fa-eye"></i></a>&nbsp;' +
+                                '<a class="btn btn-primary" title="Edit this Marriage Record"><i class="fas fa-fw fa-edit"></i></a>';
                         }
                     }
                 ]
-            });*@
+            });
         });        
     </script>
 }

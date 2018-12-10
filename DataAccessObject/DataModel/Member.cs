@@ -17,6 +17,7 @@ namespace DataAccessObject.DataModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Member()
         {
+            this.MemberFamilyMetaDatas = new HashSet<MemberFamilyMetaData>();
             this.SocietyMemberLinks = new HashSet<SocietyMemberLink>();
         }
     
@@ -54,11 +55,14 @@ namespace DataAccessObject.DataModel
         public int Deceased { get; set; }
         public Nullable<System.DateTime> DateDeceased { get; set; }
         public Nullable<System.DateTime> DateUpdated { get; set; }
+        public Nullable<int> Station { get; set; }
     
         public virtual LookUpTable LookUpTable { get; set; }
         public virtual LookUpTable LookUpTable1 { get; set; }
         public virtual LookUpTable LookUpTable2 { get; set; }
         public virtual LookUpTable LookUpTable3 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MemberFamilyMetaData> MemberFamilyMetaDatas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SocietyMemberLink> SocietyMemberLinks { get; set; }
     }

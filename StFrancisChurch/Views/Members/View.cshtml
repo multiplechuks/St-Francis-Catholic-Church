@@ -1,21 +1,21 @@
 ﻿@using StFrancisChurch.Models.Utility
+@using StFrancisChurch.Utility
 @{
-    var member = (MemberTableModel) ViewBag.member;
+    var member = (MemberTableModel)ViewBag.member;
 }
 
 @*<div class="card mb-3">
-    <div class="card-header">
-        <i class="fas fa-table"></i>
-        Parish Members Detail
-    </div>
-    <div class="card-body">
-        
-    </div>
-    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-</div>*@
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Parish Members Detail
+        </div>
+        <div class="card-body">
+
+        </div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+    </div>*@
 
 <div class="row col-12">
-    <div class="col-1"></div>
     <div class="row col-10 frame">
         <div class="col-1"></div>
         <div class="col-10">
@@ -31,7 +31,7 @@
         <div class="col-1"></div>
         <div class="col-12">
             <div class="table-responsive">
-                <table class="table table-borderless" style="width:60% !important" align="center" cellspacing="0">
+                <table class="table table-borderless" style="/*width:80% !important*/" align="center" cellspacing="0">
                     <tbody id="form_body">
                         <tr>
                             <td>
@@ -209,30 +209,216 @@
                                 @member.StatutoryGroup
                             </td>
                         </tr>
+                        <tr>
+                            <td>
+                                Station
+                            </td>
+                            <td>
+                                @member.Station
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Family Members
+                            </td>
+                            <td>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Gender</th>
+                                            <th>Relationship</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach (var familiy in member.FamilyMembers)
+                                    {
+                                        <tr>
+                                            <td>@familiy.Id</td>
+                                            <td>@familiy.Name</td>
+                                            <td>@familiy.Gender</td>
+                                            <td>@familiy.Relationship</td>
+                                        </tr>
+                                    }
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Member's Society
+                            </td>
+                            <td>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Society</th>
+                                            <th>Position</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach (var society in member.MembersSociety)
+                                    {
+                                        <tr>
+                                            <td>@society.Id</td>
+                                            <td>@society.Society</td>
+                                            <td>@society.Position</td>
+                                        </tr>
+                                    }
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    <div class="col-1"></div>
+    <div class="col-2" style="margin-left: 10px">
+        <h4>
+            More Actions
+        </h4>
+        <div class="">
+            <div class="badge">
+                <input type="button" value="Update Family Members" class="btn btn-info" data-toggle="modal" data-target="#familyModal" />
+            </div>
+            <div class="badge">
+                <input type="button" value="Update Member's Society" class="btn btn-warning" data-toggle="modal" data-target="#societyModal" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Update society Modal -->
+<div class="modal" id="societyModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Add member's society</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                @using (Html.BeginForm("UpdateSociety", "Members", FormMethod.Post, new { @role = "form", @class = "form-horizontal" }))
+                {
+                    <input type="hidden" name="MemberId" value="@member.Id" />
+
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="Society">Society</label>
+                        <div class="col-md-8">
+                            @Html.DropDownList("Society", new SelectList(ViewUtility.GetSocieties(), "Id", "Name", null), "Select Society", new { @class = "form-control", @required = "required" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="Position">Position</label>
+                        <div class="col-md-8">
+                            @Html.DropDownList("Position", new SelectList(ViewUtility.GetPositions(), "Id", "Name", null), "Select Position", new { @class = "form-control", @required = "required" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="AppointDate">Date Of Position</label>
+                        <div class="col-md-8">
+                            <input type="date" class="form-control" name="AppointDate" id="AppointDate" placeholder="Enter Date of assumption of office" />
+                        </div>
+                    </div>
+                    <div>
+                        <input type="submit" value="Update Record" class="btn btn-success" />
+                    </div>
+                }
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-danger">Update</button>*@
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--Update Member's family Modal -->
+<div class="modal" id="familyModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add family member</h4>
+                    <button type = "button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+                <div class="modal-body">
+                    @using (Html.BeginForm("UpdateFamily", "Members", FormMethod.Post, new { @role = "form", @class = "form-horizontal" }))
+                    {
+                        <input type="hidden" name="MemberId" value="@member.Id" />
+                        <div class="form-group row">
+                            <label class="control-label col-md-4 text-right" for="Name">Name</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" name="Name" id="Name" placeholder="Enter Name" required />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="control-label col-md-4 text-right" for="DateOfBirth">Date of Birth</label>
+                            <div class="col-md-8">
+                                <input type="date" class="form-control" name="DateOfBirth" id="DateOfBirth" placeholder="Enter Date of birth" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="control-label col-md-4 text-right" for="Gender">Gender</label>
+                            <div class="col-md-8">
+                                @Html.DropDownList("Gender", new SelectList(ViewUtility.GetGender(), "Id", "Name", null), "Select Gender", new { @class = "form-control", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="control-label col-md-4 text-right" for="Relationship">Relationship</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" name="Relationship" id="Relationship" placeholder="Enter Relationship" required />
+                            </div>
+                        </div>
+                        <div>
+                            <input type="submit" value="Update Record" class="btn btn-success" />
+                        </div>
+                    }
+                </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>*@
+            </div>
+
+        </div>
+    </div>
 </div>
 
 @section styles{
     <style>
-        #st_francis_logo{
+        #st_francis_logo {
             float: left;
             margin: 5px;
         }
+
         #header_center {
             text-align: center;
             padding: 5px;
         }
+
         #member_passport {
             float: right;
         }
-        #form_body tr{
+
+        #form_body tr {
             border-bottom: black 2px solid;
         }
+
+        #form_body tr td table tr {
+            border: 1px solid #dee2e6;
+        }
+
         .frame {
             border: burlywood 30px double;
             border-radius: 20px;
@@ -245,7 +431,7 @@
 
     <script>
         $(document).ready(function () {
-            
-        });        
+
+        });
     </script>
 }

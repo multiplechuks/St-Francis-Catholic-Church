@@ -9,6 +9,7 @@ using DataAccessObject.IRepository;
 using Microsoft.AspNet.Identity;
 using StFrancisChurch.Models;
 using StFrancisChurch.Models.Utility;
+using StFrancisChurch.Utility;
 
 namespace StFrancisChurch.Controllers
 {
@@ -225,7 +226,10 @@ namespace StFrancisChurch.Controllers
                     SizeOfFamilyMale = member.FamilyMaleSize,
                     SizeOfFamilyFemale = member.FamilyFemaleSize,
                     StatutoryGroup = member.StatutoryGroup != null ? member.LookUpTable3.LookUpName : "",
-                    PassportUrl = member.PassportUrl
+                    PassportUrl = member.PassportUrl,
+                    Station = member.Station != null ? ViewUtility.GetStationName((int)member.Station) : "",
+                    FamilyMembers = ViewUtility.GetFamilyMembers(member.Id),
+                    MembersSociety = ViewUtility.GetMembersSociety(member.Id)
                 };
             }
             else
@@ -265,7 +269,8 @@ namespace StFrancisChurch.Controllers
                     SizeOfFamilyFemale = member.FamilyFemaleSize ?? 0,
                     SizeOfFamilyMale = member.FamilyMaleSize ?? 0,
                     StatutoryGroup = member.StatutoryGroup,
-                    PassportUrl = member.PassportUrl
+                    PassportUrl = member.PassportUrl,
+                    
                 };
                 return View(model);
             }
@@ -428,6 +433,63 @@ namespace StFrancisChurch.Controllers
             {
                 ModelState.AddModelError(String.Empty, "There was an error completing the registration, Please try again later");
                 return View(model);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult UpdateFamily(FamilyMembers members)
+        {
+            try
+            {
+                var family = new MemberFamilyMetaData
+                {
+                    Name = members.Name,
+                    Sex = int.Parse(members.Gender),
+                    DateOfBirth = members.DateOfBirth,
+                    Relationship = members.Relationship,
+                    MemberId = members.MemberId
+                };
+                var updated = _memberRepository.UpdateFamilyMembers(family);
+                if (updated)
+                {
+                    return Redirect("View/" + members.MemberId);
+                }
+                return Redirect("Error");
+            }
+            catch (Exception e)
+            {
+                return Redirect("Error");
+            }
+        }
+
+        public ActionResult Error()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UpdateSociety(MembersSociety societ)
+        {
+            try
+            {
+                var societyLink = new SocietyMemberLink
+                {
+                    SocietyId = int.Parse(societ.Society),
+                    AppointDate = societ.AppointDate,
+                    MemberPositionId = int.Parse(societ.Position),
+                    MemberId = societ.MemberId,
+                    Active = 1
+                };
+                var updated = _memberRepository.UpdateMembersSociety(societyLink);
+                if (updated)
+                {
+                    return Redirect("View/" + societ.MemberId);
+                }
+                return Redirect("Error");
+            }
+            catch (Exception e)
+            {
+                return Redirect("Error");
             }
         }
     }

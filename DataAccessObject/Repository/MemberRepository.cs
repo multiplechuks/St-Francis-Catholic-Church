@@ -110,5 +110,19 @@ namespace DataAccessObject.Repository
             _entities.SaveChanges();
             return true;
         }
+
+        public bool UpdateFamilyMembers(MemberFamilyMetaData family)
+        {
+            _entities.MemberFamilyMetaDatas.Add(family);
+            var inserted = _entities.SaveChanges();
+            return inserted > 0;
+        }
+
+        public bool UpdateMembersSociety(SocietyMemberLink society)
+        {
+            _entities.SocietyMemberLinks.Add(society);
+            var inserted = _entities.SaveChanges();
+            return inserted > 0;
+        }
     }
 }

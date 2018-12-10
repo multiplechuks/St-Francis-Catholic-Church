@@ -17,6 +17,7 @@ namespace DataAccessObject.DataModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LookUpTable()
         {
+            this.MemberFamilyMetaDatas = new HashSet<MemberFamilyMetaData>();
             this.Members = new HashSet<Member>();
             this.Members1 = new HashSet<Member>();
             this.Members2 = new HashSet<Member>();
@@ -28,6 +29,8 @@ namespace DataAccessObject.DataModel
         public int LookUpOrder { get; set; }
         public string Category { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MemberFamilyMetaData> MemberFamilyMetaDatas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Member> Members { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

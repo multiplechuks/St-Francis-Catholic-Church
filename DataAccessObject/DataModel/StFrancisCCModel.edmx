@@ -123,15 +123,45 @@ warning 6002: The table/view 'StFrancisCC.dbo.Confirmation' does not have a prim
           <Property Name="LookUpOrder" Type="int" Nullable="false" />
           <Property Name="Category" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'StFrancisCC.dbo.Matrimony' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Matrimony">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="DateReceived" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="DateReceived" Type="datetime" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateOfMarriage" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PlaceOfMarriage" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="BrideFullName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="GroomFullName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="BrideAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="GroomAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="BrideAge" Type="int" />
+          <Property Name="GroomAge" Type="int" />
+          <Property Name="BrideBaptismPlace" Type="nvarchar" MaxLength="50" />
+          <Property Name="BrideBaptismDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="BrideBaptismNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GroomBaptismPlace" Type="nvarchar" MaxLength="50" />
+          <Property Name="GroomBaptismDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="GroomBaptismNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AssistingPriest" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="BannDetails" Type="nvarchar(max)" />
+          <Property Name="BrideParentName" Type="nvarchar" MaxLength="255" />
+          <Property Name="BrideParentHomeTown" Type="nvarchar" MaxLength="50" />
+          <Property Name="GroomParentName" Type="nvarchar" MaxLength="255" />
+          <Property Name="GroomParentHomeTown" Type="nvarchar" MaxLength="50" />
+          <Property Name="Witness1" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Witness2" Type="nvarchar" MaxLength="100" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="MemberFamilyMetaData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Sex" Type="int" Nullable="false" />
+          <Property Name="DateOfBirth" Type="nvarchar" MaxLength="20" />
+          <Property Name="Relationship" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="MemberId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Members">
           <Key>
@@ -171,6 +201,7 @@ warning 6002: The table/view 'StFrancisCC.dbo.Matrimony' does not have a primary
           <Property Name="Deceased" Type="int" Nullable="false" />
           <Property Name="DateDeceased" Type="datetime" />
           <Property Name="DateUpdated" Type="datetime" />
+          <Property Name="Station" Type="int" />
         </EntityType>
         <EntityType Name="ParishEvent">
           <Key>
@@ -273,7 +304,7 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
           <Property Name="SocietyId" Type="int" Nullable="false" />
           <Property Name="MemberId" Type="int" Nullable="false" />
           <Property Name="MemberPositionId" Type="int" Nullable="false" />
-          <Property Name="AppointDate" Type="datetime" Nullable="false" />
+          <Property Name="AppointDate" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Active" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -354,6 +385,30 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
             </Principal>
             <Dependent Role="AspNetUserRoles">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberFamilyMetaData_LookUpTable">
+          <End Role="LookUpTable" Type="Self.LookUpTable" Multiplicity="1" />
+          <End Role="MemberFamilyMetaData" Type="Self.MemberFamilyMetaData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LookUpTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MemberFamilyMetaData">
+              <PropertyRef Name="Sex" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberFamilyMetaData_Members">
+          <End Role="Members" Type="Self.Members" Multiplicity="1" />
+          <End Role="MemberFamilyMetaData" Type="Self.MemberFamilyMetaData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MemberFamilyMetaData">
+              <PropertyRef Name="MemberId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -510,6 +565,8 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Baptism" EntityType="Self.Baptism" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LookUpTable" EntityType="Self.LookUpTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Matrimony" EntityType="Self.Matrimony" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberFamilyMetaData" EntityType="Self.MemberFamilyMetaData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Members" EntityType="Self.Members" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ParishEvent" EntityType="Self.ParishEvent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ParishEventType" EntityType="Self.ParishEventType" Schema="dbo" store:Type="Tables" />
@@ -532,12 +589,6 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
     [Confirmation].[Id] AS [Id], 
     [Confirmation].[DateReceived] AS [DateReceived]
     FROM [dbo].[Confirmation] AS [Confirmation]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Matrimony" EntityType="Self.Matrimony" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Matrimony].[Id] AS [Id], 
-    [Matrimony].[DateReceived] AS [DateReceived]
-    FROM [dbo].[Matrimony] AS [Matrimony]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Reflection" EntityType="Self.Reflection" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -574,6 +625,14 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberFamilyMetaData_LookUpTable" Association="Self.FK_MemberFamilyMetaData_LookUpTable">
+            <End Role="LookUpTable" EntitySet="LookUpTable" />
+            <End Role="MemberFamilyMetaData" EntitySet="MemberFamilyMetaData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberFamilyMetaData_Members" Association="Self.FK_MemberFamilyMetaData_Members">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="MemberFamilyMetaData" EntitySet="MemberFamilyMetaData" />
           </AssociationSet>
           <AssociationSet Name="FK_Members_Gender" Association="Self.FK_Members_Gender">
             <End Role="LookUpTable" EntitySet="LookUpTable" />
@@ -634,7 +693,10 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <EntitySet Name="AspNetUserClaims" EntityType="StFrancisCCModel.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="StFrancisCCModel.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="StFrancisCCModel.AspNetUser" />
+          <EntitySet Name="Baptism" EntityType="StFrancisCCModel.Baptism" />
           <EntitySet Name="LookUpTables" EntityType="StFrancisCCModel.LookUpTable" />
+          <EntitySet Name="Matrimonies" EntityType="StFrancisCCModel.Matrimony" />
+          <EntitySet Name="MemberFamilyMetaDatas" EntityType="StFrancisCCModel.MemberFamilyMetaData" />
           <EntitySet Name="Members" EntityType="StFrancisCCModel.Member" />
           <EntitySet Name="ParishEvents" EntityType="StFrancisCCModel.ParishEvent" />
           <EntitySet Name="ParishEventTypes" EntityType="StFrancisCCModel.ParishEventType" />
@@ -648,7 +710,6 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <EntitySet Name="StationEvents" EntityType="StFrancisCCModel.StationEvent" />
           <EntitySet Name="Communions" EntityType="StFrancisCCModel.Communion" />
           <EntitySet Name="Confirmations" EntityType="StFrancisCCModel.Confirmation" />
-          <EntitySet Name="Matrimonies" EntityType="StFrancisCCModel.Matrimony" />
           <EntitySet Name="Reflections" EntityType="StFrancisCCModel.Reflection" />
           <EntitySet Name="Stations" EntityType="StFrancisCCModel.Station" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="StFrancisCCModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -658,6 +719,10 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="StFrancisCCModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberFamilyMetaData_LookUpTable" Association="StFrancisCCModel.FK_MemberFamilyMetaData_LookUpTable">
+            <End Role="LookUpTable" EntitySet="LookUpTables" />
+            <End Role="MemberFamilyMetaData" EntitySet="MemberFamilyMetaDatas" />
           </AssociationSet>
           <AssociationSet Name="FK_Members_Gender" Association="StFrancisCCModel.FK_Members_Gender">
             <End Role="LookUpTable" EntitySet="LookUpTables" />
@@ -674,6 +739,10 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <AssociationSet Name="FK_Members_StatutoryGroup" Association="StFrancisCCModel.FK_Members_StatutoryGroup">
             <End Role="LookUpTable" EntitySet="LookUpTables" />
             <End Role="Member" EntitySet="Members" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberFamilyMetaData_Members" Association="StFrancisCCModel.FK_MemberFamilyMetaData_Members">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="MemberFamilyMetaData" EntitySet="MemberFamilyMetaDatas" />
           </AssociationSet>
           <AssociationSet Name="FK_SocietyMemberLink_Members" Association="StFrancisCCModel.FK_SocietyMemberLink_Members">
             <End Role="Member" EntitySet="Members" />
@@ -711,7 +780,6 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="Baptism" EntityType="StFrancisCCModel.Baptism" />
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -777,6 +845,29 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <NavigationProperty Name="AspNetUserLogins" Relationship="StFrancisCCModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
           <NavigationProperty Name="AspNetRoles" Relationship="StFrancisCCModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
         </EntityType>
+        <EntityType Name="Baptism">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BapitsmNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BaptismPlace" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="BaptismDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BaptismName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Othername" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="PlaceOfBirth" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="HomeTown" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FathersName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MothersName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BaptismType" Type="Int32" Nullable="false" />
+          <Property Name="NameOfGodParent1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NameOfGodParent2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NameOfMinister" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MemberId" Type="Int32" />
+        </EntityType>
         <EntityType Name="LookUpTable">
           <Key>
             <PropertyRef Name="Id" />
@@ -785,10 +876,53 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <Property Name="LookUpName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LookUpOrder" Type="Int32" Nullable="false" />
           <Property Name="Category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MemberFamilyMetaDatas" Relationship="StFrancisCCModel.FK_MemberFamilyMetaData_LookUpTable" FromRole="LookUpTable" ToRole="MemberFamilyMetaData" />
           <NavigationProperty Name="Members" Relationship="StFrancisCCModel.FK_Members_Gender" FromRole="LookUpTable" ToRole="Member" />
           <NavigationProperty Name="Members1" Relationship="StFrancisCCModel.FK_Members_MemberMaritalStatus" FromRole="LookUpTable" ToRole="Member" />
           <NavigationProperty Name="Members2" Relationship="StFrancisCCModel.FK_Members_NextOfKinMaritalStatus" FromRole="LookUpTable" ToRole="Member" />
           <NavigationProperty Name="Members3" Relationship="StFrancisCCModel.FK_Members_StatutoryGroup" FromRole="LookUpTable" ToRole="Member" />
+        </EntityType>
+        <EntityType Name="Matrimony">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateOfMarriage" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PlaceOfMarriage" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BrideFullName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="GroomFullName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="BrideAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GroomAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BrideAge" Type="Int32" />
+          <Property Name="GroomAge" Type="Int32" />
+          <Property Name="BrideBaptismPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BrideBaptismDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BrideBaptismNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GroomBaptismPlace" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GroomBaptismDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GroomBaptismNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AssistingPriest" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BannDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BrideParentName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BrideParentHomeTown" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GroomParentName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="GroomParentHomeTown" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Witness1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Witness2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MemberFamilyMetaData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Sex" Type="Int32" Nullable="false" />
+          <Property Name="DateOfBirth" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Relationship" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="LookUpTable" Relationship="StFrancisCCModel.FK_MemberFamilyMetaData_LookUpTable" FromRole="MemberFamilyMetaData" ToRole="LookUpTable" />
+          <NavigationProperty Name="Member" Relationship="StFrancisCCModel.FK_MemberFamilyMetaData_Members" FromRole="MemberFamilyMetaData" ToRole="Member" />
         </EntityType>
         <EntityType Name="Member">
           <Key>
@@ -828,10 +962,12 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <Property Name="Deceased" Type="Int32" Nullable="false" />
           <Property Name="DateDeceased" Type="DateTime" Precision="3" />
           <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+          <Property Name="Station" Type="Int32" />
           <NavigationProperty Name="LookUpTable" Relationship="StFrancisCCModel.FK_Members_Gender" FromRole="Member" ToRole="LookUpTable" />
           <NavigationProperty Name="LookUpTable1" Relationship="StFrancisCCModel.FK_Members_MemberMaritalStatus" FromRole="Member" ToRole="LookUpTable" />
           <NavigationProperty Name="LookUpTable2" Relationship="StFrancisCCModel.FK_Members_NextOfKinMaritalStatus" FromRole="Member" ToRole="LookUpTable" />
           <NavigationProperty Name="LookUpTable3" Relationship="StFrancisCCModel.FK_Members_StatutoryGroup" FromRole="Member" ToRole="LookUpTable" />
+          <NavigationProperty Name="MemberFamilyMetaDatas" Relationship="StFrancisCCModel.FK_MemberFamilyMetaData_Members" FromRole="Member" ToRole="MemberFamilyMetaData" />
           <NavigationProperty Name="SocietyMemberLinks" Relationship="StFrancisCCModel.FK_SocietyMemberLink_Members" FromRole="Member" ToRole="SocietyMemberLink" />
         </EntityType>
         <EntityType Name="ParishEvent">
@@ -926,7 +1062,7 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <Property Name="SocietyId" Type="Int32" Nullable="false" />
           <Property Name="MemberId" Type="Int32" Nullable="false" />
           <Property Name="MemberPositionId" Type="Int32" Nullable="false" />
-          <Property Name="AppointDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AppointDate" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Active" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Member" Relationship="StFrancisCCModel.FK_SocietyMemberLink_Members" FromRole="SocietyMemberLink" ToRole="Member" />
           <NavigationProperty Name="Position" Relationship="StFrancisCCModel.FK_SocietyMemberLink_SocietyMemberLink" FromRole="SocietyMemberLink" ToRole="Position" />
@@ -955,14 +1091,6 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <Property Name="DateReceived" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Confirmation">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="DateReceived" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="DateReceived" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="Matrimony">
           <Key>
             <PropertyRef Name="Id" />
             <PropertyRef Name="DateReceived" />
@@ -1026,6 +1154,18 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MemberFamilyMetaData_LookUpTable">
+          <End Type="StFrancisCCModel.LookUpTable" Role="LookUpTable" Multiplicity="1" />
+          <End Type="StFrancisCCModel.MemberFamilyMetaData" Role="MemberFamilyMetaData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LookUpTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MemberFamilyMetaData">
+              <PropertyRef Name="Sex" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Members_Gender">
           <End Type="StFrancisCCModel.LookUpTable" Role="LookUpTable" Multiplicity="1" />
           <End Type="StFrancisCCModel.Member" Role="Member" Multiplicity="*" />
@@ -1071,6 +1211,18 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
             </Principal>
             <Dependent Role="Member">
               <PropertyRef Name="StatutoryGroup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberFamilyMetaData_Members">
+          <End Type="StFrancisCCModel.Member" Role="Member" Multiplicity="1" />
+          <End Type="StFrancisCCModel.MemberFamilyMetaData" Role="MemberFamilyMetaData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MemberFamilyMetaData">
+              <PropertyRef Name="MemberId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1174,29 +1326,6 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <End Type="StFrancisCCModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="StFrancisCCModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
-        <EntityType Name="Baptism">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BapitsmNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BaptismPlace" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="BaptismDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="BaptismName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Othername" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
-          <Property Name="PlaceOfBirth" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="HomeTown" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FathersName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="MothersName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="BaptismType" Type="Int32" Nullable="false" />
-          <Property Name="NameOfGodParent1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="NameOfGodParent2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="NameOfMinister" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="MemberId" Type="Int32" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1263,6 +1392,30 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Baptism">
+            <EntityTypeMapping TypeName="StFrancisCCModel.Baptism">
+              <MappingFragment StoreEntitySet="Baptism">
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="NameOfMinister" ColumnName="NameOfMinister" />
+                <ScalarProperty Name="NameOfGodParent2" ColumnName="NameOfGodParent2" />
+                <ScalarProperty Name="NameOfGodParent1" ColumnName="NameOfGodParent1" />
+                <ScalarProperty Name="BaptismType" ColumnName="BaptismType" />
+                <ScalarProperty Name="MothersName" ColumnName="MothersName" />
+                <ScalarProperty Name="FathersName" ColumnName="FathersName" />
+                <ScalarProperty Name="HomeTown" ColumnName="HomeTown" />
+                <ScalarProperty Name="PlaceOfBirth" ColumnName="PlaceOfBirth" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Othername" ColumnName="Othername" />
+                <ScalarProperty Name="BaptismName" ColumnName="BaptismName" />
+                <ScalarProperty Name="BaptismDate" ColumnName="BaptismDate" />
+                <ScalarProperty Name="BaptismPlace" ColumnName="BaptismPlace" />
+                <ScalarProperty Name="BapitsmNumber" ColumnName="BapitsmNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="LookUpTables">
             <EntityTypeMapping TypeName="StFrancisCCModel.LookUpTable">
               <MappingFragment StoreEntitySet="LookUpTable">
@@ -1273,9 +1426,52 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Matrimonies">
+            <EntityTypeMapping TypeName="StFrancisCCModel.Matrimony">
+              <MappingFragment StoreEntitySet="Matrimony">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Witness2" ColumnName="Witness2" />
+                <ScalarProperty Name="Witness1" ColumnName="Witness1" />
+                <ScalarProperty Name="GroomParentHomeTown" ColumnName="GroomParentHomeTown" />
+                <ScalarProperty Name="GroomParentName" ColumnName="GroomParentName" />
+                <ScalarProperty Name="BrideParentHomeTown" ColumnName="BrideParentHomeTown" />
+                <ScalarProperty Name="BrideParentName" ColumnName="BrideParentName" />
+                <ScalarProperty Name="BannDetails" ColumnName="BannDetails" />
+                <ScalarProperty Name="AssistingPriest" ColumnName="AssistingPriest" />
+                <ScalarProperty Name="GroomBaptismNo" ColumnName="GroomBaptismNo" />
+                <ScalarProperty Name="GroomBaptismDate" ColumnName="GroomBaptismDate" />
+                <ScalarProperty Name="GroomBaptismPlace" ColumnName="GroomBaptismPlace" />
+                <ScalarProperty Name="BrideBaptismNo" ColumnName="BrideBaptismNo" />
+                <ScalarProperty Name="BrideBaptismDate" ColumnName="BrideBaptismDate" />
+                <ScalarProperty Name="BrideBaptismPlace" ColumnName="BrideBaptismPlace" />
+                <ScalarProperty Name="GroomAge" ColumnName="GroomAge" />
+                <ScalarProperty Name="BrideAge" ColumnName="BrideAge" />
+                <ScalarProperty Name="GroomAddress" ColumnName="GroomAddress" />
+                <ScalarProperty Name="BrideAddress" ColumnName="BrideAddress" />
+                <ScalarProperty Name="GroomFullName" ColumnName="GroomFullName" />
+                <ScalarProperty Name="BrideFullName" ColumnName="BrideFullName" />
+                <ScalarProperty Name="PlaceOfMarriage" ColumnName="PlaceOfMarriage" />
+                <ScalarProperty Name="DateOfMarriage" ColumnName="DateOfMarriage" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberFamilyMetaDatas">
+            <EntityTypeMapping TypeName="StFrancisCCModel.MemberFamilyMetaData">
+              <MappingFragment StoreEntitySet="MemberFamilyMetaData">
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="Relationship" ColumnName="Relationship" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Members">
             <EntityTypeMapping TypeName="StFrancisCCModel.Member">
               <MappingFragment StoreEntitySet="Members">
+                <ScalarProperty Name="Station" ColumnName="Station" />
                 <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
                 <ScalarProperty Name="DateDeceased" ColumnName="DateDeceased" />
                 <ScalarProperty Name="Deceased" ColumnName="Deceased" />
@@ -1436,14 +1632,6 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Matrimonies">
-            <EntityTypeMapping TypeName="StFrancisCCModel.Matrimony">
-              <MappingFragment StoreEntitySet="Matrimony">
-                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Reflections">
             <EntityTypeMapping TypeName="StFrancisCCModel.Reflection">
               <MappingFragment StoreEntitySet="Reflection">
@@ -1476,30 +1664,6 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="Baptism">
-            <EntityTypeMapping TypeName="StFrancisCCModel.Baptism">
-              <MappingFragment StoreEntitySet="Baptism">
-                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="NameOfMinister" ColumnName="NameOfMinister" />
-                <ScalarProperty Name="NameOfGodParent2" ColumnName="NameOfGodParent2" />
-                <ScalarProperty Name="NameOfGodParent1" ColumnName="NameOfGodParent1" />
-                <ScalarProperty Name="BaptismType" ColumnName="BaptismType" />
-                <ScalarProperty Name="MothersName" ColumnName="MothersName" />
-                <ScalarProperty Name="FathersName" ColumnName="FathersName" />
-                <ScalarProperty Name="HomeTown" ColumnName="HomeTown" />
-                <ScalarProperty Name="PlaceOfBirth" ColumnName="PlaceOfBirth" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="Othername" ColumnName="Othername" />
-                <ScalarProperty Name="BaptismName" ColumnName="BaptismName" />
-                <ScalarProperty Name="BaptismDate" ColumnName="BaptismDate" />
-                <ScalarProperty Name="BaptismPlace" ColumnName="BaptismPlace" />
-                <ScalarProperty Name="BapitsmNumber" ColumnName="BapitsmNumber" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
