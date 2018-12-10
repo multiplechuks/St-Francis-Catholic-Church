@@ -222,11 +222,13 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\ReflectionController.cs" />
     <Compile Include="Controllers\SacramentController.cs" />
+    <Compile Include="Controllers\StationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1667,6 +1669,7 @@
     <Content Include="Content\images\sermon-1.jpg" />
     <Content Include="Content\images\sermon-2.jpg" />
     <Content Include="Content\images\sermon-3.jpg" />
+    <Content Include="Content\images\st_francis.jpg" />
     <Content Include="Content\images\Untitled-6.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -1825,6 +1828,8 @@
     <Content Include="Views\Sacrament\CreateCommunion.cshtml" />
     <Content Include="Views\Sacrament\CreateMatrimony.cshtml" />
     <Content Include="Views\Members\Error.cshtml" />
+    <Content Include="Views\Station\Index.cshtml" />
+    <Content Include="Views\Event\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessObject\DataAccessObject.csproj">

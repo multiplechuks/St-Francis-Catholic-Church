@@ -49,6 +49,8 @@ namespace StFrancisChurch
             // TODO: Register your type's mappings here.
             container.RegisterType<IMemberRepository, MemberRepository>();
             container.RegisterType<ISacramentRepository, SacramentRepository>();
+            container.RegisterType<IStationRepository, StationRepository>();
+            container.RegisterType<IEventRepository, EventRepository>();
         }
     }
 }

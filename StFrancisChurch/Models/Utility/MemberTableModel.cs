@@ -85,4 +85,13 @@ namespace StFrancisChurch.Models.Utility
         public string Witness2 { get; set; }
         public string Remark { get; set; }
     }
+
+    public class StationTableModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Location { get; set; }
+        public string Contact { get; set; }
+        public int Serial { get; set; }
+    }
 }
