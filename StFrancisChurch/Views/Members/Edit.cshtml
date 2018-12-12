@@ -11,7 +11,7 @@
         Parish Members Detail - Edit
     </div>
     <div class="card-body">
-        @using (Html.BeginForm("Edit", "Members", FormMethod.Post, new { @role = "form", @class= "form-horizontal", @enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("Edit", "Members", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @role = "form", @class= "form-horizontal", @enctype = "multipart/form-data" }))
         {
             @Html.ValidationSummary(true, "", new { @style = "color :red" })
             <input type="hidden" name="Id" value="@Model.Id"/>
@@ -201,7 +201,7 @@
                 <fieldset class="col-md-12">
                     <legend class="text-center badge badge-info" style="padding: 8px">To be Completed</legend>
                     <div class="row">
-                        <div class="col-md-6">
+                        @*<div class="col-md-6">
                             <div class="row">
                                 <label class="control-label col-md-4 text-right">Sacraments Received</label>
                                 <div class="col-md-8 form-group">
@@ -216,12 +216,12 @@
                                     </label>
                                 </div>
                             </div>
-                        </div> 
+                        </div>*@ 
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="control-label col-md-4 text-right">Societies Belonged</label>
+                                <label class="control-label col-md-4 text-right">Sacraments Received</label>
                                 <div class="col-md-8">
-                                    @Html.ListBox("SocietiesBelonged", new MultiSelectList(ViewUtility.GetSocieties(), "Id", "Name", null), new { @class = "form-control" })
+                                    @Html.ListBox("Sacraments", new MultiSelectList(ViewUtility.GetSacrament(), "Id", "Name", null), new { @class = "form-control",@title="Hold down control to select more than one" })
                                 </div>
                             </div>
                         </div>

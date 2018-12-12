@@ -65,5 +65,15 @@ namespace DataAccessObject.DataUtility
         {
             return _entities.Positions.AsQueryable();
         }
+
+        public static IQueryable<SacramentMemberLink> GetMembersSacrament(int memberId)
+        {
+            return _entities.SacramentMemberLinks.Where(m => m.MemberId == memberId);
+        }
+
+        public static IQueryable<AspNetRole> GetRoles()
+        {
+            return _entities.AspNetRoles.AsQueryable();
+        }
     }
 }

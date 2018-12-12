@@ -19,5 +19,6 @@ namespace DataAccessObject.IRepository
         int UpdateMember(Member member);
         bool UpdateFamilyMembers(MemberFamilyMetaData family);
         bool UpdateMembersSociety(SocietyMemberLink society);
+        void UpdateSacramentReceived(int sacramentId, int memberId, string userId);
     }
 }

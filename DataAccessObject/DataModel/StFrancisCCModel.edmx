@@ -259,12 +259,6 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
           <Property Name="Sacrament" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SacramentDescription" Type="nvarchar(max)" />
         </EntityType>
-        <EntityType Name="SacramentDetail">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-        </EntityType>
         <EntityType Name="SacramentMemberLink">
           <Key>
             <PropertyRef Name="Id" />
@@ -272,11 +266,10 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MemberId" Type="int" Nullable="false" />
           <Property Name="SacramentId" Type="int" Nullable="false" />
-          <Property Name="DateReceived" Type="int" Nullable="false" />
-          <Property Name="DateRecorded" Type="int" Nullable="false" />
+          <Property Name="DateReceived" Type="datetime" />
+          <Property Name="DateRecorded" Type="datetime" />
           <Property Name="RecordedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Deleted" Type="int" Nullable="false" />
-          <Property Name="SacramentDetailId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SacramentMemberUpdateLog">
           <Key>
@@ -285,7 +278,7 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UpdateDate" Type="datetime" Nullable="false" />
           <Property Name="UpdateBy" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="UpdateType" Type="int" Nullable="false" />
+          <Property Name="UpdateType" Type="int" />
           <Property Name="SacramentMemberLinkId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Societies">
@@ -472,18 +465,6 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SacramentMemberLink_Members">
-          <End Role="SacramentDetail" Type="Self.SacramentDetail" Multiplicity="1" />
-          <End Role="SacramentMemberLink" Type="Self.SacramentMemberLink" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SacramentDetail">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SacramentMemberLink">
-              <PropertyRef Name="SacramentDetailId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SacramentMemberLink_Sacrament">
           <End Role="Sacrament" Type="Self.Sacrament" Multiplicity="1" />
           <End Role="SacramentMemberLink" Type="Self.SacramentMemberLink" Multiplicity="*" />
@@ -572,7 +553,6 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <EntitySet Name="ParishEventType" EntityType="Self.ParishEventType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sacrament" EntityType="Self.Sacrament" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SacramentDetail" EntityType="Self.SacramentDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SacramentMemberLink" EntityType="Self.SacramentMemberLink" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SacramentMemberUpdateLog" EntityType="Self.SacramentMemberUpdateLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Societies" EntityType="Self.Societies" Schema="dbo" store:Type="Tables" />
@@ -654,10 +634,6 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
             <End Role="ParishEventType" EntitySet="ParishEventType" />
             <End Role="ParishEvent" EntitySet="ParishEvent" />
           </AssociationSet>
-          <AssociationSet Name="FK_SacramentMemberLink_Members" Association="Self.FK_SacramentMemberLink_Members">
-            <End Role="SacramentDetail" EntitySet="SacramentDetail" />
-            <End Role="SacramentMemberLink" EntitySet="SacramentMemberLink" />
-          </AssociationSet>
           <AssociationSet Name="FK_SacramentMemberLink_Sacrament" Association="Self.FK_SacramentMemberLink_Sacrament">
             <End Role="Sacrament" EntitySet="Sacrament" />
             <End Role="SacramentMemberLink" EntitySet="SacramentMemberLink" />
@@ -702,7 +678,6 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <EntitySet Name="ParishEventTypes" EntityType="StFrancisCCModel.ParishEventType" />
           <EntitySet Name="Positions" EntityType="StFrancisCCModel.Position" />
           <EntitySet Name="Sacraments" EntityType="StFrancisCCModel.Sacrament" />
-          <EntitySet Name="SacramentDetails" EntityType="StFrancisCCModel.SacramentDetail" />
           <EntitySet Name="SacramentMemberLinks" EntityType="StFrancisCCModel.SacramentMemberLink" />
           <EntitySet Name="SacramentMemberUpdateLogs" EntityType="StFrancisCCModel.SacramentMemberUpdateLog" />
           <EntitySet Name="Societies" EntityType="StFrancisCCModel.Society" />
@@ -762,10 +737,6 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           </AssociationSet>
           <AssociationSet Name="FK_SacramentMemberLink_Sacrament" Association="StFrancisCCModel.FK_SacramentMemberLink_Sacrament">
             <End Role="Sacrament" EntitySet="Sacraments" />
-            <End Role="SacramentMemberLink" EntitySet="SacramentMemberLinks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SacramentMemberLink_Members" Association="StFrancisCCModel.FK_SacramentMemberLink_Members">
-            <End Role="SacramentDetail" EntitySet="SacramentDetails" />
             <End Role="SacramentMemberLink" EntitySet="SacramentMemberLinks" />
           </AssociationSet>
           <AssociationSet Name="FK_SacramentMemberUpdateLog_SacramentMemberLink" Association="StFrancisCCModel.FK_SacramentMemberUpdateLog_SacramentMemberLink">
@@ -1011,13 +982,6 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <Property Name="SacramentDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SacramentMemberLinks" Relationship="StFrancisCCModel.FK_SacramentMemberLink_Sacrament" FromRole="Sacrament" ToRole="SacramentMemberLink" />
         </EntityType>
-        <EntityType Name="SacramentDetail">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="SacramentMemberLinks" Relationship="StFrancisCCModel.FK_SacramentMemberLink_Members" FromRole="SacramentDetail" ToRole="SacramentMemberLink" />
-        </EntityType>
         <EntityType Name="SacramentMemberLink">
           <Key>
             <PropertyRef Name="Id" />
@@ -1025,13 +989,11 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MemberId" Type="Int32" Nullable="false" />
           <Property Name="SacramentId" Type="Int32" Nullable="false" />
-          <Property Name="DateReceived" Type="Int32" Nullable="false" />
-          <Property Name="DateRecorded" Type="Int32" Nullable="false" />
+          <Property Name="DateReceived" Type="DateTime" Precision="3" />
+          <Property Name="DateRecorded" Type="DateTime" Precision="3" />
           <Property Name="RecordedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Deleted" Type="Int32" Nullable="false" />
-          <Property Name="SacramentDetailId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Sacrament" Relationship="StFrancisCCModel.FK_SacramentMemberLink_Sacrament" FromRole="SacramentMemberLink" ToRole="Sacrament" />
-          <NavigationProperty Name="SacramentDetail" Relationship="StFrancisCCModel.FK_SacramentMemberLink_Members" FromRole="SacramentMemberLink" ToRole="SacramentDetail" />
           <NavigationProperty Name="SacramentMemberUpdateLogs" Relationship="StFrancisCCModel.FK_SacramentMemberUpdateLog_SacramentMemberLink" FromRole="SacramentMemberLink" ToRole="SacramentMemberUpdateLog" />
         </EntityType>
         <EntityType Name="SacramentMemberUpdateLog">
@@ -1041,7 +1003,7 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdateBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="UpdateType" Type="Int32" Nullable="false" />
+          <Property Name="UpdateType" Type="Int32" />
           <Property Name="SacramentMemberLinkId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="SacramentMemberLink" Relationship="StFrancisCCModel.FK_SacramentMemberUpdateLog_SacramentMemberLink" FromRole="SacramentMemberUpdateLog" ToRole="SacramentMemberLink" />
         </EntityType>
@@ -1283,18 +1245,6 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
             </Principal>
             <Dependent Role="SacramentMemberLink">
               <PropertyRef Name="SacramentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SacramentMemberLink_Members">
-          <End Type="StFrancisCCModel.SacramentDetail" Role="SacramentDetail" Multiplicity="1" />
-          <End Type="StFrancisCCModel.SacramentMemberLink" Role="SacramentMemberLink" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SacramentDetail">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SacramentMemberLink">
-              <PropertyRef Name="SacramentDetailId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1549,17 +1499,9 @@ warning 6002: The table/view 'StFrancisCC.dbo.Station' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SacramentDetails">
-            <EntityTypeMapping TypeName="StFrancisCCModel.SacramentDetail">
-              <MappingFragment StoreEntitySet="SacramentDetail">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SacramentMemberLinks">
             <EntityTypeMapping TypeName="StFrancisCCModel.SacramentMemberLink">
               <MappingFragment StoreEntitySet="SacramentMemberLink">
-                <ScalarProperty Name="SacramentDetailId" ColumnName="SacramentDetailId" />
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="RecordedBy" ColumnName="RecordedBy" />
                 <ScalarProperty Name="DateRecorded" ColumnName="DateRecorded" />

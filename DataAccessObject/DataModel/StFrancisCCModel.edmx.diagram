@@ -7,24 +7,23 @@
       <Diagram DiagramId="1a17ab5f7a2043c6b4fa8f461ec2e5d1" Name="Diagram1" ZoomLevel="71">
         <EntityTypeShape EntityType="StFrancisCCModel.C__MigrationHistory" Width="1.5" PointX="8.75" PointY="6.75" />
         <EntityTypeShape EntityType="StFrancisCCModel.AspNetRole" Width="1.5" PointX="8.75" PointY="2.75" />
-        <EntityTypeShape EntityType="StFrancisCCModel.AspNetUserClaim" Width="1.5" PointX="13.25" PointY="1.25" />
-        <EntityTypeShape EntityType="StFrancisCCModel.AspNetUserLogin" Width="1.5" PointX="13.25" PointY="4" />
+        <EntityTypeShape EntityType="StFrancisCCModel.AspNetUserClaim" Width="1.5" PointX="13.25" PointY="3.75" />
+        <EntityTypeShape EntityType="StFrancisCCModel.AspNetUserLogin" Width="1.5" PointX="13.25" PointY="1.25" />
         <EntityTypeShape EntityType="StFrancisCCModel.AspNetUser" Width="1.5" PointX="11" PointY="1.125" />
         <EntityTypeShape EntityType="StFrancisCCModel.Baptism" Width="1.5" PointX="8.75" PointY="13.75" />
         <EntityTypeShape EntityType="StFrancisCCModel.LookUpTable" Width="1.5" PointX="0.75" PointY="6.125" />
         <EntityTypeShape EntityType="StFrancisCCModel.Matrimony" Width="1.5" PointX="10.75" PointY="14.75" />
         <EntityTypeShape EntityType="StFrancisCCModel.MemberFamilyMetaData" Width="1.5" PointX="5.25" PointY="9.5" />
         <EntityTypeShape EntityType="StFrancisCCModel.Member" Width="1.5" PointX="3" PointY="6.375" />
-        <EntityTypeShape EntityType="StFrancisCCModel.ParishEvent" Width="1.5" PointX="13" PointY="10.625" />
+        <EntityTypeShape EntityType="StFrancisCCModel.ParishEvent" Width="1.5" PointX="13" PointY="7.125" />
         <EntityTypeShape EntityType="StFrancisCCModel.ParishEventType" Width="1.5" PointX="10.75" PointY="9.375" />
         <EntityTypeShape EntityType="StFrancisCCModel.Position" Width="1.5" PointX="6" PointY="13.25" />
-        <EntityTypeShape EntityType="StFrancisCCModel.Sacrament" Width="1.5" PointX="0.75" PointY="1.625" />
-        <EntityTypeShape EntityType="StFrancisCCModel.SacramentDetail" Width="1.5" PointX="0.75" PointY="9.875" />
+        <EntityTypeShape EntityType="StFrancisCCModel.Sacrament" Width="1.5" PointX="0.75" PointY="1.5" />
         <EntityTypeShape EntityType="StFrancisCCModel.SacramentMemberLink" Width="1.5" PointX="3" PointY="1" />
-        <EntityTypeShape EntityType="StFrancisCCModel.SacramentMemberUpdateLog" Width="1.5" PointX="5.25" PointY="1.5" />
+        <EntityTypeShape EntityType="StFrancisCCModel.SacramentMemberUpdateLog" Width="1.5" PointX="5.25" PointY="1.25" />
         <EntityTypeShape EntityType="StFrancisCCModel.Society" Width="1.5" PointX="6" PointY="6.625" />
         <EntityTypeShape EntityType="StFrancisCCModel.SocietyMemberLink" Width="1.5" PointX="8.25" PointY="9.5" />
-        <EntityTypeShape EntityType="StFrancisCCModel.StationEvent" Width="1.5" PointX="13" PointY="7.125" />
+        <EntityTypeShape EntityType="StFrancisCCModel.StationEvent" Width="1.5" PointX="13" PointY="10.625" />
         <EntityTypeShape EntityType="StFrancisCCModel.Communion" Width="1.5" PointX="12.75" PointY="14.75" />
         <EntityTypeShape EntityType="StFrancisCCModel.Confirmation" Width="1.5" PointX="14.75" PointY="14.75" />
         <EntityTypeShape EntityType="StFrancisCCModel.Reflection" Width="1.5" PointX="15.75" PointY="0.75" />
@@ -42,7 +41,6 @@
         <AssociationConnector Association="StFrancisCCModel.FK_StationEvent_ParishEventType" />
         <AssociationConnector Association="StFrancisCCModel.FK_SocietyMemberLink_SocietyMemberLink" />
         <AssociationConnector Association="StFrancisCCModel.FK_SacramentMemberLink_Sacrament" />
-        <AssociationConnector Association="StFrancisCCModel.FK_SacramentMemberLink_Members" />
         <AssociationConnector Association="StFrancisCCModel.FK_SacramentMemberUpdateLog_SacramentMemberLink" />
         <AssociationConnector Association="StFrancisCCModel.FK_SocietyMemberLink_Societies" />
         <AssociationConnector Association="StFrancisCCModel.AspNetUserRoles" />

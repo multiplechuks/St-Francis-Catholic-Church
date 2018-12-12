@@ -17,6 +17,12 @@ namespace StFrancisChurch.Models.Utility
         public string Name { get; set; }
     }
 
+    public class SelectItemValue
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+    }
+
     public class ReturnData
     {
         public bool HasValue { get; set; }

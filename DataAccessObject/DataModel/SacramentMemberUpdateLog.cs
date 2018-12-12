@@ -17,7 +17,7 @@ namespace DataAccessObject.DataModel
         public int Id { get; set; }
         public System.DateTime UpdateDate { get; set; }
         public string UpdateBy { get; set; }
-        public int UpdateType { get; set; }
+        public Nullable<int> UpdateType { get; set; }
         public int SacramentMemberLinkId { get; set; }
     
         public virtual SacramentMemberLink SacramentMemberLink { get; set; }

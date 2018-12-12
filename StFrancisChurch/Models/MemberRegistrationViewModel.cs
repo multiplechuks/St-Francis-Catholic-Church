@@ -83,5 +83,9 @@ namespace StFrancisChurch.Models
         public int Id { get; set; }
 
         public string PassportUrl { get; set; }
+
+        public int? Station { get; set; }
+
+        public List<int> Sacraments { get; set; }
     }
 }

@@ -115,6 +115,11 @@ namespace StFrancisChurch.Controllers
         // GET: Member
         public ActionResult Registering()
         {
+            var returnData = (ReturnData)TempData["returnMessage"] ?? new ReturnData
+            {
+                HasValue = false
+            };
+            ViewBag.returns = returnData;
             return View();
         }
 
@@ -270,8 +275,17 @@ namespace StFrancisChurch.Controllers
                     SizeOfFamilyMale = member.FamilyMaleSize ?? 0,
                     StatutoryGroup = member.StatutoryGroup,
                     PassportUrl = member.PassportUrl,
-                    
+                    Station = member.Station,
+                    Sacraments = ViewUtility.GetMembersSacrament(member.Id)
                 };
+                if (member.Confirmed == 1)
+                {
+                    ViewBag.ReturnUrl = "/Members";
+                }
+                else
+                {
+                    ViewBag.ReturnUrl = "/Members/Registering";
+                }
                 return View(model);
             }
             else
@@ -306,13 +320,13 @@ namespace StFrancisChurch.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(MemberRegistrationViewModel model)
+        public ActionResult Edit(MemberRegistrationViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            if (Request.Files.Count != 0 || !string.IsNullOrEmpty(Request.Files[0]?.FileName))
+            if (Request.Files.Count > 0 && !string.IsNullOrEmpty(Request.Files[0]?.FileName))
             {
                 var directory = System.Web.Hosting.HostingEnvironment.MapPath("~/Images/Passports/");
                 if (Directory.Exists(directory) == false)
@@ -351,17 +365,30 @@ namespace StFrancisChurch.Controllers
                     FamilyFemaleSize = model.SizeOfFamilyFemale,
                     FamilyMaleSize = model.SizeOfFamilyMale,
                     StatutoryGroup = model.StatutoryGroup,
-                    PassportUrl = model.PassportUrl
+                    Station = model.Station,
                 };
+                if (!string.IsNullOrEmpty(model.PassportUrl))
+                {
+                    member.PassportUrl = model.PassportUrl;
+                }
                 if (_memberRepository.UpdateMember(member) > 0)
                 {
+                    //update the societies if any
+                    if (model.Sacraments != null && model.Sacraments.Count > 0)
+                    {
+                        var userId = User.Identity.GetUserId();
+                        foreach (var sacrament in model.Sacraments)
+                        {
+                            _memberRepository.UpdateSacramentReceived(sacrament, member.Id, userId);
+                        }
+                    }
                     var returnData = new ReturnData
                     {
                         HasValue = true,
                         Message = model.Surname + " " + model.Firstname + " was successfully updated"
                     };
                     TempData["returnMessage"] = returnData;
-                    return Redirect("/Members");
+                    return Redirect(returnUrl);
                 }
                 return View(model);
             }
@@ -379,7 +406,7 @@ namespace StFrancisChurch.Controllers
             {
                 return View(model);
             }
-            if (Request.Files.Count == 0 || string.IsNullOrEmpty(Request.Files[0]?.FileName))
+            if (Request.Files.Count == 0 && string.IsNullOrEmpty(Request.Files[0]?.FileName))
             {
                 ModelState.AddModelError(String.Empty, "Please make sure a passport was chosen");
                 return View(model);

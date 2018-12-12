@@ -102,9 +102,6 @@
     <Compile Include="DataModel\Sacrament.cs">
       <DependentUpon>StFrancisCCModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\SacramentDetail.cs">
-      <DependentUpon>StFrancisCCModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataModel\SacramentMemberLink.cs">
       <DependentUpon>StFrancisCCModel.tt</DependentUpon>
     </Compile>

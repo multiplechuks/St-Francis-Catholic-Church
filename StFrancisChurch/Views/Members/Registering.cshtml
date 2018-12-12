@@ -1,6 +1,6 @@
-﻿@using System.Web.Configuration
+﻿@using StFrancisChurch.Models.Utility
 @{
-    ViewBag.Title = "Home Page";
+    var returns = (ReturnData)ViewBag.returns;
 }
 
 <div class="card mb-3">
@@ -9,6 +9,12 @@
         Pending Registration
         <div class="btn-group" style="float: right; margin-top: 5px; margin-right: 10px;">
             <a class="btn btn-success" href="@Href("~/Members/Create")" title="Click to create a new member"><i class="glyphicon glypicon-add" style="margin:0px;"></i> New Member </a>
+        </div>
+        <div>
+            @if (returns.HasValue)
+            {
+                <b style="color:orangered">@returns.Message</b>
+            }
         </div>
     </div>
     <div class="card-body">

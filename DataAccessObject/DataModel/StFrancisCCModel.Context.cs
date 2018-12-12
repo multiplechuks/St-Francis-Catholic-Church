@@ -39,7 +39,6 @@ namespace DataAccessObject.DataModel
         public virtual DbSet<ParishEventType> ParishEventTypes { get; set; }
         public virtual DbSet<Position> Positions { get; set; }
         public virtual DbSet<Sacrament> Sacraments { get; set; }
-        public virtual DbSet<SacramentDetail> SacramentDetails { get; set; }
         public virtual DbSet<SacramentMemberLink> SacramentMemberLinks { get; set; }
         public virtual DbSet<SacramentMemberUpdateLog> SacramentMemberUpdateLogs { get; set; }
         public virtual DbSet<Society> Societies { get; set; }

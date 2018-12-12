@@ -94,6 +94,10 @@ namespace StFrancisChurch.Models
         [Required]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
+
+        [Required]
+        [Display(Name = "Role")]
+        public string Role { get; set; }
     }
 
     public class ResetPasswordViewModel

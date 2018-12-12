@@ -23,14 +23,12 @@ namespace DataAccessObject.DataModel
         public int Id { get; set; }
         public int MemberId { get; set; }
         public int SacramentId { get; set; }
-        public int DateReceived { get; set; }
-        public int DateRecorded { get; set; }
+        public Nullable<System.DateTime> DateReceived { get; set; }
+        public Nullable<System.DateTime> DateRecorded { get; set; }
         public string RecordedBy { get; set; }
         public int Deleted { get; set; }
-        public int SacramentDetailId { get; set; }
     
         public virtual Sacrament Sacrament { get; set; }
-        public virtual SacramentDetail SacramentDetail { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SacramentMemberUpdateLog> SacramentMemberUpdateLogs { get; set; }
     }

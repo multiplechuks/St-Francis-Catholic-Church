@@ -9,15 +9,15 @@ namespace StFrancisChurch.Utility
 {
     public static class ViewUtility
     {
-        public static IQueryable<dynamic> GetAllSacrament()
+        public static IQueryable<SelectItem> GetSacrament()
         {
             var users = DataUtility.GetSacraments();
-            List<dynamic> formatted = new List<dynamic>();
+            List<SelectItem> formatted = new List<SelectItem>();
             foreach (var f in users)
             {
-                formatted.Add(new
+                formatted.Add(new SelectItem
                 {
-                    f.Id,
+                    Id = f.Id,
                     Name = f.Sacrament1
                 });
             }
@@ -183,6 +183,34 @@ namespace StFrancisChurch.Utility
                 {
                     Id = g.Id,
                     Name = g.PositionName
+                });
+            }
+            return formatted.AsQueryable();
+        }
+
+
+        public static List<int> GetMembersSacrament(int memberId)
+        {
+            List<int> membersSacraments = new List<int>();
+            var sacraments = DataUtility.GetMembersSacrament(memberId);
+            foreach (var sacrament in sacraments)
+            {
+                membersSacraments.Add(sacrament.SacramentId);
+            }
+            return membersSacraments;
+        }
+
+
+        public static IEnumerable<SelectItemValue> GetRoles()
+        {
+            var type = DataUtility.GetRoles();
+            List<SelectItemValue> formatted = new List<SelectItemValue>();
+            foreach (var g in type)
+            {
+                formatted.Add(new SelectItemValue
+                {
+                    Id = g.Id,
+                    Name = g.Name
                 });
             }
             return formatted.AsQueryable();

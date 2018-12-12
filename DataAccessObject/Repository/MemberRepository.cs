@@ -37,7 +37,7 @@ namespace DataAccessObject.Repository
 
         public int UpdateMember(Member member)
         {
-            var existingMember = _entities.Members.FirstOrDefault(m => m.Id == member.Id && m.Confirmed == 1 && m.Deleted == 0);
+            var existingMember = _entities.Members.FirstOrDefault(m => m.Id == member.Id && m.Deleted == 0);
             if (existingMember != null)
             {
                 existingMember.Firstname = member.Firstname;
@@ -62,7 +62,7 @@ namespace DataAccessObject.Repository
                 existingMember.FamilyFemaleSize = member.FamilyFemaleSize;
                 existingMember.FamilyMaleSize = member.FamilyMaleSize;
                 existingMember.StatutoryGroup = member.StatutoryGroup;
-                existingMember.PassportUrl = member.PassportUrl;
+                existingMember.PassportUrl = string.IsNullOrEmpty(member.PassportUrl) ? existingMember.PassportUrl : member.PassportUrl;
 
                 existingMember.DateUpdated = DateTime.Now;
                 
@@ -123,6 +123,35 @@ namespace DataAccessObject.Repository
             _entities.SocietyMemberLinks.Add(society);
             var inserted = _entities.SaveChanges();
             return inserted > 0;
+        }
+
+        public void UpdateSacramentReceived(int sacramentId, int memberId, string userId)
+        {
+            //check if sacrament has been added for user
+            var existingLink =
+                _entities.SacramentMemberLinks.FirstOrDefault(m => m.MemberId == memberId && m.SacramentId == sacramentId);
+            if (existingLink == null)
+            {
+                existingLink = new SacramentMemberLink
+                {
+                    MemberId = memberId,
+                    SacramentId = sacramentId,
+                    RecordedBy = userId,
+                    DateRecorded = DateTime.Now,
+                    Deleted = 0
+                };
+                _entities.SacramentMemberLinks.Add(existingLink);
+                _entities.SaveChanges();
+            }
+
+            var updateLog = new SacramentMemberUpdateLog
+            {
+                UpdateDate = DateTime.Now,
+                UpdateBy = userId,
+                SacramentMemberLinkId = existingLink.Id
+            };
+            _entities.SacramentMemberUpdateLogs.Add(updateLog);
+            _entities.SaveChanges();
         }
     }
 }
