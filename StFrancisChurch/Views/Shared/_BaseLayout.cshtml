@@ -49,35 +49,13 @@
                 <div class="top-menu">
                     <div class="row">
                         <div class="col-md-12 col-offset-0 text-center">
-                            <div style="float: right;" class="btn btn-demo"><a href="@Href("~/Account/Login")">Login</a></div>
+                            <div style="float: right;" class="btn btn-demo"><a href="@Href("~/Account/Login")">Sign In</a></div>
                             <div id="fh5co-logo"><a href="/">St Francis Catholic Church</a></div>
                         </div>
                         <div class="col-md-12 col-md-offset-0 text-center menu-1">
-                            <ul>
-                                <li class="@Html.IsSelected(action:"Index",controller:"Home")"><a href="/">Parish</a></li>
-                                <li class="@Html.IsSelected(action:"Reflection",controller:"Home")"><a href="#">Reflections</a></li>
-                                <li class="has-dropdown">
-                                    <a href="#">Stations</a>
-                                    <ul class="dropdown">
-                                        <li><a href="#">All Saints</a></li>
-                                        <li><a href="#">St Jerome</a></li>
-                                    </ul>
-                                </li>
-                                <li class="has-dropdown @Html.IsSelectedActions(actions:new[] {"About","Contact","Anouncement"},controller:"Home")">
-                                    <a href="#">Information</a>
-                                    <ul class="dropdown">
-                                        <li><a href="@Href("~/Home/About")">About</a></li>
-                                        <li><a href="@Href("~/Home/Contact")">Contact</a></li>
-                                        <li><a href="#">Anouncement</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Events</a></li>
-                                <li class="@Html.IsSelected(action:"MemberRegistration",controller:"Home")"><a href="@Url.Action("MemberRegistration", "Home" )">Membership</a></li>
-                                <li><a href="#" class="donate">Donate</a></li>
-                            </ul>
+                            @Html.Partial("MenuBar")
                         </div>
                     </div>
-
                 </div>
             </div>
         </nav>
@@ -103,7 +81,7 @@
                     <div class="col-md-12 text-center">
                         <p>
                             <small class="block">&copy; 2018 St Francis Catholic Church. All Rights Reserved.</small>
-                            <small class="block">Designed by <a href="#" target="_blank">SCOBM Tech</a> </small>
+                            <small class="block">Designed by <a href="#" target="_blank" title="this is the abbreviation of SCOBM">BM Tech</a> </small>
                         </p>
                     </div>
                 </div>

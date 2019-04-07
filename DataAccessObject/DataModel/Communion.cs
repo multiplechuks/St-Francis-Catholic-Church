@@ -15,6 +15,18 @@ namespace DataAccessObject.DataModel
     public partial class Communion
     {
         public int Id { get; set; }
+        public string Surname { get; set; }
+        public string Othernames { get; set; }
         public System.DateTime DateReceived { get; set; }
+        public string Place { get; set; }
+        public string FathersName { get; set; }
+        public string MothersName { get; set; }
+        public string BapitsmNumber { get; set; }
+        public string BaptismPlace { get; set; }
+        public System.DateTime BaptismDate { get; set; }
+        public string NameOfMinister { get; set; }
+        public int Deleted { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
     }
 }

@@ -55,4 +55,23 @@ namespace StFrancisChurch.Models.Utility
         public string AppointDate { get; set; }
         public int MemberId { get; set; }
     }
+
+    public class ParishEventUI
+    {
+        public int Id { get; set; } 
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string CreateDate { get; set; }
+        public string EventImage { get; set; }
+    }
+
+    public class OutStation
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Location { get; set; }
+        public string DisplayName { get; set; }
+        public string Contact { get; set; }
+        public string CreateDate { get; set; }
+    }
 }

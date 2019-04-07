@@ -63,6 +63,7 @@ namespace DataAccessObject.Repository
                 existingMember.FamilyMaleSize = member.FamilyMaleSize;
                 existingMember.StatutoryGroup = member.StatutoryGroup;
                 existingMember.PassportUrl = string.IsNullOrEmpty(member.PassportUrl) ? existingMember.PassportUrl : member.PassportUrl;
+                existingMember.Station = member.Station;
 
                 existingMember.DateUpdated = DateTime.Now;
                 

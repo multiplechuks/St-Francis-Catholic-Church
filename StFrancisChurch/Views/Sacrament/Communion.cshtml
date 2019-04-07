@@ -17,8 +17,8 @@
                     <tr>
                         <th>S/N</th>
                         <th>Surname</th>
-                        <th>Firstname</th>
                         <th>Othername</th>
+                        <th>Date</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -26,8 +26,8 @@
                     <tr>
                         <th>S/N</th>
                         <th>Surname</th>
-                        <th>Firstname</th>
                         <th>Othername</th>
+                        <th>Date</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
@@ -41,28 +41,28 @@
 
     <script>
         $(document).ready(function () {
-            $('#membersTable').DataTable();
-            @*$('#membersTable').DataTable({
+            $('#membersTable').DataTable({
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    url: "@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))/Members/GetActiveMembers/",
+                    url: "@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))/Sacrament/GetCommunionMembers/",
                     type: "POST",
                     dataSrc: "data"
                 },
                 "columns": [
-                    { "data": "SN" },
+                    { "data": "Serial" },
                     { "data": "Surname" },
-                    { "data": "Firstname" },
-                    { "data": "Othername" },
+                    { "data": "Othernames" },
+                    { "data": "DateReceived" },
                     {
                         "data": "Action",
                         "render": function (data, type, full, meta) {
-                            return '<a class="btn btn-primary"><span class="">V</span></a>&nbsp;<a class="btn btn-primary"><span class="">A</span></a>';
+                            return '<a class="btn btn-primary" title="View this Baptismal Record"><i class="fas fa-fw fa-eye"></i></a>&nbsp;' +
+                                '<a class="btn btn-primary" title="Edit this Baptismal Record"><i class="fas fa-fw fa-edit"></i></a>';
                         }
                     }
                 ]
-            });*@
+            });
         });        
     </script>
 }

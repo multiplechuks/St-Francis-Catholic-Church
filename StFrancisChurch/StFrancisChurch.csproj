@@ -242,6 +242,7 @@
     <Compile Include="Models\Utility\UtilModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utility\ErrorUtil.cs" />
     <Compile Include="Utility\HtmlHelperExtention.cs" />
     <Compile Include="Utility\ViewUtility.cs" />
   </ItemGroup>
@@ -1727,6 +1728,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ErrorLog\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -1830,6 +1832,12 @@
     <Content Include="Views\Members\Error.cshtml" />
     <Content Include="Views\Station\Index.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
+    <Content Include="Views\Home\Events.cshtml" />
+    <Content Include="Views\Home\Event.cshtml" />
+    <Content Include="Views\Home\News.cshtml" />
+    <Content Include="Views\Home\Reflections.cshtml" />
+    <Content Include="Views\Shared\MenuBar.cshtml" />
+    <Content Include="Views\Home\Station.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessObject\DataAccessObject.csproj">

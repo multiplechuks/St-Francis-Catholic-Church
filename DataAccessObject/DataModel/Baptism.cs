@@ -32,5 +32,8 @@ namespace DataAccessObject.DataModel
         public string NameOfMinister { get; set; }
         public string Remarks { get; set; }
         public Nullable<int> MemberId { get; set; }
+        public int Deleted { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public System.DateTime CreateDate { get; set; }
     }
 }

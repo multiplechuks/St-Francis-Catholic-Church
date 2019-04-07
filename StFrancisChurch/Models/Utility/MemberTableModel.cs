@@ -58,6 +58,20 @@ namespace StFrancisChurch.Models.Utility
         public string Remarks { get; set; }
     }
 
+    public class CommunionTableModel
+    {
+        public int Serial { get; set; }
+        public string BaptismNumber { get; set; }
+        public string BaptismPlace { get; set; }
+        public string BaptismDate { get; set; }
+        public string Othernames { get; set; }
+        public string Surname { get; set; }
+        public string FathersName { get; set; }
+        public string MothersName { get; set; }
+        public string NameOfMinister { get; set; }
+        public string DateReceived { get; set; }
+    }
+
     public class MatrimonyTableModel
     {
         public int Serial { get; set; }
@@ -93,5 +107,13 @@ namespace StFrancisChurch.Models.Utility
         public string Location { get; set; }
         public string Contact { get; set; }
         public int Serial { get; set; }
+    }
+
+    public class EventTableModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string CreateDate { get; set; }
     }
 }

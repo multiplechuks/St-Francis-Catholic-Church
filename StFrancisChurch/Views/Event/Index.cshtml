@@ -1,32 +1,36 @@
-﻿@{
-    ViewBag.Title = "Reflections Page";
+﻿@using StFrancisChurch.Models.Utility
+@{
+    ViewBag.Title = "Event Page";
+    var returns = (ReturnData)ViewBag.returns;
 }
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-7">
         <div class="card mb-3">
             <div class="card-header">
                 <i class="fas fa-table"></i>
-                Stations
+                Events
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="stationTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered" id="eventTable" width="100%" cellspacing="0">
                         <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Contact</th>
-                            <td>Location</td>
-                        </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Created</th>
+                                <td>Action</td>
+                            </tr>
                         </thead>
                         <tfoot>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Contact</th>
-                            <td>Location</td>
-                        </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Created</th>
+                                <td>Action</td>
+                            </tr>
                         </tfoot>
                         <tbody></tbody>
                     </table>
@@ -35,28 +39,36 @@
             <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-5">
         <div class="card">
-            <div class="card-header">Create New Station</div>
+            <div class="card-header">
+                Create New Event
+                <div>
+                    @if (returns.HasValue)
+                    {
+                        <b class="text-info">@returns.Message</b>
+                    }
+                </div>
+            </div>
             <div class="card-body">
-                @using (Html.BeginForm("Index", "Station", FormMethod.Post, new { @role = "form", @class = "form-horizontal" }))
+                @using (Html.BeginForm("Index", "Event", FormMethod.Post, new { @role = "form", @class = "form-horizontal", @enctype = "multipart/form-data" }))
                 {
                     <div class="form-group row">
-                        <label class="control-label col-md-4 text-right" for="Name">Name</label>
+                        <label class="control-label col-md-4 text-right" for="Name">Name/Title</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" name="Name" id="Name" placeholder="Enter name of station" />
+                            <input type="text" class="form-control" name="Name" id="Name" placeholder="Enter name or title of the event" required/>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="control-label col-md-4 text-right" for="Location">Location</label>
+                        <label class="control-label col-md-4 text-right" for="Description">Description</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" name="Location" id="Location" placeholder="Enter location of station" />
+                            <textarea class="form-control" name="Description" id="Description" placeholder="Enter description of event" required></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="control-label col-md-4 text-right" for="Contact">Contact</label>
+                        <label class="control-label col-md-4 text-right" for="Image">Support Image</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" name="Contact" id="Contact" placeholder="Enter contact phone of station" />
+                            <input type="file" class="form-control" name="Image" id="Image" accept="image/*" placeholder="Select image" />
                         </div>
                     </div>
                     <div>
@@ -71,19 +83,26 @@
 
     <script>
         $(document).ready(function () {
-            $('#stationTable').DataTable({
+            $('#eventTable').DataTable({
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    url: "@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))/Station/GetStations/",
+                    url: "@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))/Event/GetRecentEvents/",
                     type: "POST",
                     dataSrc: "data"
                 },
                 "columns": [
-                    { "data": "Serial" },
+                    { "data": "Id" },
                     { "data": "Name" },
-                    { "data": "Contact" },
-                    { "data": "Location" }
+                    { "data": "Description" },
+                    { "data": "CreateDate" },
+                    {
+                        "data": "Action",
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-info" title="View this Event details"><i class="fas fa-fw fa-eye"></i></a>&nbsp;' +
+                                '<a class="btn btn-warning" title="Edit this Event"><i class="fas fa-fw fa-edit"></i></a>';
+                        }
+                    }
                 ]
             });
         });

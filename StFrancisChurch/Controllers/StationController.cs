@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DataAccessObject.DataModel;
 using DataAccessObject.IRepository;
 using StFrancisChurch.Models.Utility;
 
 namespace StFrancisChurch.Controllers
 {
+    [Authorize]
     public class StationController : Controller
     {
         private readonly IStationRepository _stationRepository;
@@ -20,6 +22,53 @@ namespace StFrancisChurch.Controllers
         // GET: Station
         public ActionResult Index()
         {
+            var returnData = (ReturnData)TempData["returnMessage"] ?? new ReturnData
+            {
+                HasValue = false
+            };
+            ViewBag.returns = returnData;
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult Index(OutStation outStation)
+        {
+            
+            try
+            {
+                var station = new Station
+                {
+                    Name = outStation.Name,
+                    Location = outStation.Location,
+                    Contact = outStation.Contact,
+                    DisplayName = outStation.DisplayName,
+                    Deleted = 0,
+                    CreateDate = outStation.CreateDate
+                };
+
+                if (_stationRepository.AddStation(station) > 0)
+                {
+                    var returnData = new ReturnData
+                    {
+                        HasValue = true,
+                        Message = "Station was successfully created"
+                    };
+                    TempData["returnMessage"] = returnData;
+                    return Redirect("Station");
+                }
+            }
+            catch (Exception e)
+            {
+                var returnData = new ReturnData
+                {
+                    HasValue = true,
+                    Message = "There was an error saving the station"
+                };
+                TempData["returnMessage"] = returnData;
+                return Redirect("Station");
+            }
+
             return View();
         }
 

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace StFrancisChurch.Controllers
 {
+    [Authorize]
     public class ReflectionController : Controller
     {
         // GET: Reflection

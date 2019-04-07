@@ -188,7 +188,6 @@ namespace StFrancisChurch.Utility
             return formatted.AsQueryable();
         }
 
-
         public static List<int> GetMembersSacrament(int memberId)
         {
             List<int> membersSacraments = new List<int>();
@@ -199,7 +198,6 @@ namespace StFrancisChurch.Utility
             }
             return membersSacraments;
         }
-
 
         public static IEnumerable<SelectItemValue> GetRoles()
         {
@@ -214,6 +212,23 @@ namespace StFrancisChurch.Utility
                 });
             }
             return formatted.AsQueryable();
+        }
+
+        public static List<OutStation> GetStationDropDown()
+        {
+            var stations = DataUtility.GetAllStations().Where(m => m.Deleted == 0);
+            List<OutStation> outStations = new List<OutStation>();
+            foreach (var station in stations)
+            {
+                outStations.Add(new OutStation
+                {
+                    Name = station.Name,
+                    DisplayName = station.DisplayName,
+                    Id = station.Id
+                });
+            }
+
+            return outStations;
         }
     }
 }

@@ -1,0 +1,28 @@
+﻿@using StFrancisChurch.Models.Utility
+@{
+    var events = (List<ParishEventUI>)ViewBag.events;
+}
+
+<div class="container-wrap">
+    <div id="fh5co-events">
+        <div class="row animate-box fadeInUp animated-fast">
+            <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+                <h2>Our Events</h2>
+                <p>All Events of St. francis of Asisi Catholic Parish Bagusa</p>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var eve in events)
+            {
+                <div class="col-md-4 animate-box fadeInUp animated-fast">
+                    <div class="events-entry">
+                        <span class="date">@eve.CreateDate</span>
+                        <h3><a href="@Href("~/Home/Event/" + eve.Id)">@eve.Name</a></h3>
+                        <p>@eve.Description</p>
+                        <a href="@Href("~/Home/Event/" + eve.Id)">Read More <i class="icon-arrow-right3"></i></a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

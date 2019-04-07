@@ -61,7 +61,6 @@ namespace StFrancisChurch.Controllers
             {
                 return View(model);
             }
-
             try
             {
                 var baptism = new Baptism
@@ -81,7 +80,9 @@ namespace StFrancisChurch.Controllers
                     NameOfGodParent1 = model.NameOfGodParent1,
                     NameOfGodParent2 = model.NameOfGodParent2,
                     NameOfMinister = model.NameOfMinister,
-                    Remarks = model.Remarks
+                    Remarks = model.Remarks,
+                    Deleted = 0,
+                    CreateDate = DateTime.Now
                 };
                 if (_sacramentRepository.AddBaptism(baptism))
                 {
@@ -94,6 +95,7 @@ namespace StFrancisChurch.Controllers
             {
                 //error occured
                 ModelState.AddModelError(string.Empty, "There was an error completing the registration, Please try again later");
+                ErrorUtil.LogError(e);
                 return View(model);
             }
         }
@@ -136,15 +138,15 @@ namespace StFrancisChurch.Controllers
             {
                 if (orderColumnIndex == 1)
                 {
-                    members = members.OrderBy(m => m.BaptismName);
+                    members = members.OrderByDescending(m => m.BaptismName);
                 }
                 if (orderColumnIndex == 2)
                 {
-                    members = members.OrderBy(m => m.Surname);
+                    members = members.OrderByDescending(m => m.Surname);
                 }
                 if (orderColumnIndex == 3)
                 {
-                    members = members.OrderBy(m => m.Othername);
+                    members = members.OrderByDescending(m => m.Othername);
                 }
             }
 
@@ -183,45 +185,41 @@ namespace StFrancisChurch.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateCommunion(BaptismViewModel model)
+        public ActionResult CreateCommunion(CommunionViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-
             try
             {
-                var baptism = new Baptism
+                var communion = new Communion()
                 {
                     BapitsmNumber = model.BaptismNumber,
                     BaptismPlace = model.BaptismPlace,
                     BaptismDate = DateTime.Parse(model.BaptismDate),
-                    BaptismName = model.BaptismName,
-                    BaptismType = model.BaptismType,
-                    Othername = model.Othername,
+                    Othernames = model.Othernames,
                     Surname = model.Surname,
-                    DateOfBirth = DateTime.Parse(model.DateOfBirth),
-                    PlaceOfBirth = model.PlaceOfBirth,
-                    HomeTown = model.HomeTown,
+                    DateReceived = DateTime.Parse(model.Date),
+                    Place = model.Place,
                     FathersName = model.FathersName,
                     MothersName = model.MothersName,
-                    NameOfGodParent1 = model.NameOfGodParent1,
-                    NameOfGodParent2 = model.NameOfGodParent2,
-                    NameOfMinister = model.NameOfMinister,
-                    Remarks = model.Remarks
+                    NameOfMinister = model.Minister,
+                    Deleted = 0,
+                    CreateDate = DateTime.Now
                 };
-                if (_sacramentRepository.AddBaptism(baptism))
+                if (_sacramentRepository.AddCommunion(communion))
                 {
-                    return Redirect("Baptism");
+                    return Redirect("Communion");
                 }
-                ModelState.AddModelError(string.Empty, "There was an error completing the registration, Please check if the bapismal number is correct");
+                ModelState.AddModelError(string.Empty, "There was an error completing the registration, Please check the entries and try again");
                 return View(model);
             }
             catch (Exception e)
             {
                 //error occured
                 ModelState.AddModelError(string.Empty, "There was an error completing the registration, Please try again later");
+                ErrorUtil.LogError(e);
                 return View(model);
             }
         }
@@ -229,17 +227,17 @@ namespace StFrancisChurch.Controllers
         [HttpPost]
         public JsonResult GetCommunionMembers(DatatableParam param)
         {
-            var members = _sacramentRepository.GetBaptisedMembers();
-            var allItems = new List<BaptismTableModel>();
+            var members = _sacramentRepository.GetCommunionMembers();
+            var allItems = new List<CommunionTableModel>();
             //Apply Searching 
             if (!string.IsNullOrEmpty(param.search.value))
             {
                 var searchTerm = param.search.value;
-                members = members.Where(m => m.BaptismName.Contains(searchTerm) || m.BapitsmNumber.Contains(searchTerm) || m.Surname.Contains(searchTerm));
+                members = members.Where(m => m.BapitsmNumber.Contains(searchTerm) || m.Othernames.Contains(searchTerm) || m.Surname.Contains(searchTerm));
             }
 
             var totalcount = members.Count();
-            members = members.OrderBy(m => m.BaptismName);
+            members = members.OrderBy(m => m.DateReceived);
 
             //Apply Sorting/Ordering
             //IEnumerable<UserTableModel> entryTables = allItems;
@@ -249,30 +247,30 @@ namespace StFrancisChurch.Controllers
             {
                 if (orderColumnIndex == 1)
                 {
-                    members = members.OrderBy(m => m.BaptismName);
+                    members = members.OrderBy(m => m.Surname);
                 }
                 if (orderColumnIndex == 2)
                 {
-                    members = members.OrderBy(m => m.Surname);
+                    members = members.OrderBy(m => m.Othernames);
                 }
                 if (orderColumnIndex == 3)
                 {
-                    members = members.OrderBy(m => m.Othername);
+                    members = members.OrderBy(m => m.DateReceived);
                 }
             }
             else
             {
                 if (orderColumnIndex == 1)
                 {
-                    members = members.OrderBy(m => m.BaptismName);
+                    members = members.OrderByDescending(m => m.Surname);
                 }
                 if (orderColumnIndex == 2)
                 {
-                    members = members.OrderBy(m => m.Surname);
+                    members = members.OrderByDescending(m => m.Othernames);
                 }
                 if (orderColumnIndex == 3)
                 {
-                    members = members.OrderBy(m => m.Othername);
+                    members = members.OrderByDescending(m => m.DateReceived);
                 }
             }
 
@@ -285,13 +283,12 @@ namespace StFrancisChurch.Controllers
             foreach (var e in members)
             {
                 count++;
-                allItems.Add(new BaptismTableModel
+                allItems.Add(new CommunionTableModel
                 {
                     Serial = count,
-                    BaptismName = e.BaptismName,
                     Surname = e.Surname,
-                    Othername = e.Othername,
-                    BaptismDate = e.BaptismDate.ToString("d")
+                    Othernames = e.Othernames,
+                    DateReceived = e.BaptismDate.ToString("d")
                 });
             }
 
@@ -317,7 +314,6 @@ namespace StFrancisChurch.Controllers
             {
                 return View(model);
             }
-
             try
             {
                 var matrimony = new Matrimony
@@ -344,7 +340,9 @@ namespace StFrancisChurch.Controllers
                     GroomParentHomeTown = model.GroomParentHomeTown,
                     Witness1 = model.Witness1,
                     Witness2 = model.Witness2,
-                    Remark = model.Remark
+                    Remark = model.Remark,
+                    Deleted = 0,
+                    CreateDate = DateTime.Now
                 };
                 if (_sacramentRepository.AddMatrimony(matrimony))
                 {
@@ -357,6 +355,7 @@ namespace StFrancisChurch.Controllers
             {
                 //error occured
                 ModelState.AddModelError(string.Empty, "There was an error completing the registration, Please try again later");
+                ErrorUtil.LogError(e);
                 return View(model);
             }
         }
@@ -399,15 +398,15 @@ namespace StFrancisChurch.Controllers
             {
                 /*if (orderColumnIndex == 1)
                 {
-                    members = members.OrderBy(m => m.BaptismName);
+                    members = members.OrderByDescending(m => m.BaptismName);
                 }
                 if (orderColumnIndex == 2)
                 {
-                    members = members.OrderBy(m => m.Surname);
+                    members = members.OrderByDescending(m => m.Surname);
                 }
                 if (orderColumnIndex == 3)
                 {
-                    members = members.OrderBy(m => m.Othername);
+                    members = members.OrderByDescending(m => m.Othername);
                 }*/
             }
 

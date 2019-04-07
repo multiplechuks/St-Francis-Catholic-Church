@@ -16,5 +16,12 @@ namespace DataAccessObject.Repository
         {
             return _entities.Stations.AsQueryable();
         }
+
+        public int AddStation(Station station)
+        {
+            _entities.Stations.Add(station);
+            _entities.SaveChanges();
+            return station.Id;
+        }
     }
 }

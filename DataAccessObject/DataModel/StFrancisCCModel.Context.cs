@@ -43,10 +43,10 @@ namespace DataAccessObject.DataModel
         public virtual DbSet<SacramentMemberUpdateLog> SacramentMemberUpdateLogs { get; set; }
         public virtual DbSet<Society> Societies { get; set; }
         public virtual DbSet<SocietyMemberLink> SocietyMemberLinks { get; set; }
+        public virtual DbSet<Station> Stations { get; set; }
         public virtual DbSet<StationEvent> StationEvents { get; set; }
-        public virtual DbSet<Communion> Communions { get; set; }
         public virtual DbSet<Confirmation> Confirmations { get; set; }
         public virtual DbSet<Reflection> Reflections { get; set; }
-        public virtual DbSet<Station> Stations { get; set; }
+        public virtual DbSet<Communion> Communions { get; set; }
     }
 }

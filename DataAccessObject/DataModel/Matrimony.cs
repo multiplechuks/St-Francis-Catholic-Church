@@ -38,5 +38,8 @@ namespace DataAccessObject.DataModel
         public string Witness1 { get; set; }
         public string Witness2 { get; set; }
         public string Remark { get; set; }
+        public int Deleted { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
     }
 }

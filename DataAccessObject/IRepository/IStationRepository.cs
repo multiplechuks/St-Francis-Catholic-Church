@@ -10,5 +10,6 @@ namespace DataAccessObject.IRepository
     public interface IStationRepository
     {
         IQueryable<Station> GetAllStations();
+        int AddStation(Station station);
     }
 }

@@ -63,6 +63,7 @@ namespace DataAccessObject.DataModel
         public virtual LookUpTable LookUpTable3 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MemberFamilyMetaData> MemberFamilyMetaDatas { get; set; }
+        public virtual Station Station1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SocietyMemberLink> SocietyMemberLinks { get; set; }
     }

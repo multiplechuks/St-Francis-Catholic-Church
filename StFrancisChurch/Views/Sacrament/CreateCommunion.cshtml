@@ -1,6 +1,6 @@
 ﻿@using StFrancisChurch.Models
 @using StFrancisChurch.Utility
-@model BaptismViewModel
+@model CommunionViewModel
 @{
     ViewBag.Title = "Home Page";
 }
@@ -14,14 +14,103 @@
         @using (Html.BeginForm("CreateCommunion", "Sacrament", FormMethod.Post, new { @role = "form" }))
         {
             @Html.ValidationSummary(true, "", new { @style = "color :red" })
-            <div class="row">
-                
-                <div class="col-md-12 col-md-push-8">
-                    <div class="form-group">
-                        <input type="submit" value="Save" class="btn btn-primary btn-modify">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="control-label col-md-4 text-right" for="Surname">Surname</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="Surname" id="Surname" placeholder="Enter Surname">
+                        @Html.ValidationMessageFor(m => m.Surname, "", new { @style = "color:red" })
                     </div>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="control-label col-md-4 text-right" for="Othernames">Othernames</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="Othernames" id="Othernames" placeholder="Enter Othernames">
+                        @Html.ValidationMessageFor(m => m.Othernames, "", new { @style = "color:red" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="control-label col-md-4 text-right" for="FathersName">Father's Name</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="FathersName" id="FathersName" placeholder="Enter Father's Name">
+                        @Html.ValidationMessageFor(m => m.FathersName, "", new { @style = "color:red" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="control-label col-md-4 text-right" for="MothersName">Mother's Name</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="MothersName" id="MothersName" placeholder="Enter Mother's Name">
+                        @Html.ValidationMessageFor(m => m.MothersName, "", new { @style = "color:red" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="control-label col-md-4 text-right" for="Date">Date</label>
+                    <div class="col-md-8">
+                        <input type="date" class="form-control" name="Date" id="Date" placeholder="Enter Communial date">
+                        @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color:red" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="control-label col-md-4 text-right" for="Place">Place</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="Place" id="Place" placeholder="Enter Comunion Place">
+                        @Html.ValidationMessageFor(m => m.Place, "", new { @style = "color:red" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="control-label col-md-4 text-right" for="BaptismNumber">Baptism Number</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="BaptismNumber" id="BaptismNumber" placeholder="Enter Baptismal number">
+                        @Html.ValidationMessageFor(m => m.BaptismNumber, "", new { @style = "color:red" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="control-label col-md-4 text-right" for="BaptismPlace">Baptism Place</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="BaptismPlace" id="BaptismPlace" placeholder="Enter Baptismal place">
+                        @Html.ValidationMessageFor(m => m.BaptismPlace, "", new { @style = "color:red" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="control-label col-md-4 text-right" for="BaptismDate">Baptism Date</label>
+                    <div class="col-md-8">
+                        <input type="date" class="form-control" name="BaptismDate" id="BaptismDate" placeholder="Enter Baptismal date">
+                        @Html.ValidationMessageFor(m => m.BaptismDate, "", new { @style = "color:red" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label class="control-label col-md-4 text-right" for="Minister">Minister</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="Minister" id="Minister" placeholder="Enter Minister's Name">
+                        @Html.ValidationMessageFor(m => m.Minister, "", new { @style = "color:red" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-md-push-8">
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary btn-modify">
+                </div>
+            </div>
+        </div>
         }
     </div>
     

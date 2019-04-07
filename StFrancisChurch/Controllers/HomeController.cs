@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using DataAccessObject.DataModel;
 using DataAccessObject.IRepository;
 using StFrancisChurch.Models;
+using StFrancisChurch.Models.Utility;
 
 namespace StFrancisChurch.Controllers
 {
@@ -14,14 +15,17 @@ namespace StFrancisChurch.Controllers
     {
 
         private readonly IMemberRepository _memberRepository;
+        private readonly IEventRepository _eventRepository;
 
-        public HomeController(IMemberRepository memberRepository)
+        public HomeController(IMemberRepository memberRepository, IEventRepository eventRepository)
         {
             _memberRepository = memberRepository;
+            _eventRepository = eventRepository;
         }
 
         public ActionResult Index()
         {
+            GetRecentEvents();
             return View();
         }
 
@@ -36,6 +40,18 @@ namespace StFrancisChurch.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public ActionResult Events()
+        {
+            GetRecentEvents();
+            return View();
+        }
+         
+        public ActionResult Event(int id)
+        {
+            GetEvent(id);
             return View();
         }
 
@@ -114,5 +130,56 @@ namespace StFrancisChurch.Controllers
         {
             return View();
         }        
+
+        /*Other Methods*/
+        private void GetRecentEvents()
+        {
+            //get the last six event or the ones that are still within the time frame
+            var parishEvents = _eventRepository.GetRecentEvents();
+            var parishEventUis = new List<ParishEventUI>();
+
+            foreach (var parishEvent in parishEvents)
+            {
+                var eventUi = new ParishEventUI
+                {
+                    Id = parishEvent.Id,
+                    Name = parishEvent.EventName,
+                    Description = parishEvent.EventDescription.Length < 65 ? parishEvent.EventDescription : parishEvent.EventDescription.Substring(0, 65) + "...",
+                    CreateDate = parishEvent.CreateDate.ToString("D")
+                };
+                parishEventUis.Add(eventUi);
+            }
+
+            ViewBag.events = parishEventUis;
+        }
+
+        private void GetEvent(int id)
+        {
+            //get the last six event or the ones that are still within the time frame
+            var parishEvent = _eventRepository.GetRecentEvents().FirstOrDefault(m => m.Id == id);
+            var eventUi = new ParishEventUI
+            {
+                Id = parishEvent.Id,
+                Name = parishEvent.EventName,
+                Description = parishEvent.EventDescription,
+                CreateDate = parishEvent.CreateDate.ToString("D")
+            };
+            ViewBag.parishEvent = eventUi;
+        }
+
+        public ActionResult News()
+        {
+            return View();
+        }
+
+        public ActionResult Reflections()
+        {
+            return View();
+        }
+
+        public ActionResult Station(int Id)
+        {
+            return View();
+        }
     }
 }

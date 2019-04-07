@@ -1,4 +1,6 @@
-﻿@{
+﻿@using StFrancisChurch.Models.Utility
+@{
+    var events = (List<ParishEventUI>) ViewBag.events;
 }
 
 <div class="container-wrap">
@@ -242,54 +244,17 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2 col-sm-3 col-xs-6 animate-box">
-                <div class="events-entry">
-                    <span class="date">March 10, 2018</span>
-                    <h3><a href="#">Message From God</a></h3>
-                    <p>This is a message from God</p>
-                    <a href="#">Read More <i class="icon-arrow-right3"></i></a>
+            @foreach (var eve in events)
+            {
+                <div class="col-md-3 col-sm-6 col-xs-6 animate-box">
+                    <div class="events-entry">
+                        <span class="date">@eve.CreateDate</span>
+                        <h3><a href="@Href("~/Home/Event/" + eve.Id)">@eve.Name</a></h3>
+                        <p>@eve.Description</p>
+                        <a href="@Href("~/Home/Event/" + eve.Id)">Read More <i class="icon-arrow-right3"></i></a>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6 animate-box">
-                <div class="events-entry">
-                    <span class="date">March 10, 2018</span>
-                    <h3><a href="#">Message From God</a></h3>
-                    <p>This is a message from God</p>
-                    <a href="#">Read More <i class="icon-arrow-right3"></i></a>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6 animate-box">
-                <div class="events-entry">
-                    <span class="date">March 10, 2018</span>
-                    <h3><a href="#">Message From God</a></h3>
-                    <p>This is a message from God</p>
-                    <a href="#">Read More <i class="icon-arrow-right3"></i></a>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6 animate-box">
-                <div class="events-entry">
-                    <span class="date">March 10, 2018</span>
-                    <h3><a href="#">Message From God</a></h3>
-                    <p>This is a message from God</p>
-                    <a href="#">Read More <i class="icon-arrow-right3"></i></a>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6 animate-box">
-                <div class="events-entry">
-                    <span class="date">March 10, 2018</span>
-                    <h3><a href="#">Message From God</a></h3>
-                    <p>This is a message from God</p>
-                    <a href="#">Read More <i class="icon-arrow-right3"></i></a>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-3 col-xs-6 animate-box">
-                <div class="events-entry">
-                    <span class="date">March 10, 2018</span>
-                    <h3><a href="#">Message From God</a></h3>
-                    <p>This is a message from God</p>
-                    <a href="#">Read More <i class="icon-arrow-right3"></i></a>
-                </div>
-            </div>
+            }
         </div>
     </div>
     <div id="fh5co-news" class="fh5co-light-grey">

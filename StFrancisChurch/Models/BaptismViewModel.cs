@@ -6,6 +6,7 @@ using System.Web;
 
 namespace StFrancisChurch.Models
 {
+
     public class BaptismViewModel
     {
         [Required]
@@ -124,5 +125,24 @@ namespace StFrancisChurch.Models
         public string Witness1 { get; set; }
         public string Witness2 { get; set; }
         public string Remark { get; set; }
+    }
+
+    public class CommunionViewModel
+    {
+        [Required]
+        [Display(Name = "Surname")]
+        public string Surname { get; set; }
+        public string Othernames { get; set; }
+        public string FathersName { get; set; }
+        public string MothersName { get; set; }
+        public string Date { get; set; }
+        public string Place { get; set; }
+        public string Minister { get; set; }
+
+        [Required]
+        [Display(Name = "Baptism Number")]
+        public string BaptismNumber { get; set; }
+        public string BaptismPlace { get; set; }
+        public string BaptismDate { get; set; }
     }
 }

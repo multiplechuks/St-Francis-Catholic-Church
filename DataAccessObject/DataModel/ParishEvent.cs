@@ -21,7 +21,8 @@ namespace DataAccessObject.DataModel
         public System.DateTime CreateDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public int Deleted { get; set; }
-        public int EventType { get; set; }
+        public Nullable<int> EventType { get; set; }
+        public string Image { get; set; }
     
         public virtual ParishEventType ParishEventType { get; set; }
     }

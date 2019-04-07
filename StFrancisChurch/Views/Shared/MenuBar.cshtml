@@ -1,0 +1,37 @@
+﻿@using StFrancisChurch.Models.Utility
+@using StFrancisChurch.Utility
+@{
+    var stations = ViewUtility.GetStationDropDown();
+}
+<ul>
+    <li class="@Html.IsSelected(action:"Index",controller:"Home")"><a href="/">Parish</a></li>
+    <li class="has-dropdown">
+        <a href="#">Stations</a>
+        <ul class="dropdown">
+            @foreach (var station in stations)
+            {
+                <li><a href="@Href("~/Home/Station/"+station.Id)">@station.Name</a></li>
+            }
+        </ul>
+    </li>
+    <li class="has-dropdown @Html.IsSelectedActions(actions:new[] {"About","Contact","Anouncement"},controller:"Home")">
+        <a href="#">Information</a>
+        <ul class="dropdown">
+            <li><a href="@Href("~/Home/About")">About</a></li>
+            <li><a href="@Href("~/Home/Contact")">Contact</a></li>
+            <li><a href="#">Anouncement</a></li>
+            <li><a href="#">Schedules</a></li>
+        </ul>
+    </li>
+    <li class="has-dropdown @Html.IsSelectedActions(actions:new[] {"Reflections","Events","News","Quotes"},controller:"Home")">
+        <a href="#">Activities</a>
+        <ul class="dropdown">
+            <li><a href="@Href("~/Home/Reflections")">Reflections</a></li>
+            <li><a href="@Href("~/Home/Events")">Events</a></li>
+            <li><a href="@Href("~/Home/News")">News</a></li>
+            <li><a href="#">Quotes</a></li>
+        </ul>
+    </li>
+    <li class="@Html.IsSelected(action:"MemberRegistration",controller:"Home")"><a href="@Url.Action("MemberRegistration", "Home" )">Membership</a></li>
+    <li><a href="#" class="donate">Donate</a></li>
+</ul>
