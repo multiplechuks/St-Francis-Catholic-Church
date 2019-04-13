@@ -54,6 +54,21 @@ namespace DataAccessObject.Repository
             return _entities.Communions.AsQueryable();
         }
 
-        
+        public bool AddConfirmation(Confirmation confirmation)
+        {
+            var existingConfirmation = _entities.Confirmations.FirstOrDefault(m => m.Number == confirmation.Number);
+            if (existingConfirmation == null)
+            {
+                _entities.Confirmations.Add(confirmation);
+                _entities.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public IQueryable<Confirmation> GetConfirmedMembers()
+        {
+            return _entities.Confirmations.AsQueryable();
+        }
     }
 }

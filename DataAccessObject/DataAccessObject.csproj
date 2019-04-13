@@ -139,12 +139,14 @@
     <Compile Include="IRepository\IEventRepository.cs" />
     <Compile Include="IRepository\IMemberRepository.cs" />
     <Compile Include="IRepository\ISacramentRepository.cs" />
+    <Compile Include="IRepository\ISocietyRepository.cs" />
     <Compile Include="IRepository\IStationRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\EventRepository.cs" />
     <Compile Include="Repository\MemberRepository.cs" />
     <Compile Include="Repository\SacramentRepository.cs" />
+    <Compile Include="Repository\SocietyRepository.cs" />
     <Compile Include="Repository\StationRepository.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -16,5 +16,20 @@ namespace DataAccessObject.DataModel
     {
         public int Id { get; set; }
         public System.DateTime DateReceived { get; set; }
+        public string Number { get; set; }
+        public string ConfirmationName { get; set; }
+        public string Surname { get; set; }
+        public string Othernames { get; set; }
+        public string Place { get; set; }
+        public string FathersName { get; set; }
+        public string MothersName { get; set; }
+        public string BapitsmNumber { get; set; }
+        public string BaptismPlace { get; set; }
+        public System.DateTime BaptismDate { get; set; }
+        public string NameOfMinister { get; set; }
+        public int Deleted { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public string Sponsor { get; set; }
     }
 }

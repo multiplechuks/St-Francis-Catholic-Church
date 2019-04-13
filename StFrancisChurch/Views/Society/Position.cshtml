@@ -1,0 +1,101 @@
+﻿@using StFrancisChurch.Models.Utility
+@{
+    ViewBag.Title = "Position Page";
+    var returns = (ReturnData)ViewBag.returns;
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-table"></i>
+                Positions
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="PositionTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <td>Action</td>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <td>Action</td>
+                        </tr>
+                        </tfoot>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                Create New Position
+                <div>
+                    @if (returns.HasValue)
+                    {
+                        <b class="text-info">@returns.Message</b>
+                    }
+                </div>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm("Position", "Society", FormMethod.Post, new { @role = "form", @class = "form-horizontal" }))
+                {
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="Name">Name</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="Name" id="Name" placeholder="Enter name of Position" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="Description">Position Description</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" name="Description" id="Description" placeholder="Enter description of Position"></textarea>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            $('#PositionTable').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    url: "@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))/Position/GetPositions/",
+                    type: "POST",
+                    dataSrc: "data"
+                },
+                "columns": [
+                    { "data": "Serial" },
+                    { "data": "Name" },
+                    { "data": "Contact" },
+                    {
+                        "data": "Action",
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-primary" title="View this Baptismal Record"><i class="fas fa-fw fa-eye"></i></a>&nbsp;' +
+                                '<a class="btn btn-primary" title="Edit this Baptismal Record"><i class="fas fa-fw fa-edit"></i></a>';
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+}

@@ -228,6 +228,7 @@
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\ReflectionController.cs" />
     <Compile Include="Controllers\SacramentController.cs" />
+    <Compile Include="Controllers\SocietyController.cs" />
     <Compile Include="Controllers\StationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1838,6 +1839,9 @@
     <Content Include="Views\Home\Reflections.cshtml" />
     <Content Include="Views\Shared\MenuBar.cshtml" />
     <Content Include="Views\Home\Station.cshtml" />
+    <Content Include="Views\Sacrament\CreateConfirmation.cshtml" />
+    <Content Include="Views\Society\Index.cshtml" />
+    <Content Include="Views\Society\Position.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessObject\DataAccessObject.csproj">

@@ -25,7 +25,6 @@
         <EntityTypeShape EntityType="StFrancisCCModel.SocietyMemberLink" Width="1.5" PointX="8.25" PointY="6.5" />
         <EntityTypeShape EntityType="StFrancisCCModel.Station" Width="1.5" PointX="3.75" PointY="2.625" />
         <EntityTypeShape EntityType="StFrancisCCModel.StationEvent" Width="1.5" PointX="11" PointY="15.125" />
-        <EntityTypeShape EntityType="StFrancisCCModel.Confirmation" Width="1.5" PointX="0.75" PointY="4" />
         <EntityTypeShape EntityType="StFrancisCCModel.Reflection" Width="1.5" PointX="2.75" PointY="16" />
         <AssociationConnector Association="StFrancisCCModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="StFrancisCCModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
@@ -45,6 +44,7 @@
         <AssociationConnector Association="StFrancisCCModel.FK_SocietyMemberLink_Societies" />
         <AssociationConnector Association="StFrancisCCModel.AspNetUserRoles" />
         <EntityTypeShape EntityType="StFrancisCCModel.Communion" Width="1.5" PointX="5.375" PointY="16.75" />
+        <EntityTypeShape EntityType="StFrancisCCModel.Confirmation" Width="1.5" PointX="7.375" PointY="16.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

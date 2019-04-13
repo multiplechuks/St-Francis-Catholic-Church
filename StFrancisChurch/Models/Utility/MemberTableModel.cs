@@ -72,6 +72,22 @@ namespace StFrancisChurch.Models.Utility
         public string DateReceived { get; set; }
     }
 
+    public class ConfirmationTableModel
+    {
+        public int Serial { get; set; }
+        public string BaptismNumber { get; set; }
+        public string BaptismPlace { get; set; }
+        public string BaptismDate { get; set; }
+        public string Othernames { get; set; }
+        public string Surname { get; set; }
+        public string FathersName { get; set; }
+        public string MothersName { get; set; }
+        public string NameOfMinister { get; set; }
+        public string DateReceived { get; set; }
+        public string Number { get; set; }
+        public string ConfirmationName { get; set; }
+    }
+
     public class MatrimonyTableModel
     {
         public int Serial { get; set; }

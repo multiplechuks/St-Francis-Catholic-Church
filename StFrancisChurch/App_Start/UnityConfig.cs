@@ -51,6 +51,7 @@ namespace StFrancisChurch
             container.RegisterType<ISacramentRepository, SacramentRepository>();
             container.RegisterType<IStationRepository, StationRepository>();
             container.RegisterType<IEventRepository, EventRepository>();
+            container.RegisterType<ISocietyRepository, SocietyRepository>();
         }
     }
 }

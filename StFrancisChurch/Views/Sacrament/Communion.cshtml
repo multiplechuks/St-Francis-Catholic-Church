@@ -1,5 +1,7 @@
-﻿@{
+﻿@using StFrancisChurch.Models.Utility
+@{
     ViewBag.Title = "Home Page";
+    var returns = (ReturnData)ViewBag.returns;
 }
 
 <div class="card mb-3">
@@ -8,6 +10,12 @@
         Communion Register
         <div class="btn-group" style="float: right; margin-top: 5px; margin-right: 10px;">
             <a class="btn btn-success" href="@Href("~/Sacrament/CreateCommunion")" title="Click to create a new communion record"><i class="fa fa-plus" style="margin:0px;"></i> New Record </a>
+        </div>
+        <div>
+            @if (returns.HasValue)
+            {
+                <b class="text-info">@returns.Message</b>
+            }
         </div>
     </div>
     <div class="card-body">

@@ -30,21 +30,41 @@ namespace StFrancisChurch.Controllers
 
         public ActionResult Communion()
         {
+            var returnData = (ReturnData)TempData["returnMessage"] ?? new ReturnData
+            {
+                HasValue = false
+            };
+            ViewBag.returns = returnData;
             return View();
         }
 
         public ActionResult Confirmation()
         {
+            var returnData = (ReturnData)TempData["returnMessage"] ?? new ReturnData
+            {
+                HasValue = false
+            };
+            ViewBag.returns = returnData;
             return View();
         }
 
         public ActionResult Baptism()
         {
+            var returnData = (ReturnData)TempData["returnMessage"] ?? new ReturnData
+            {
+                HasValue = false
+            };
+            ViewBag.returns = returnData;
             return View();
         }
 
         public ActionResult Matrimony()
         {
+            var returnData = (ReturnData)TempData["returnMessage"] ?? new ReturnData
+            {
+                HasValue = false
+            };
+            ViewBag.returns = returnData;
             return View();
         }
 
@@ -86,6 +106,12 @@ namespace StFrancisChurch.Controllers
                 };
                 if (_sacramentRepository.AddBaptism(baptism))
                 {
+                    var returnData = new ReturnData
+                    {
+                        HasValue = true,
+                        Message = "Baptismal record was successfully created"
+                    };
+                    TempData["returnMessage"] = returnData;
                     return Redirect("Baptism");
                 }
                 ModelState.AddModelError(string.Empty, "There was an error completing the registration, Please check if the bapismal number is correct");
@@ -210,6 +236,12 @@ namespace StFrancisChurch.Controllers
                 };
                 if (_sacramentRepository.AddCommunion(communion))
                 {
+                    var returnData = new ReturnData
+                    {
+                        HasValue = true,
+                        Message = "Communion record was successfully created"
+                    };
+                    TempData["returnMessage"] = returnData;
                     return Redirect("Communion");
                 }
                 ModelState.AddModelError(string.Empty, "There was an error completing the registration, Please check the entries and try again");
@@ -346,6 +378,12 @@ namespace StFrancisChurch.Controllers
                 };
                 if (_sacramentRepository.AddMatrimony(matrimony))
                 {
+                    var returnData = new ReturnData
+                    {
+                        HasValue = true,
+                        Message = "Marriage record was successfully created"
+                    };
+                    TempData["returnMessage"] = returnData;
                     return Redirect("Matrimony");
                 }
                 ModelState.AddModelError(string.Empty, "There was an error completing the registration, Please check if the bapismal number is correct");
@@ -426,6 +464,139 @@ namespace StFrancisChurch.Controllers
                     GroomFullName = e.GroomFullName,
                     DateOfMarriage = e.DateOfMarriage,
                     PlaceOfMarriage = e.PlaceOfMarriage
+                });
+            }
+
+            return Json(new
+            {
+                param.draw,
+                recordsFiltered = totalcount,
+                recordsTotal = totalcount,
+                data = allItems,
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult CreateConfirmation()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateConfirmation(ConfirmationViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            try
+            {
+                var confirmation = new Confirmation
+                {
+                    BapitsmNumber = model.BaptismNumber,
+                    BaptismPlace = model.BaptismPlace,
+                    BaptismDate = DateTime.Parse(model.BaptismDate),
+                    ConfirmationName = model.ConfirmationName,
+                    DateReceived = DateTime.Parse(model.Date),
+                    Place = model.Place,
+                    Number = model.Number,
+                    Othernames = model.Othernames,
+                    Surname = model.Surname,
+                    FathersName = model.FathersName,
+                    MothersName = model.MothersName,
+                    Sponsor = model.Sponsor,
+                    NameOfMinister = model.Minister,
+                    Deleted = 0,
+                    CreateDate = DateTime.Now
+                };
+                if (_sacramentRepository.AddConfirmation(confirmation))
+                {
+                    var returnData = new ReturnData
+                    {
+                        HasValue = true,
+                        Message = "Confirmation record was successfully created"
+                    };
+                    TempData["returnMessage"] = returnData;
+                    return Redirect("Confirmation");
+                }
+                ModelState.AddModelError(string.Empty, "There was an error completing the registration, Please check if the confirmation number is correct");
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                //error occured
+                ModelState.AddModelError(string.Empty, "There was an error completing the registration, Please try again later");
+                ErrorUtil.LogError(e);
+                return View(model);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetConfirmationMembers(DatatableParam param)
+        {
+            var members = _sacramentRepository.GetConfirmedMembers();
+            var allItems = new List<ConfirmationTableModel>();
+            //Apply Searching 
+            if (!string.IsNullOrEmpty(param.search.value))
+            {
+                var searchTerm = param.search.value;
+                members = members.Where(m => m.ConfirmationName.Contains(searchTerm) || m.Number.Contains(searchTerm) || m.Surname.Contains(searchTerm));
+            }
+
+            var totalcount = members.Count();
+            members = members.OrderBy(m => m.DateReceived);
+
+            //Apply Sorting/Ordering
+            //IEnumerable<UserTableModel> entryTables = allItems;
+            var orderColumnIndex = Convert.ToInt32(param.order[0].column);
+            var orderDir = param.order[0].dir;
+            if (orderDir.Equals("asc"))
+            {
+                if (orderColumnIndex == 1)
+                {
+                    members = members.OrderBy(m => m.Number);
+                }
+                if (orderColumnIndex == 2)
+                {
+                    members = members.OrderBy(m => m.Surname);
+                }
+                if (orderColumnIndex == 3)
+                {
+                    members = members.OrderBy(m => m.ConfirmationName);
+                }
+            }
+            else
+            {
+                if (orderColumnIndex == 1)
+                {
+                    members = members.OrderByDescending(m => m.Number);
+                }
+                if (orderColumnIndex == 2)
+                {
+                    members = members.OrderByDescending(m => m.Surname);
+                }
+                if (orderColumnIndex == 3)
+                {
+                    members = members.OrderByDescending(m => m.ConfirmationName);
+                }
+            }
+
+            //Apply Pagination
+            //int.TryParse(param., out start);
+            members = members.Skip(param.start).Take(param.length);
+
+            var count = 0;
+
+            foreach (var e in members)
+            {
+                count++;
+                allItems.Add(new ConfirmationTableModel()
+                {
+                    Serial = count,
+                    Number = e.Number,
+                    Surname = e.Surname,
+                    ConfirmationName = e.ConfirmationName,
+                    DateReceived = e.DateReceived.ToString("d")
                 });
             }
 

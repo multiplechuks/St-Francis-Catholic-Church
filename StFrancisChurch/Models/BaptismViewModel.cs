@@ -135,14 +135,59 @@ namespace StFrancisChurch.Models
         public string Othernames { get; set; }
         public string FathersName { get; set; }
         public string MothersName { get; set; }
+
+        [Required]
+        [Display(Name = "Date")]
+        public string Date { get; set; }
+
+        [Required]
+        [Display(Name = "Place")]
+        public string Place { get; set; }
+
+        [Required]
+        [Display(Name = "Name of Minister")]
+        public string Minister { get; set; }
+
+        [Required]
+        [Display(Name = "Baptism Number")]
+        public string BaptismNumber { get; set; }
+
+        [Required]
+        [Display(Name = "Baptism place")]
+        public string BaptismPlace { get; set; }
+
+        [Required]
+        [Display(Name = "Baptism date")]
+        public string BaptismDate { get; set; }
+    }
+
+    public class ConfirmationViewModel
+    {
+        [Required]
+        [Display(Name = "Number")]
+        public string Number { get; set; }
+        public string ConfirmationName { get; set; }
+        [Required]
+        [Display(Name = "Surname")]
+        public string Surname { get; set; }
+        public string Othernames { get; set; }
+        public string FathersName { get; set; }
+        public string MothersName { get; set; }
         public string Date { get; set; }
         public string Place { get; set; }
         public string Minister { get; set; }
+        public string Sponsor { get; set; } 
 
         [Required]
         [Display(Name = "Baptism Number")]
         public string BaptismNumber { get; set; }
         public string BaptismPlace { get; set; }
         public string BaptismDate { get; set; }
+    }
+
+    public class PositionViewModel
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }
