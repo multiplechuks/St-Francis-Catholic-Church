@@ -11,5 +11,9 @@ namespace DataAccessObject.IRepository
     {
         IQueryable<Station> GetAllStations();
         int AddStation(Station station);
+        IQueryable<WeeklySchedule> GetSchedules();
+        IQueryable<WeeklySchedule> GetSundaySchedules();
+        IQueryable<WeeklySchedule> GetStationSchedules(int id);
+        bool AddSchedules(List<WeeklySchedule> schedules);
     }
 }

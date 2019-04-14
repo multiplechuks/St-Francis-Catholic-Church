@@ -1,0 +1,148 @@
+﻿@using StFrancisChurch.Models.Utility
+@using StFrancisChurch.Utility
+@{
+    ViewBag.Title = "Station Page";
+    var schedules = ViewBag.Schedules;
+    var returns = (ReturnData)ViewBag.returns;
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-table"></i>
+                Mass Schedules
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="" width="100%" cellspacing="0">
+                        <tbody>
+                            @foreach (var schedule in schedules)
+                            {
+                                foreach (var _ in schedule)
+                                {
+                                    <tr id="heading" align="center">
+                                        <th colspan="2">@_.Station1.Name</th>
+                                    </tr>
+                                    break;
+                                }
+                                foreach (var _ in schedule)
+                                {
+                                    <tr>
+                                        <td>@((DaysOfTheWeek)_.DayOfTheWeek)</td>
+                                        <td>@_.Time</td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <td colspan="2"></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                Update Schedule
+            </div>
+            <div>
+                @if (returns.HasValue)
+                {
+                    <b class="text-info">@returns.Message</b>
+                }
+            </div>
+            <i class="badge badge-info">Masses in the same day use comma & space eg: 6:00am, 10:00am</i>
+            <div class="card-body">
+                @using (Html.BeginForm("Schedule", "Station", FormMethod.Post, new { @role = "form", @class = "form-horizontal" }))
+                {
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="Name">Station</label>
+                        <div class="col-md-8">
+                            @Html.DropDownList("Station", new SelectList(ViewUtility.GetStations(), "Id", "Name", null), "Select station", new { @class = "form-control", @onchange = "getWeeklySchedules()" })
+                        </div>
+                    </div>
+                    <fieldset id="weekly_inputs">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th width="50%">Day of the Week</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Sunday</td>
+                                    <td><input type="text" class="form-control" name="Sunday" id="Sunday" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Monday</td>
+                                    <td><input type="text" class="form-control" name="Monday" id="Monday" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Tuesday</td>
+                                    <td><input type="text" class="form-control" name="Tuesday" id="Tuesday" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Wednesday</td>
+                                    <td><input type="text" class="form-control" name="Wednesday" id="Wednesday" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Thursday</td>
+                                    <td><input type="text" class="form-control" name="Thursday" id="Thursday" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Friday</td>
+                                    <td><input type="text" class="form-control" name="Friday" id="Friday" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Saturday</td>
+                                    <td><input type="text" class="form-control" name="Saturday" id="Saturday" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                    <div>
+                        <input type="submit" value="Save Changes" class="btn btn-success" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section styles{
+    <style>
+        #heading {
+            border-bottom: black 2px solid;
+        }
+    </style>
+}
+
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            $("#weekly_inputs").hide();
+        });
+
+        function getWeeklySchedules() {
+            var id = $("#Station").val();
+            $.get("@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))/Station/GetStationSchedule/" + id,
+                function (data, status) {
+                    $("#weekly_inputs").show(350);
+                    var mainData = JSON.parse(data);
+                    $("#Sunday").val(mainData.Sunday);
+                    $("#Monday").val(mainData.Monday);
+                    $("#Tuesday").val(mainData.Tuesday);
+                    $("#Wednesday").val(mainData.Wednesday);
+                    $("#Thursday").val(mainData.Thursday);
+                    $("#Friday").val(mainData.Friday);
+                    $("#Saturday").val(mainData.Saturday);
+                });
+        }
+    </script>
+}

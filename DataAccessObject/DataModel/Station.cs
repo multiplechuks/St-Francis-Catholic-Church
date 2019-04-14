@@ -18,6 +18,7 @@ namespace DataAccessObject.DataModel
         public Station()
         {
             this.Members = new HashSet<Member>();
+            this.WeeklySchedules = new HashSet<WeeklySchedule>();
         }
     
         public int Id { get; set; }
@@ -30,5 +31,7 @@ namespace DataAccessObject.DataModel
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Member> Members { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WeeklySchedule> WeeklySchedules { get; set; }
     }
 }

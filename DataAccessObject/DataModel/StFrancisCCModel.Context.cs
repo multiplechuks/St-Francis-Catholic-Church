@@ -31,6 +31,8 @@ namespace DataAccessObject.DataModel
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Baptism> Baptism { get; set; }
+        public virtual DbSet<Communion> Communions { get; set; }
+        public virtual DbSet<Confirmation> Confirmations { get; set; }
         public virtual DbSet<LookUpTable> LookUpTables { get; set; }
         public virtual DbSet<Matrimony> Matrimonies { get; set; }
         public virtual DbSet<MemberFamilyMetaData> MemberFamilyMetaDatas { get; set; }
@@ -45,8 +47,7 @@ namespace DataAccessObject.DataModel
         public virtual DbSet<SocietyMemberLink> SocietyMemberLinks { get; set; }
         public virtual DbSet<Station> Stations { get; set; }
         public virtual DbSet<StationEvent> StationEvents { get; set; }
+        public virtual DbSet<WeeklySchedule> WeeklySchedules { get; set; }
         public virtual DbSet<Reflection> Reflections { get; set; }
-        public virtual DbSet<Communion> Communions { get; set; }
-        public virtual DbSet<Confirmation> Confirmations { get; set; }
     }
 }

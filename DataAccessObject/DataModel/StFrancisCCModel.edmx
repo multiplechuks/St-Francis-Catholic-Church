@@ -353,6 +353,17 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
           <Property Name="Deleted" Type="int" Nullable="false" />
           <Property Name="EventType" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="WeeklySchedule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DayOfTheWeek" Type="int" Nullable="false" />
+          <Property Name="Time" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ScheduleType" Type="int" Nullable="false" />
+          <Property Name="Station" Type="int" Nullable="false" />
+        </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -577,6 +588,18 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WeeklySchedule_Station">
+          <End Role="Station" Type="Self.Station" Multiplicity="1" />
+          <End Role="WeeklySchedule" Type="Self.WeeklySchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WeeklySchedule">
+              <PropertyRef Name="Station" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="StFrancisCCModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -601,6 +624,7 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
           <EntitySet Name="SocietyMemberLink" EntityType="Self.SocietyMemberLink" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Station" EntityType="Self.Station" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StationEvent" EntityType="Self.StationEvent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WeeklySchedule" EntityType="Self.WeeklySchedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reflection" EntityType="Self.Reflection" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Reflection].[Id] AS [Id], 
@@ -685,6 +709,10 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
             <End Role="ParishEventType" EntitySet="ParishEventType" />
             <End Role="StationEvent" EntitySet="StationEvent" />
           </AssociationSet>
+          <AssociationSet Name="FK_WeeklySchedule_Station" Association="Self.FK_WeeklySchedule_Station">
+            <End Role="Station" EntitySet="Station" />
+            <End Role="WeeklySchedule" EntitySet="WeeklySchedule" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -697,6 +725,8 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
           <EntitySet Name="AspNetUserLogins" EntityType="StFrancisCCModel.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="StFrancisCCModel.AspNetUser" />
           <EntitySet Name="Baptism" EntityType="StFrancisCCModel.Baptism" />
+          <EntitySet Name="Communions" EntityType="StFrancisCCModel.Communion" />
+          <EntitySet Name="Confirmations" EntityType="StFrancisCCModel.Confirmation" />
           <EntitySet Name="LookUpTables" EntityType="StFrancisCCModel.LookUpTable" />
           <EntitySet Name="Matrimonies" EntityType="StFrancisCCModel.Matrimony" />
           <EntitySet Name="MemberFamilyMetaDatas" EntityType="StFrancisCCModel.MemberFamilyMetaData" />
@@ -711,6 +741,7 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
           <EntitySet Name="SocietyMemberLinks" EntityType="StFrancisCCModel.SocietyMemberLink" />
           <EntitySet Name="Stations" EntityType="StFrancisCCModel.Station" />
           <EntitySet Name="StationEvents" EntityType="StFrancisCCModel.StationEvent" />
+          <EntitySet Name="WeeklySchedules" EntityType="StFrancisCCModel.WeeklySchedule" />
           <EntitySet Name="Reflections" EntityType="StFrancisCCModel.Reflection" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="StFrancisCCModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
@@ -776,12 +807,14 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
             <End Role="Society" EntitySet="Societies" />
             <End Role="SocietyMemberLink" EntitySet="SocietyMemberLinks" />
           </AssociationSet>
+          <AssociationSet Name="FK_WeeklySchedule_Station" Association="StFrancisCCModel.FK_WeeklySchedule_Station">
+            <End Role="Station" EntitySet="Stations" />
+            <End Role="WeeklySchedule" EntitySet="WeeklySchedules" />
+          </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="StFrancisCCModel.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="Communions" EntityType="StFrancisCCModel.Communion" />
-          <EntitySet Name="Confirmations" EntityType="StFrancisCCModel.Confirmation" />
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -872,6 +905,47 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
           <Property Name="Deleted" Type="Int32" Nullable="false" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Communion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Othernames" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DateReceived" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Place" Type="String" MaxLength="225" FixedLength="false" Unicode="true" />
+          <Property Name="FathersName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MothersName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BapitsmNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BaptismPlace" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="BaptismDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NameOfMinister" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Confirmation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateReceived" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ConfirmationName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Othernames" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Place" Type="String" MaxLength="225" FixedLength="false" Unicode="true" />
+          <Property Name="FathersName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MothersName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BapitsmNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BaptismPlace" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="BaptismDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NameOfMinister" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="Sponsor" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="LookUpTable">
           <Key>
@@ -1081,6 +1155,7 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
           <Property Name="CreateDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Deleted" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Members" Relationship="StFrancisCCModel.FK_Members_Station" FromRole="Station" ToRole="Member" />
+          <NavigationProperty Name="WeeklySchedules" Relationship="StFrancisCCModel.FK_WeeklySchedule_Station" FromRole="Station" ToRole="WeeklySchedule" />
         </EntityType>
         <EntityType Name="StationEvent">
           <Key>
@@ -1095,6 +1170,18 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
           <Property Name="Deleted" Type="Int32" Nullable="false" />
           <Property Name="EventType" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ParishEventType" Relationship="StFrancisCCModel.FK_StationEvent_ParishEventType" FromRole="StationEvent" ToRole="ParishEventType" />
+        </EntityType>
+        <EntityType Name="WeeklySchedule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DayOfTheWeek" Type="Int32" Nullable="false" />
+          <Property Name="Time" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ScheduleType" Type="Int32" Nullable="false" />
+          <Property Name="Station" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Station1" Relationship="StFrancisCCModel.FK_WeeklySchedule_Station" FromRole="WeeklySchedule" ToRole="Station" />
         </EntityType>
         <EntityType Name="Reflection">
           <Key>
@@ -1310,51 +1397,22 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WeeklySchedule_Station">
+          <End Type="StFrancisCCModel.Station" Role="Station" Multiplicity="1" />
+          <End Type="StFrancisCCModel.WeeklySchedule" Role="WeeklySchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WeeklySchedule">
+              <PropertyRef Name="Station" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="AspNetUserRoles">
           <End Type="StFrancisCCModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="StFrancisCCModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
-        <EntityType Name="Communion">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Othernames" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="DateReceived" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Place" Type="String" MaxLength="225" FixedLength="false" Unicode="true" />
-          <Property Name="FathersName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="MothersName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="BapitsmNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BaptismPlace" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="BaptismDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="NameOfMinister" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Deleted" Type="Int32" Nullable="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="Confirmation">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DateReceived" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ConfirmationName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Othernames" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Place" Type="String" MaxLength="225" FixedLength="false" Unicode="true" />
-          <Property Name="FathersName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="MothersName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="BapitsmNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BaptismPlace" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="BaptismDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="NameOfMinister" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Deleted" Type="Int32" Nullable="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-          <Property Name="Sponsor" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1444,6 +1502,49 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
                 <ScalarProperty Name="BaptismDate" ColumnName="BaptismDate" />
                 <ScalarProperty Name="BaptismPlace" ColumnName="BaptismPlace" />
                 <ScalarProperty Name="BapitsmNumber" ColumnName="BapitsmNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Communions">
+            <EntityTypeMapping TypeName="StFrancisCCModel.Communion">
+              <MappingFragment StoreEntitySet="Communion">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="NameOfMinister" ColumnName="NameOfMinister" />
+                <ScalarProperty Name="BaptismDate" ColumnName="BaptismDate" />
+                <ScalarProperty Name="BaptismPlace" ColumnName="BaptismPlace" />
+                <ScalarProperty Name="BapitsmNumber" ColumnName="BapitsmNumber" />
+                <ScalarProperty Name="MothersName" ColumnName="MothersName" />
+                <ScalarProperty Name="FathersName" ColumnName="FathersName" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
+                <ScalarProperty Name="Othernames" ColumnName="Othernames" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Confirmations">
+            <EntityTypeMapping TypeName="StFrancisCCModel.Confirmation">
+              <MappingFragment StoreEntitySet="Confirmation">
+                <ScalarProperty Name="Sponsor" ColumnName="Sponsor" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="NameOfMinister" ColumnName="NameOfMinister" />
+                <ScalarProperty Name="BaptismDate" ColumnName="BaptismDate" />
+                <ScalarProperty Name="BaptismPlace" ColumnName="BaptismPlace" />
+                <ScalarProperty Name="BapitsmNumber" ColumnName="BapitsmNumber" />
+                <ScalarProperty Name="MothersName" ColumnName="MothersName" />
+                <ScalarProperty Name="FathersName" ColumnName="FathersName" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="Othernames" ColumnName="Othernames" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="ConfirmationName" ColumnName="ConfirmationName" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1657,6 +1758,18 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="WeeklySchedules">
+            <EntityTypeMapping TypeName="StFrancisCCModel.WeeklySchedule">
+              <MappingFragment StoreEntitySet="WeeklySchedule">
+                <ScalarProperty Name="Station" ColumnName="Station" />
+                <ScalarProperty Name="ScheduleType" ColumnName="ScheduleType" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="DayOfTheWeek" ColumnName="DayOfTheWeek" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Reflections">
             <EntityTypeMapping TypeName="StFrancisCCModel.Reflection">
               <MappingFragment StoreEntitySet="Reflection">
@@ -1679,49 +1792,6 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="Communions">
-            <EntityTypeMapping TypeName="StFrancisCCModel.Communion">
-              <MappingFragment StoreEntitySet="Communion">
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-                <ScalarProperty Name="NameOfMinister" ColumnName="NameOfMinister" />
-                <ScalarProperty Name="BaptismDate" ColumnName="BaptismDate" />
-                <ScalarProperty Name="BaptismPlace" ColumnName="BaptismPlace" />
-                <ScalarProperty Name="BapitsmNumber" ColumnName="BapitsmNumber" />
-                <ScalarProperty Name="MothersName" ColumnName="MothersName" />
-                <ScalarProperty Name="FathersName" ColumnName="FathersName" />
-                <ScalarProperty Name="Place" ColumnName="Place" />
-                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
-                <ScalarProperty Name="Othernames" ColumnName="Othernames" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Confirmations">
-            <EntityTypeMapping TypeName="StFrancisCCModel.Confirmation">
-              <MappingFragment StoreEntitySet="Confirmation">
-                <ScalarProperty Name="Sponsor" ColumnName="Sponsor" />
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-                <ScalarProperty Name="NameOfMinister" ColumnName="NameOfMinister" />
-                <ScalarProperty Name="BaptismDate" ColumnName="BaptismDate" />
-                <ScalarProperty Name="BaptismPlace" ColumnName="BaptismPlace" />
-                <ScalarProperty Name="BapitsmNumber" ColumnName="BapitsmNumber" />
-                <ScalarProperty Name="MothersName" ColumnName="MothersName" />
-                <ScalarProperty Name="FathersName" ColumnName="FathersName" />
-                <ScalarProperty Name="Place" ColumnName="Place" />
-                <ScalarProperty Name="Othernames" ColumnName="Othernames" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="ConfirmationName" ColumnName="ConfirmationName" />
-                <ScalarProperty Name="Number" ColumnName="Number" />
-                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

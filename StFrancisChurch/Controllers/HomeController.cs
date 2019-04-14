@@ -8,6 +8,7 @@ using DataAccessObject.DataModel;
 using DataAccessObject.IRepository;
 using StFrancisChurch.Models;
 using StFrancisChurch.Models.Utility;
+using StFrancisChurch.Utility;
 
 namespace StFrancisChurch.Controllers
 {
@@ -16,16 +17,19 @@ namespace StFrancisChurch.Controllers
 
         private readonly IMemberRepository _memberRepository;
         private readonly IEventRepository _eventRepository;
+        private readonly IStationRepository _stationRepository;
 
-        public HomeController(IMemberRepository memberRepository, IEventRepository eventRepository)
+        public HomeController(IMemberRepository memberRepository, IEventRepository eventRepository, IStationRepository stationRepository)
         {
             _memberRepository = memberRepository;
             _eventRepository = eventRepository;
+            _stationRepository = stationRepository;
         }
 
         public ActionResult Index()
         {
             GetRecentEvents();
+            GetSundayMassSchedules();
             return View();
         }
 
@@ -129,7 +133,38 @@ namespace StFrancisChurch.Controllers
         public ActionResult MemberRegistrationSuccess()
         {
             return View();
-        }        
+        }
+
+        public ActionResult News()
+        {
+            return View();
+        }
+
+        public ActionResult Reflections()
+        {
+            return View();
+        }
+
+        public ActionResult Station(int id)
+        {
+            ViewBag.StationName = ViewUtility.GetStationName(id);
+            ViewBag.StationId = id;
+            return View();
+        }
+
+        public ActionResult Stations(int station, string view)
+        {
+            ViewBag.StationName = ViewUtility.GetStationName(station);
+            ViewBag.StationId = station;
+            ViewResult viewResult = null;
+            switch (view)
+            {
+                case "about":
+                    viewResult = View("StationAbout");
+                    break;
+            }
+            return viewResult;
+        }
 
         /*Other Methods*/
         private void GetRecentEvents()
@@ -167,19 +202,21 @@ namespace StFrancisChurch.Controllers
             ViewBag.parishEvent = eventUi;
         }
 
-        public ActionResult News()
+        private void GetSundayMassSchedules()
         {
-            return View();
-        }
+            List<MassSchedules> massSchedules = new List<MassSchedules>();
+            var schedules = _stationRepository.GetSundaySchedules();
+            foreach (var _ in schedules)
+            {
+                massSchedules.Add(new MassSchedules
+                {
+                    StationName = _.Station1.Name,
+                    DayOfTheWeek = (DaysOfTheWeek)_.DayOfTheWeek,
+                    Time = _.Time
+                });
+            }
 
-        public ActionResult Reflections()
-        {
-            return View();
-        }
-
-        public ActionResult Station(int Id)
-        {
-            return View();
+            ViewBag.MassSchedules = massSchedules;
         }
     }
 }

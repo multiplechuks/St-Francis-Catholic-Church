@@ -1,0 +1,16 @@
+﻿ @{
+     var stationName = ViewBag.StationName;
+     var stationId = ViewBag.StationId;
+ }
+<nav class="navbar navbar-dark" style="float:right">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="@Url.Action("Station", "Home", new{id=stationId})"><b>@stationName</b></a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="@Url.Action("Stations", "Home", new{view="about", station=stationId})">About</a></li>
+             <li><a href="#">Event</a></li>
+             <li><a href="#">Contact</a></li>
+         </ul>
+     </div>
+ </nav>

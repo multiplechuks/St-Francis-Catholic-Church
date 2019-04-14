@@ -32,11 +32,21 @@
             <a class="dropdown-item" href="@Url.Action("Matrimony", "Sacrament")">Matrimony</a>
         </div>
     </li>
-    <li class="nav-item">
+    @*<li class="nav-item">
         <a class="nav-link" href="@Url.Action("Index", "Station")">
             <i class="fas fa-fw fa-home"></i>
             <span>Station</span>
         </a>
+    </li>*@
+    <li class="nav-item dropdown @Html.IsSelectedActions(controller:"Station", actions: new [] {"Index", "Schedule"})">
+        <a class="nav-link dropdown-toggle" href="#" id="stationDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-home"></i>
+            <span>Station</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="stationDropdown">
+            <a class="dropdown-item" href="@Url.Action("Index", "Station")">Stations</a>
+            <a class="dropdown-item" href="@Url.Action("Schedule", "Station")">Schedule</a>
+        </div>
     </li>
     <li class="nav-item dropdown @Html.IsSelectedActions(controller:"Society", actions: new [] {"Index", "Positions"})">
         <a class="nav-link dropdown-toggle" href="#" id="societiesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -44,8 +54,8 @@
             <span>Societies</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="societiesDropdown">
-            <a class="dropdown-item" href="@Href("~/Society")">Societies</a>
-            <a class="dropdown-item" href="@Href("~/Society/Position")">Position</a>
+            <a class="dropdown-item" href="@Url.Action("Index", "Society")">Societies</a>
+            <a class="dropdown-item" href="@Url.Action("Position", "Society")">Position</a>
         </div>
     </li>
     <li class="nav-item">

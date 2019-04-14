@@ -11,21 +11,24 @@
         <EntityTypeShape EntityType="StFrancisCCModel.AspNetUserLogin" Width="1.5" PointX="15.25" PointY="4.25" />
         <EntityTypeShape EntityType="StFrancisCCModel.AspNetUser" Width="1.5" PointX="13" PointY="1.375" />
         <EntityTypeShape EntityType="StFrancisCCModel.Baptism" Width="1.5" PointX="2.75" PointY="10" />
+        <EntityTypeShape EntityType="StFrancisCCModel.Communion" Width="1.5" PointX="13.75" PointY="11" />
+        <EntityTypeShape EntityType="StFrancisCCModel.Confirmation" Width="1.5" PointX="0.75" PointY="16" />
         <EntityTypeShape EntityType="StFrancisCCModel.LookUpTable" Width="1.5" PointX="0.75" PointY="6.5" />
-        <EntityTypeShape EntityType="StFrancisCCModel.Matrimony" Width="1.5" PointX="13.75" PointY="11" />
+        <EntityTypeShape EntityType="StFrancisCCModel.Matrimony" Width="1.5" PointX="2.75" PointY="16" />
         <EntityTypeShape EntityType="StFrancisCCModel.MemberFamilyMetaData" Width="1.5" PointX="3" PointY="6.625" />
         <EntityTypeShape EntityType="StFrancisCCModel.Member" Width="1.5" PointX="6" PointY="3.375" />
-        <EntityTypeShape EntityType="StFrancisCCModel.ParishEvent" Width="1.5" PointX="11" PointY="11.375" />
+        <EntityTypeShape EntityType="StFrancisCCModel.ParishEvent" Width="1.5" PointX="11" PointY="14.875" />
         <EntityTypeShape EntityType="StFrancisCCModel.ParishEventType" Width="1.5" PointX="8.75" PointY="13.75" />
-        <EntityTypeShape EntityType="StFrancisCCModel.Position" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="StFrancisCCModel.Position" Width="1.5" PointX="6" PointY="13.25" />
         <EntityTypeShape EntityType="StFrancisCCModel.Sacrament" Width="1.5" PointX="10.75" PointY="7.75" />
         <EntityTypeShape EntityType="StFrancisCCModel.SacramentMemberLink" Width="1.5" PointX="13" PointY="7.25" />
         <EntityTypeShape EntityType="StFrancisCCModel.SacramentMemberUpdateLog" Width="1.5" PointX="15.25" PointY="7.5" />
-        <EntityTypeShape EntityType="StFrancisCCModel.Society" Width="1.5" PointX="6" PointY="13.25" />
+        <EntityTypeShape EntityType="StFrancisCCModel.Society" Width="1.5" PointX="6" PointY="0.75" />
         <EntityTypeShape EntityType="StFrancisCCModel.SocietyMemberLink" Width="1.5" PointX="8.25" PointY="6.5" />
-        <EntityTypeShape EntityType="StFrancisCCModel.Station" Width="1.5" PointX="3.75" PointY="2.625" />
-        <EntityTypeShape EntityType="StFrancisCCModel.StationEvent" Width="1.5" PointX="11" PointY="15.125" />
-        <EntityTypeShape EntityType="StFrancisCCModel.Reflection" Width="1.5" PointX="2.75" PointY="16" />
+        <EntityTypeShape EntityType="StFrancisCCModel.Station" Width="1.5" PointX="3.75" PointY="2.5" />
+        <EntityTypeShape EntityType="StFrancisCCModel.StationEvent" Width="1.5" PointX="11" PointY="11.375" />
+        <EntityTypeShape EntityType="StFrancisCCModel.WeeklySchedule" Width="1.5" PointX="6" PointY="16.75" />
+        <EntityTypeShape EntityType="StFrancisCCModel.Reflection" Width="1.5" PointX="15.75" PointY="11" />
         <AssociationConnector Association="StFrancisCCModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="StFrancisCCModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="StFrancisCCModel.FK_MemberFamilyMetaData_LookUpTable" />
@@ -42,9 +45,8 @@
         <AssociationConnector Association="StFrancisCCModel.FK_SacramentMemberLink_Sacrament" />
         <AssociationConnector Association="StFrancisCCModel.FK_SacramentMemberUpdateLog_SacramentMemberLink" />
         <AssociationConnector Association="StFrancisCCModel.FK_SocietyMemberLink_Societies" />
+        <AssociationConnector Association="StFrancisCCModel.FK_WeeklySchedule_Station" />
         <AssociationConnector Association="StFrancisCCModel.AspNetUserRoles" />
-        <EntityTypeShape EntityType="StFrancisCCModel.Communion" Width="1.5" PointX="5.375" PointY="16.75" />
-        <EntityTypeShape EntityType="StFrancisCCModel.Confirmation" Width="1.5" PointX="7.375" PointY="16.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

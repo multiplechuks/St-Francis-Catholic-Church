@@ -1,6 +1,7 @@
 ﻿@using StFrancisChurch.Models.Utility
 @{
     var events = (List<ParishEventUI>) ViewBag.events;
+    var mass_schedules = (List<MassSchedules>)ViewBag.MassSchedules;
 }
 
 <div class="container-wrap">
@@ -110,18 +111,31 @@
                     <a href="#" class="img-holder"><img class="img-responsive" src="~/Content/images/img-1.jpg" alt=""></a>
                     <div class="desc">
                         <h3><a href="#">Parish Center</a></h3>
-                        <p>6:00am</p>
-                        <a href="#">Mass Intension and Announcement <i class="icon-arrow-right3"></i></a>
+                        <p>Sunday | 6:00am, 10:00am</p>
+                        <a href="#">more Schedules <i class="icon-arrow-right3"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 animate-box">
+            @foreach (var _ in mass_schedules)
+            {
+                <div class="col-md-3 col-sm-4 col-xs-6 animate-box">
+                    <div class="services">
+                        <a href="#" class="img-holder"><img class="img-responsive" src="~/Content/images/img-3.jpg" alt=""></a>
+                        <div class="desc">
+                            <h3><a href="#">@_.StationName</a></h3>
+                            <p>@_.DayOfTheWeek | @_.Time</p>
+                            <a href="#">more Schedules <i class="icon-arrow-right3"></i></a>
+                        </div>
+                    </div>
+                </div>
+            }
+            @*<div class="col-md-3 col-sm-4 col-xs-6 animate-box">
                 <div class="services">
                     <a href="#" class="img-holder"><img class="img-responsive" src="~/Content/images/img-3.jpg" alt=""></a>
                     <div class="desc">
                         <h3><a href="#">Station A</a></h3>
-                        <p>6:00am</p>
-                        <a href="#">Mass Intension and Announcement <i class="icon-arrow-right3"></i></a>
+                        <p>Sunday | 6:00am</p>
+                        <a href="#">more Schedules <i class="icon-arrow-right3"></i></a>
                     </div>
                 </div>
             </div>
@@ -130,8 +144,8 @@
                     <a href="#" class="img-holder"><img class="img-responsive" src="~/Content/images/img-3.jpg" alt=""></a>
                     <div class="desc">
                         <h3><a href="#">Station B</a></h3>
-                        <p>6:00am</p>
-                        <a href="#">Mass Intension and Announcement <i class="icon-arrow-right3"></i></a>
+                        <p>Sunday | 10:00am</p>
+                        <a href="#">more Schedules <i class="icon-arrow-right3"></i></a>
                     </div>
                 </div>
             </div>
@@ -140,11 +154,11 @@
                     <a href="#" class="img-holder"><img class="img-responsive" src="~/Content/images/img-3.jpg" alt=""></a>
                     <div class="desc">
                         <h3><a href="#">Station C</a></h3>
-                        <p>8:30am</p>
-                        <a href="#">Mass Intension and Announcement <i class="icon-arrow-right3"></i></a>
+                        <p>Sunday | 8:30am</p>
+                        <a href="#">more Schedules <i class="icon-arrow-right3"></i></a>
                     </div>
                 </div>
-            </div>
+            </div>*@
         </div>
     </div>
     <div id="fh5co-sermon">

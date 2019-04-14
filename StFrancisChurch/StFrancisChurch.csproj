@@ -1848,6 +1848,11 @@
     <Content Include="Views\Sacrament\EditCommunion.cshtml" />
     <Content Include="Views\Sacrament\EditConfirmation.cshtml" />
     <Content Include="Views\Sacrament\EditMatrimony.cshtml" />
+    <Content Include="Views\Station\Schedule.cshtml" />
+    <Content Include="Views\Home\StationAbout.cshtml" />
+    <Content Include="Views\Home\StationEvent.cshtml" />
+    <Content Include="Views\Home\StationContact.cshtml" />
+    <Content Include="Views\Shared\StationMenuBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessObject\DataAccessObject.csproj">

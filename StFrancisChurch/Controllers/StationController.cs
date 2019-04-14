@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using DataAccessObject.DataModel;
 using DataAccessObject.IRepository;
+using Newtonsoft.Json;
 using StFrancisChurch.Models.Utility;
 
 namespace StFrancisChurch.Controllers
@@ -29,7 +30,6 @@ namespace StFrancisChurch.Controllers
             ViewBag.returns = returnData;
             return View();
         }
-
 
         [HttpPost]
         public ActionResult Index(OutStation outStation)
@@ -132,6 +132,139 @@ namespace StFrancisChurch.Controllers
                 recordsTotal = totalcount,
                 data = allItems,
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult Schedule()
+        {
+            var schedules = _stationRepository.GetSchedules().GroupBy(m => m.Station);
+            ViewBag.Schedules = schedules.ToList();
+            var returnData = (ReturnData)TempData["returnMessage"] ?? new ReturnData
+            {
+                HasValue = false
+            };
+            ViewBag.returns = returnData;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Schedule(ScheduleModel model)
+        {
+            var returnData = new ReturnData();
+            List<WeeklySchedule> weeklySchedules = new List<WeeklySchedule>();
+            if (!string.IsNullOrEmpty(model.Sunday))
+            {
+                weeklySchedules.Add(new WeeklySchedule
+                {
+                    DayOfTheWeek = (int)DaysOfTheWeek.Sunday,
+                    Time = model.Sunday,
+                    Station = model.Station,
+                    Description = "mass schedule",
+                    ScheduleType = 1
+                });
+            }
+            if (!string.IsNullOrEmpty(model.Monday))
+            {
+                weeklySchedules.Add(new WeeklySchedule
+                {
+                    DayOfTheWeek = (int)DaysOfTheWeek.Monday,
+                    Time = model.Monday,
+                    Station = model.Station,
+                    Description = "mass schedule",
+                    ScheduleType = 1
+                });
+            }
+            if (!string.IsNullOrEmpty(model.Tuesday))
+            {
+                weeklySchedules.Add(new WeeklySchedule
+                {
+                    DayOfTheWeek = (int)DaysOfTheWeek.Tuesday,
+                    Time = model.Tuesday,
+                    Station = model.Station,
+                    Description = "mass schedule",
+                    ScheduleType = 1
+                });
+            }
+            if (!string.IsNullOrEmpty(model.Wednesday))
+            {
+                weeklySchedules.Add(new WeeklySchedule
+                {
+                    DayOfTheWeek = (int)DaysOfTheWeek.Wednesday,
+                    Time = model.Wednesday,
+                    Station = model.Station,
+                    Description = "mass schedule",
+                    ScheduleType = 1
+                });
+            }
+            if (!string.IsNullOrEmpty(model.Thursday))
+            {
+                weeklySchedules.Add(new WeeklySchedule
+                {
+                    DayOfTheWeek = (int)DaysOfTheWeek.Thursday,
+                    Time = model.Thursday,
+                    Station = model.Station,
+                    Description = "mass schedule",
+                    ScheduleType = 1
+                });
+            }
+            if (!string.IsNullOrEmpty(model.Friday))
+            {
+                weeklySchedules.Add(new WeeklySchedule
+                {
+                    DayOfTheWeek = (int)DaysOfTheWeek.Friday,
+                    Time = model.Friday,
+                    Station = model.Station,
+                    Description = "mass schedule",
+                    ScheduleType = 1
+                });
+            }
+            if (!string.IsNullOrEmpty(model.Saturday))
+            {
+                weeklySchedules.Add(new WeeklySchedule
+                {
+                    DayOfTheWeek = (int)DaysOfTheWeek.Saturday,
+                    Time = model.Saturday,
+                    Station = model.Station,
+                    Description = "mass schedule",
+                    ScheduleType = 1
+                });
+            }
+
+            if (_stationRepository.AddSchedules(weeklySchedules))
+            {
+                returnData = new ReturnData
+                {
+                    HasValue = true,
+                    Message = "Mass schedule was sucessfully updated"
+                };
+                TempData["returnMessage"] = returnData;
+                return RedirectToAction("Schedule");
+            }
+            returnData = new ReturnData
+            {
+                HasValue = true,
+                Message = "There was an error updateing the changes try again"
+            };
+            TempData["returnMessage"] = returnData;
+            return RedirectToAction("Schedule");
+        }
+
+        [HttpGet]
+        public string GetStationSchedule(int id)
+        {
+            var schedules = _stationRepository.GetStationSchedules(id);
+            ScheduleModel schedule = new ScheduleModel();
+
+            schedule.Station = id;
+            schedule.Sunday = schedules.FirstOrDefault(m => m.DayOfTheWeek == (int)DaysOfTheWeek.Sunday)?.Time;
+            schedule.Monday = schedules.FirstOrDefault(m => m.DayOfTheWeek == (int)DaysOfTheWeek.Monday)?.Time;
+            schedule.Tuesday = schedules.FirstOrDefault(m => m.DayOfTheWeek == (int)DaysOfTheWeek.Tuesday)?.Time;
+            schedule.Wednesday = schedules.FirstOrDefault(m => m.DayOfTheWeek == (int)DaysOfTheWeek.Wednesday)?.Time;
+            schedule.Thursday = schedules.FirstOrDefault(m => m.DayOfTheWeek == (int)DaysOfTheWeek.Thursday)?.Time;
+            schedule.Friday = schedules.FirstOrDefault(m => m.DayOfTheWeek == (int)DaysOfTheWeek.Friday)?.Time;
+            schedule.Saturday = schedules.FirstOrDefault(m => m.DayOfTheWeek == (int)DaysOfTheWeek.Saturday)?.Time;
+
+            return JsonConvert.SerializeObject(schedule);
         }
     }
 }

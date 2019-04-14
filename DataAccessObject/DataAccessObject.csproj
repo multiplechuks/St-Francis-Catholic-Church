@@ -135,6 +135,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StFrancisCCModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\WeeklySchedule.cs">
+      <DependentUpon>StFrancisCCModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataUtility\DataUtility.cs" />
     <Compile Include="IRepository\IEventRepository.cs" />
     <Compile Include="IRepository\IMemberRepository.cs" />
