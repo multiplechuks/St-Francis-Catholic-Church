@@ -239,6 +239,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MemberRegistrationViewModel.cs" />
     <Compile Include="Models\Utility\DatatableParam.cs" />
+    <Compile Include="Models\Utility\Enums.cs" />
     <Compile Include="Models\Utility\MemberTableModel.cs" />
     <Compile Include="Models\Utility\UtilModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1842,6 +1843,11 @@
     <Content Include="Views\Sacrament\CreateConfirmation.cshtml" />
     <Content Include="Views\Society\Index.cshtml" />
     <Content Include="Views\Society\Position.cshtml" />
+    <Content Include="Views\Sacrament\ViewSacrament.cshtml" />
+    <Content Include="Views\Sacrament\EditBaptism.cshtml" />
+    <Content Include="Views\Sacrament\EditCommunion.cshtml" />
+    <Content Include="Views\Sacrament\EditConfirmation.cshtml" />
+    <Content Include="Views\Sacrament\EditMatrimony.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessObject\DataAccessObject.csproj">

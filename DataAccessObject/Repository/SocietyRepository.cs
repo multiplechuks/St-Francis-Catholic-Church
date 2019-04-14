@@ -18,5 +18,10 @@ namespace DataAccessObject.Repository
             _entities.SaveChanges();
             return true;
         }
+
+        public IQueryable<Position> GetPositions()
+        {
+            return _entities.Positions;
+        }
     }
 }

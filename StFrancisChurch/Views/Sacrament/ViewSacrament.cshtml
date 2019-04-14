@@ -1,0 +1,49 @@
+﻿@using StFrancisChurch.Models
+@using StFrancisChurch.Utility
+@model object
+@{
+                /**/
+
+                ViewBag.Title = "Home Page";
+                var dynamicTable = ViewBag.DynamicTable;
+}
+
+<div class="row frame">
+    <div class="col-10">
+        @if (Model != null)
+        {
+            @Html.BuildFlatTable(Model)
+        }
+        else
+        {
+            <p>No Record Found.</p>
+        }
+    </div>
+
+</div>
+
+@section styles{
+    <style>
+        .frame tr {
+            border-bottom: black 2px solid;
+        }
+
+        .frame tr td table tr {
+            border: 1px solid #dee2e6;
+        }
+
+        .frame {
+            border: burlywood 30px double;
+            border-radius: 20px;
+            padding: 10px;
+        }
+    </style>
+}
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+}

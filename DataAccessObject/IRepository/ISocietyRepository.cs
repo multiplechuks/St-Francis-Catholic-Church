@@ -10,5 +10,6 @@ namespace DataAccessObject.IRepository
     public interface ISocietyRepository
     {
         bool AddPosition(Position position);
+        IQueryable<Position> GetPositions();
     }
 }

@@ -78,5 +78,73 @@ namespace StFrancisChurch.Controllers
                 return View(model);
             }
         }
+
+        [HttpPost]
+        public JsonResult GetPosition(DatatableParam param)
+        {
+            var members = _societyRepository.GetPositions();
+            var allItems = new List<PositionTableModel>();
+            //Apply Searching 
+            if (!string.IsNullOrEmpty(param.search.value))
+            {
+                var searchTerm = param.search.value;
+                members = members.Where(m => m.PositionName.Contains(searchTerm) || m.PositionDescription.Contains(searchTerm));
+            }
+
+            var totalcount = members.Count();
+            members = members.OrderBy(m => m.PositionName);
+
+            //Apply Sorting/Ordering
+            //IEnumerable<UserTableModel> entryTables = allItems;
+            var orderColumnIndex = Convert.ToInt32(param.order[0].column);
+            var orderDir = param.order[0].dir;
+            if (orderDir.Equals("asc"))
+            {
+                if (orderColumnIndex == 1)
+                {
+                    members = members.OrderBy(m => m.PositionName);
+                }
+                if (orderColumnIndex == 2)
+                {
+                    members = members.OrderBy(m => m.PositionDescription);
+                }
+            }
+            else
+            {
+                if (orderColumnIndex == 1)
+                {
+                    members = members.OrderByDescending(m => m.PositionName);
+                }
+                if (orderColumnIndex == 2)
+                {
+                    members = members.OrderByDescending(m => m.PositionDescription);
+                }
+            }
+
+            //Apply Pagination
+            //int.TryParse(param., out start);
+            members = members.Skip(param.start).Take(param.length);
+
+            var count = 0;
+
+            foreach (var e in members)
+            {
+                count++;
+                allItems.Add(new PositionTableModel
+                {
+                    Serial = count,
+                    PositionName = e.PositionName,
+                    PositionDescription = e.PositionDescription
+                });
+            }
+
+            return Json(new
+            {
+                param.draw,
+                recordsFiltered = totalcount,
+                recordsTotal = totalcount,
+                data = allItems,
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

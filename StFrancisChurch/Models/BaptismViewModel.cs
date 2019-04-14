@@ -65,6 +65,9 @@ namespace StFrancisChurch.Models
         public int MemberId { get; set; }
 
         public int StationId { get; set; }
+
+        public int Id { get; set; }
+        public DateTime CreateDate { get; set; }
     }
 
     public class MatrimonyViewModel
@@ -125,6 +128,8 @@ namespace StFrancisChurch.Models
         public string Witness1 { get; set; }
         public string Witness2 { get; set; }
         public string Remark { get; set; }
+        public int Id { get; set; }
+        public DateTime CreateDate { get; set; }
     }
 
     public class CommunionViewModel
@@ -159,6 +164,8 @@ namespace StFrancisChurch.Models
         [Required]
         [Display(Name = "Baptism date")]
         public string BaptismDate { get; set; }
+        public int Id { get; set; }
+        public DateTime CreateDate { get; set; }
     }
 
     public class ConfirmationViewModel
@@ -183,6 +190,8 @@ namespace StFrancisChurch.Models
         public string BaptismNumber { get; set; }
         public string BaptismPlace { get; set; }
         public string BaptismDate { get; set; }
+        public int Id { get; set; }
+        public DateTime CreateDate { get; set; }
     }
 
     public class PositionViewModel

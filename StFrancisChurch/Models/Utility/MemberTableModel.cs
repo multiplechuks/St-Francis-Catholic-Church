@@ -40,6 +40,7 @@ namespace StFrancisChurch.Models.Utility
     public class BaptismTableModel
     {
         public int Serial { get; set; }
+        public int Id { get; set; }
         public string BaptismNumber { get; set; }
         public string BaptismPlace { get; set; }
         public string BaptismDate { get; set; }
@@ -60,6 +61,7 @@ namespace StFrancisChurch.Models.Utility
 
     public class CommunionTableModel
     {
+        public int Id { get; set; }
         public int Serial { get; set; }
         public string BaptismNumber { get; set; }
         public string BaptismPlace { get; set; }
@@ -74,6 +76,7 @@ namespace StFrancisChurch.Models.Utility
 
     public class ConfirmationTableModel
     {
+        public int Id { get; set; }
         public int Serial { get; set; }
         public string BaptismNumber { get; set; }
         public string BaptismPlace { get; set; }
@@ -90,6 +93,7 @@ namespace StFrancisChurch.Models.Utility
 
     public class MatrimonyTableModel
     {
+        public int Id { get; set; }
         public int Serial { get; set; }
         public string DateOfMarriage { get; set; }
         public string PlaceOfMarriage { get; set; }
@@ -131,5 +135,12 @@ namespace StFrancisChurch.Models.Utility
         public string Name { get; set; }
         public string Description { get; set; }
         public string CreateDate { get; set; }
+    }
+
+    public class PositionTableModel
+    {
+        public int Serial { get; set; }
+        public string PositionName { get; set; }
+        public string PositionDescription { get; set; }
     }
 }

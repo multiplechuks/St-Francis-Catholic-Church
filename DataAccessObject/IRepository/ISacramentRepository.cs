@@ -17,5 +17,13 @@ namespace DataAccessObject.IRepository
         IQueryable<Communion> GetCommunionMembers();
         bool AddConfirmation(Confirmation confirmation);
         IQueryable<Confirmation> GetConfirmedMembers();
+        Baptism GetBaptism(int Id);
+        bool UpdateBaptism(Baptism baptism);
+        Communion GetCommunion(int id);
+        bool UpdateCommunion(Communion communion);
+        Confirmation GetConfirmation(int id);
+        bool UpdateConfirmation(Confirmation confirmation);
+        Matrimony GetMatrimony(int id);
+        bool UpdateMatrimony(Matrimony matrimony);
     }
 }

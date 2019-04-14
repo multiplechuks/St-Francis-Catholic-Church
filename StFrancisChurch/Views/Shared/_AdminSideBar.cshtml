@@ -40,19 +40,13 @@
     </li>
     <li class="nav-item dropdown @Html.IsSelectedActions(controller:"Society", actions: new [] {"Index", "Positions"})">
         <a class="nav-link dropdown-toggle" href="#" id="societiesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-fw fa-folder"></i>
+            <i class="fas fa-fw fa-users"></i>
             <span>Societies</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="societiesDropdown">
             <a class="dropdown-item" href="@Href("~/Society")">Societies</a>
             <a class="dropdown-item" href="@Href("~/Society/Position")">Position</a>
         </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">
-            <i class="fas fa-fw fa-users"></i>
-            <span>Societies</span>
-        </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="@Url.Action("Index", "Reflection")">

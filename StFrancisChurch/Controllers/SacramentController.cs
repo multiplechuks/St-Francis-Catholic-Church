@@ -126,6 +126,89 @@ namespace StFrancisChurch.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult EditBaptism(int id)
+        {
+            var baptismRecord = _sacramentRepository.GetBaptism(id);
+            var baptism = new BaptismViewModel
+            {
+                Id = baptismRecord.Id,
+                BaptismNumber = baptismRecord.BapitsmNumber,
+                BaptismPlace = baptismRecord.BaptismPlace,
+                BaptismDate = baptismRecord.BaptismDate.ToString("yyyy-MM-dd"),
+                BaptismName = baptismRecord.BaptismName,
+                BaptismType = baptismRecord.BaptismType,
+                Othername = baptismRecord.Othername,
+                Surname = baptismRecord.Surname,
+                DateOfBirth = baptismRecord.DateOfBirth?.ToString("yyyy-MM-dd"),
+                PlaceOfBirth = baptismRecord.PlaceOfBirth,
+                HomeTown = baptismRecord.HomeTown,
+                FathersName = baptismRecord.FathersName,
+                MothersName = baptismRecord.MothersName,
+                NameOfGodParent1 = baptismRecord.NameOfGodParent1,
+                NameOfGodParent2 = baptismRecord.NameOfGodParent2,
+                NameOfMinister = baptismRecord.NameOfMinister,
+                Remarks = baptismRecord.Remarks,
+                CreateDate = baptismRecord.CreateDate
+            };
+            return View(baptism);
+        }
+
+        [HttpPost]
+        public ActionResult EditBaptism(BaptismViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            try
+            {
+                var baptism = new Baptism
+                {
+                    Id = model.Id,
+                    BapitsmNumber = model.BaptismNumber,
+                    BaptismPlace = model.BaptismPlace,
+                    BaptismDate = DateTime.Parse(model.BaptismDate),
+                    BaptismName = model.BaptismName,
+                    BaptismType = model.BaptismType,
+                    Othername = model.Othername,
+                    Surname = model.Surname,
+                    DateOfBirth = DateTime.Parse(model.DateOfBirth),
+                    PlaceOfBirth = model.PlaceOfBirth,
+                    HomeTown = model.HomeTown,
+                    FathersName = model.FathersName,
+                    MothersName = model.MothersName,
+                    NameOfGodParent1 = model.NameOfGodParent1,
+                    NameOfGodParent2 = model.NameOfGodParent2,
+                    NameOfMinister = model.NameOfMinister,
+                    Remarks = model.Remarks,
+                    Deleted = 0,
+                    CreateDate = model.CreateDate,
+                    UpdateDate = DateTime.Now
+                };
+                if (_sacramentRepository.UpdateBaptism(baptism))
+                {
+                    var returnData = new ReturnData
+                    {
+                        HasValue = true,
+                        Message = "Baptismal record was successfully Updated"
+                    };
+                    TempData["returnMessage"] = returnData;
+                    //return Redirect("/Baptism");
+                    return RedirectToAction("Baptism");
+                }
+                ModelState.AddModelError(string.Empty, "There was an error completing the registration, Please check if the bapismal number is correct, also check the record");
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                //error occured
+                ModelState.AddModelError(string.Empty, "There was an error completing the registration, Please try again later");
+                ErrorUtil.LogError(e);
+                return View(model);
+            }
+        }
+
         [HttpPost]
         public JsonResult GetBaptisedMembers(DatatableParam param)
         {
@@ -187,6 +270,7 @@ namespace StFrancisChurch.Controllers
                 count++;
                 allItems.Add(new BaptismTableModel
                 {
+                    Id = e.Id,
                     Serial = count,
                     BaptismName = e.BaptismName,
                     Surname = e.Surname,
@@ -245,6 +329,76 @@ namespace StFrancisChurch.Controllers
                     return Redirect("Communion");
                 }
                 ModelState.AddModelError(string.Empty, "There was an error completing the registration, Please check the entries and try again");
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                //error occured
+                ModelState.AddModelError(string.Empty, "There was an error completing the registration, Please try again later");
+                ErrorUtil.LogError(e);
+                return View(model);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult EditCommunion(int id)
+        {
+            var communionRecord = _sacramentRepository.GetCommunion(id);
+            var communion = new CommunionViewModel
+            {
+                Id = communionRecord.Id,
+                BaptismNumber = communionRecord.BapitsmNumber,
+                BaptismPlace = communionRecord.BaptismPlace,
+                BaptismDate = communionRecord.BaptismDate.ToString("yyyy-MM-dd"),
+                Othernames = communionRecord.Othernames,
+                Surname = communionRecord.Surname,
+                Date = communionRecord.DateReceived.ToString("yyyy-MM-dd"),
+                Place = communionRecord.Place,
+                FathersName = communionRecord.FathersName,
+                MothersName = communionRecord.MothersName,
+                Minister = communionRecord.NameOfMinister,
+                CreateDate = communionRecord.CreateDate
+            };
+            return View(communion);
+        }
+        
+        [HttpPost]
+        public ActionResult EditCommunion(CommunionViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            try
+            {
+                var communion = new Communion()
+                {
+                    Id = model.Id,
+                    BapitsmNumber = model.BaptismNumber,
+                    BaptismPlace = model.BaptismPlace,
+                    BaptismDate = DateTime.Parse(model.BaptismDate),
+                    Othernames = model.Othernames,
+                    Surname = model.Surname,
+                    DateReceived = DateTime.Parse(model.Date),
+                    Place = model.Place,
+                    FathersName = model.FathersName,
+                    MothersName = model.MothersName,
+                    NameOfMinister = model.Minister,
+                    Deleted = 0,
+                    CreateDate = model.CreateDate,
+                    UpdateDate = DateTime.Now
+                };
+                if (_sacramentRepository.UpdateCommunion(communion))
+                {
+                    var returnData = new ReturnData
+                    {
+                        HasValue = true,
+                        Message = "Communion record was successfully updated"
+                    };
+                    TempData["returnMessage"] = returnData;
+                    return RedirectToAction("Communion");
+                }
+                ModelState.AddModelError(string.Empty, "There was an error completing the pdate, Please check the entries and try again");
                 return View(model);
             }
             catch (Exception e)
@@ -317,6 +471,7 @@ namespace StFrancisChurch.Controllers
                 count++;
                 allItems.Add(new CommunionTableModel
                 {
+                    Id = e.Id,
                     Serial = count,
                     Surname = e.Surname,
                     Othernames = e.Othernames,
@@ -398,6 +553,99 @@ namespace StFrancisChurch.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult EditMatrimony(int id)
+        {
+            var matrimonyRecord = _sacramentRepository.GetMatrimony(id);
+            var matrimony = new MatrimonyViewModel
+            {
+                DateOfMarriage = matrimonyRecord.DateOfMarriage,
+                PlaceOfMarriage = matrimonyRecord.PlaceOfMarriage,
+                BrideFullName = matrimonyRecord.BrideFullName,
+                GroomFullName = matrimonyRecord.GroomFullName,
+                BrideAddress = matrimonyRecord.BrideAddress,
+                GroomAddress = matrimonyRecord.GroomAddress,
+                BrideAge = (int)matrimonyRecord.BrideAge,
+                GroomAge = (int)matrimonyRecord.GroomAge,
+                BrideBaptismPlace = matrimonyRecord.BrideBaptismPlace,
+                BrideBaptismDate = matrimonyRecord.BrideBaptismDate,
+                BrideBaptismNo = matrimonyRecord.BrideBaptismNo,
+                GroomBaptismPlace = matrimonyRecord.GroomBaptismPlace,
+                GroomBaptismDate = matrimonyRecord.GroomBaptismDate,
+                GroomBaptismNo = matrimonyRecord.GroomBaptismNo,
+                AssistingPriest = matrimonyRecord.AssistingPriest,
+                BannDetails = matrimonyRecord.BannDetails,
+                BrideParentName = matrimonyRecord.BrideParentName,
+                BrideParentHomeTown = matrimonyRecord.BrideParentHomeTown,
+                GroomParentName = matrimonyRecord.GroomParentName,
+                GroomParentHomeTown = matrimonyRecord.GroomParentHomeTown,
+                Witness1 = matrimonyRecord.Witness1,
+                Witness2 = matrimonyRecord.Witness2,
+                Remark = matrimonyRecord.Remark
+            };
+            return View(matrimony);
+        }
+
+        [HttpPost]
+        public ActionResult EditMatrimony(MatrimonyViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            try
+            {
+                var matrimony = new Matrimony
+                {
+                    Id = model.Id,
+                    DateOfMarriage = model.DateOfMarriage,
+                    PlaceOfMarriage = model.PlaceOfMarriage,
+                    BrideFullName = model.BrideFullName,
+                    GroomFullName = model.GroomFullName,
+                    BrideAddress = model.BrideAddress,
+                    GroomAddress = model.GroomAddress,
+                    BrideAge = model.BrideAge,
+                    GroomAge = model.GroomAge,
+                    BrideBaptismPlace = model.BrideBaptismPlace,
+                    BrideBaptismDate = model.BrideBaptismDate,
+                    BrideBaptismNo = model.BrideBaptismNo,
+                    GroomBaptismPlace = model.GroomBaptismPlace,
+                    GroomBaptismDate = model.GroomBaptismDate,
+                    GroomBaptismNo = model.GroomBaptismNo,
+                    AssistingPriest = model.AssistingPriest,
+                    BannDetails = model.BannDetails,
+                    BrideParentName = model.BrideParentName,
+                    BrideParentHomeTown = model.BrideParentHomeTown,
+                    GroomParentName = model.GroomParentName,
+                    GroomParentHomeTown = model.GroomParentHomeTown,
+                    Witness1 = model.Witness1,
+                    Witness2 = model.Witness2,
+                    Remark = model.Remark,
+                    Deleted = 0,
+                    UpdateDate = DateTime.Now
+                };
+                if (_sacramentRepository.UpdateMatrimony(matrimony))
+                {
+                    var returnData = new ReturnData
+                    {
+                        HasValue = true,
+                        Message = "Marriage record was successfully updated"
+                    };
+                    TempData["returnMessage"] = returnData;
+                    return RedirectToAction("Matrimony");
+                }
+                ModelState.AddModelError(string.Empty, "There was an error completing the registration, Please check if the record is correct");
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                //error occured
+                ModelState.AddModelError(string.Empty, "There was an error completing the registration, Please try again later");
+                ErrorUtil.LogError(e);
+                return View(model);
+            }
+        }
+
         [HttpPost]
         public JsonResult GetMatrimonyMembers(DatatableParam param)
         {
@@ -459,6 +707,7 @@ namespace StFrancisChurch.Controllers
                 count++;
                 allItems.Add(new MatrimonyTableModel
                 {
+                    Id = e.Id,
                     Serial = count,
                     BrideFullName = e.BrideFullName,
                     GroomFullName = e.GroomFullName,
@@ -531,6 +780,79 @@ namespace StFrancisChurch.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult EditConfirmation(int id)
+        {
+            var confirmationRecord = _sacramentRepository.GetConfirmation(id);
+            var confirmation = new ConfirmationViewModel
+            {
+                BaptismNumber = confirmationRecord.BapitsmNumber,
+                BaptismPlace = confirmationRecord.BaptismPlace,
+                BaptismDate = confirmationRecord.BaptismDate.ToString("yyyy-MM-dd"),
+                ConfirmationName = confirmationRecord.ConfirmationName,
+                Date = confirmationRecord.DateReceived.ToString("yyyy-MM-dd"),
+                Place = confirmationRecord.Place,
+                Number = confirmationRecord.Number,
+                Othernames = confirmationRecord.Othernames,
+                Surname = confirmationRecord.Surname,
+                FathersName = confirmationRecord.FathersName,
+                MothersName = confirmationRecord.MothersName,
+                Sponsor = confirmationRecord.Sponsor,
+                Minister = confirmationRecord.NameOfMinister
+            };
+            return View(confirmation);
+        }
+
+        [HttpPost]
+        public ActionResult EditConfirmation(ConfirmationViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            try
+            {
+                var confirmation = new Confirmation
+                {
+                    Id = model.Id,
+                    BapitsmNumber = model.BaptismNumber,
+                    BaptismPlace = model.BaptismPlace,
+                    BaptismDate = DateTime.Parse(model.BaptismDate),
+                    ConfirmationName = model.ConfirmationName,
+                    DateReceived = DateTime.Parse(model.Date),
+                    Place = model.Place,
+                    Number = model.Number,
+                    Othernames = model.Othernames,
+                    Surname = model.Surname,
+                    FathersName = model.FathersName,
+                    MothersName = model.MothersName,
+                    Sponsor = model.Sponsor,
+                    NameOfMinister = model.Minister,
+                    Deleted = 0,
+                    UpdateDate = DateTime.Now
+                };
+                if (_sacramentRepository.UpdateConfirmation(confirmation))
+                {
+                    var returnData = new ReturnData
+                    {
+                        HasValue = true,
+                        Message = "Confirmation record was successfully updated"
+                    };
+                    TempData["returnMessage"] = returnData;
+                    return RedirectToAction("Confirmation");
+                }
+                ModelState.AddModelError(string.Empty, "There was an error completing the registration, Please check if the record is correct");
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                //error occured
+                ModelState.AddModelError(string.Empty, "There was an error completing the registration, Please try again later");
+                ErrorUtil.LogError(e);
+                return View(model);
+            }
+        }
+
         [HttpPost]
         public JsonResult GetConfirmationMembers(DatatableParam param)
         {
@@ -592,6 +914,7 @@ namespace StFrancisChurch.Controllers
                 count++;
                 allItems.Add(new ConfirmationTableModel()
                 {
+                    Id = e.Id,
                     Serial = count,
                     Number = e.Number,
                     Surname = e.Surname,
@@ -607,6 +930,31 @@ namespace StFrancisChurch.Controllers
                 recordsTotal = totalcount,
                 data = allItems,
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult ViewSacrament(int id, int type, string method)
+        {
+            object dynamicRecord = null;
+            switch (type)
+            {
+                case (int)SacramentType.Baptism:
+                    dynamicRecord = _sacramentRepository.GetBaptism(id);
+                    break;
+                case (int)SacramentType.Communion:
+                    dynamicRecord = _sacramentRepository.GetCommunion(id);
+                    break;
+                case (int)SacramentType.Confirmation:
+                    dynamicRecord = _sacramentRepository.GetConfirmation(id);
+                    break;
+                case (int)SacramentType.Matrimony:
+                    dynamicRecord = _sacramentRepository.GetMatrimony(id);
+                    break;
+                default:
+                    return Redirect("Index");
+            }
+            
+            return View(dynamicRecord);
         }
     }
 }

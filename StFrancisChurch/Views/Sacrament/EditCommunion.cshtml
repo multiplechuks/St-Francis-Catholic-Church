@@ -1,0 +1,124 @@
+﻿@using StFrancisChurch.Models
+@model CommunionViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Communion Register
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm("EditCommunion", "Sacrament", FormMethod.Post, new { @role = "form" }))
+        {
+            @Html.ValidationSummary(true, "", new { @style = "color :red" })
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="Surname">Surname</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="Surname" id="Surname" value="@Model.Surname" placeholder="Enter Surname" required>
+                            @Html.ValidationMessageFor(m => m.Surname, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="Othernames">Othernames</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="Othernames" id="Othernames" value="@Model.Othernames" placeholder="Enter Othernames" required>
+                            @Html.ValidationMessageFor(m => m.Othernames, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="FathersName">Father's Name</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="FathersName" id="FathersName" value="@Model.FathersName" placeholder="Enter Father's Name">
+                            @Html.ValidationMessageFor(m => m.FathersName, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="MothersName">Mother's Name</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="MothersName" id="MothersName" value="@Model.MothersName" placeholder="Enter Mother's Name">
+                            @Html.ValidationMessageFor(m => m.MothersName, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="Date">Date</label>
+                        <div class="col-md-8">
+                            <input type="date" class="form-control" name="Date" id="Date" value="@Model.Date" placeholder="Enter Communion date" required>
+                            @Html.ValidationMessageFor(m => m.Date, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="Place">Place</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="Place" id="Place" value="@Model.Place" placeholder="Enter Comunion Place" required>
+                            @Html.ValidationMessageFor(m => m.Place, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="BaptismNumber">Baptism Number</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="BaptismNumber" value="@Model.BaptismNumber" id="BaptismNumber" placeholder="Enter Baptismal number" required>
+                            @Html.ValidationMessageFor(m => m.BaptismNumber, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="BaptismPlace">Baptism Place</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="BaptismPlace" id="BaptismPlace" value="@Model.BaptismPlace" placeholder="Enter Baptismal place" required>
+                            @Html.ValidationMessageFor(m => m.BaptismPlace, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="BaptismDate">Baptism Date</label>
+                        <div class="col-md-8">
+                            <input type="date" class="form-control" name="BaptismDate" id="BaptismDate" value="@Model.BaptismDate" placeholder="Enter Baptismal date" required>
+                            @Html.ValidationMessageFor(m => m.BaptismDate, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="Minister">Minister</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="Minister" id="Minister" value="@Model.Minister" placeholder="Enter Minister's Name" required>
+                            @Html.ValidationMessageFor(m => m.Minister, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-md-push-8">
+                    <div class="form-group">
+                        <input type="submit" value="Save Changes" class="btn btn-primary btn-modify">
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    
+</div>
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+}

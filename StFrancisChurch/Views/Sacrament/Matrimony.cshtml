@@ -1,5 +1,7 @@
-﻿@{
+﻿@using StFrancisChurch.Models.Utility
+@{
     ViewBag.Title = "Home Page";
+    var returns = (ReturnData)ViewBag.returns;
 }
 
 <div class="card mb-3">
@@ -8,6 +10,12 @@
         Matrimonial Register
         <div class="btn-group" style="float: right; margin-top: 5px; margin-right: 10px;">
             <a class="btn btn-success" href="@Href("~/Sacrament/CreateMatrimony")" title="Click to create a new marraige record"><i class="fa fa-plus" style="margin:0px;"></i> New Record</a>
+        </div>
+        <div>
+            @if (returns.HasValue)
+            {
+                <b class="text-info">@returns.Message</b>
+            }
         </div>
     </div>
     <div class="card-body">
@@ -39,6 +47,31 @@
     </div>
     <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 </div>
+
+<!--Link Sacrament to member -->
+<!-- This modal allows for searching of a member and displaying of the selected memner photo and details-->
+<div class="modal" id="linkModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Link Member to Matrimony Record</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <!--Todo Search for onlu registered members-->
+                Under Construction...
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-danger">Update</button>*@
+            </div>
+
+        </div>
+    </div>
+</div>
+
 @section scripts{
 
     <script>
@@ -60,12 +93,13 @@
                     {
                         "data": "Action",
                         "render": function (data, type, full, meta) {
-                            return '<a class="btn btn-primary" title="View this Marriage Record"><i class="fas fa-fw fa-eye"></i></a>&nbsp;' +
-                                '<a class="btn btn-primary" title="Edit this Marriage Record"><i class="fas fa-fw fa-edit"></i></a>';
+                            return '<a href="@Href("~/Sacrament/ViewSacrament/")' + full.Id + '?type=4&method=view" class="btn btn-primary" title="View this Matrimony Record"><i class="fas fa-fw fa-eye"></i></a>&nbsp;' +
+                                '<a href="@Href("~/Sacrament/EditMatrimony/")' + full.Id + '" class="btn btn-primary" title="Edit this Matrimony Record"><i class="fas fa-fw fa-edit"></i></a>&nbsp;' +
+                                '<a  href="#linkModal" id="linkModalAction" class="btn btn-primary" data-toggle="modal" data-target="#linkModal" data-id="' + full.Id +'" title="Link this Matrimony record to a registered member"><i class="fas fa-fw fa-link"></i></a>';
                         }
                     }
                 ]
             });
-        });        
+        });
     </script>
 }

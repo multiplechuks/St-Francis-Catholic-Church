@@ -1,0 +1,168 @@
+﻿@using StFrancisChurch.Models
+@using StFrancisChurch.Utility
+@model BaptismViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Baptismal Register
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm("EditBaptism", "Sacrament", FormMethod.Post, new { @role = "form", @enctype = "multipart/form-data" }))
+        {
+            @Html.ValidationSummary(true, "", new { @style = "color :red" })
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="BaptismNumber">Baptism Number</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="BaptismNumber" id="BaptismNumber" value="@Model.BaptismNumber" placeholder="Enter Baptismal number">
+                            @Html.ValidationMessageFor(m => m.BaptismNumber, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="BaptismDate">Baptism Date</label>
+                        <div class="col-md-8">
+                            <input type="date" class="form-control" name="BaptismDate" id="BaptismDate" value="@Model.BaptismDate" placeholder="Enter Baptismal date">
+                            @Html.ValidationMessageFor(m => m.BaptismDate, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="BaptismPlace">Baptism Place</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="BaptismPlace" id="BaptismPlace" value="@Model.BaptismPlace" placeholder="Enter Baptismal place">
+                            @Html.ValidationMessageFor(m => m.BaptismPlace, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="BaptismName">Baptism name</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="BaptismName" id="BaptismName" value="@Model.BaptismName" placeholder="Enter baptism name">
+                            @Html.ValidationMessageFor(m => m.BaptismName, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="Surname">Surname</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="Surname" id="Surname" value="@Model.Surname" placeholder="Enter surname">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="Othername">Othername</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="Othername" id="Othername" value="@Model.Othername" placeholder="Enter othername">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="DateOfBirth">Date of birth</label>
+                        <div class="col-md-8">
+                            <input type="date" class="form-control" name="DateOfBirth" id="DateOfBirth" value="@Model.DateOfBirth" placeholder="Enter date of birth">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="PlaceOfBirth">Place of birth</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="PlaceOfBirth" id="PlaceOfBirth" value="@Model.PlaceOfBirth" placeholder="Enter place of birth">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="HomeTown">Home Town</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="HomeTown" id="HomeTown" value="@Model.HomeTown" placeholder="Enter home town">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="FathersName">Father's Name</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="FathersName" id="FathersName" value="@Model.FathersName" placeholder="Enter father's name">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="MothersName">Mother's Name</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="MothersName" id="MothersName" value="@Model.MothersName" placeholder="Enter mother's name">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="BaptismType">BaptismType</label>
+                        <div class="col-md-8">
+                            @Html.DropDownList("BaptismType", new SelectList(ViewUtility.GetBaptismType(), "Id", "Name", Model.BaptismType), "Select baptism type", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="NameOfGodParent1">Name of 1<sup>st</sup> God parent</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="NameOfGodParent1" id="NameOfGodParent1" value="@Model.NameOfGodParent1" placeholder="Enter name of 1st God parent">
+                            @Html.ValidationMessageFor(m => m.NameOfGodParent1, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="NameOfGodParent2">Name of 2<sup>nd</sup> God parent</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="NameOfGodParent2" id="NameOfGodParent2" value="@Model.NameOfGodParent2" placeholder="Enter name of 2nd God parent">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="NameOfMinister">Name Of Minister</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="NameOfMinister" id="NameOfMinister" value="@Model.NameOfMinister" placeholder="Enter name of minister">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="Remark">Remark</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="Remark" id="Remark" value="@Model.Remarks" placeholder="Enter remark">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-md-push-8">
+                    <div class="form-group">
+                        <input type="submit" value="Save Changes" class="btn btn-primary btn-modify">
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    
+</div>
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+}
