@@ -75,6 +75,9 @@
     <Compile Include="DataModel\C__MigrationHistory.cs">
       <DependentUpon>StFrancisCCModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\DailyVerse.cs">
+      <DependentUpon>StFrancisCCModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModel\LookUpTable.cs">
       <DependentUpon>StFrancisCCModel.tt</DependentUpon>
     </Compile>

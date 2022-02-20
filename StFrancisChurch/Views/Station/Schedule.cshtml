@@ -133,15 +133,19 @@
             var id = $("#Station").val();
             $.get("@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))/Station/GetStationSchedule/" + id,
                 function (data, status) {
-                    $("#weekly_inputs").show(350);
-                    var mainData = JSON.parse(data);
-                    $("#Sunday").val(mainData.Sunday);
-                    $("#Monday").val(mainData.Monday);
-                    $("#Tuesday").val(mainData.Tuesday);
-                    $("#Wednesday").val(mainData.Wednesday);
-                    $("#Thursday").val(mainData.Thursday);
-                    $("#Friday").val(mainData.Friday);
-                    $("#Saturday").val(mainData.Saturday);
+                    try {
+                        var mainData = JSON.parse(data);
+                        $("#weekly_inputs").show(350);
+                        $("#Sunday").val(mainData.Sunday);
+                        $("#Monday").val(mainData.Monday);
+                        $("#Tuesday").val(mainData.Tuesday);
+                        $("#Wednesday").val(mainData.Wednesday);
+                        $("#Thursday").val(mainData.Thursday);
+                        $("#Friday").val(mainData.Friday);
+                        $("#Saturday").val(mainData.Saturday);
+                    } catch (e) {
+                        location.reload();
+                    } 
                 });
         }
     </script>

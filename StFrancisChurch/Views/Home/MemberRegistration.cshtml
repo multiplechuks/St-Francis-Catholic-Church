@@ -10,7 +10,7 @@
         <div class="row animate-box fadeInUp animated-fast">
             <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
                 <h1>@ViewBag.Title</h1>
-                <p class="alert alert-info">Please ensure you show up physically to the Church within 10 days after this registration to complete the registration process</p>
+                <p class="alert alert-info">Please ensure you come physically to the Church within 10 days after this registration to complete the registration process</p>
             </div>
         </div>
         <div class="row">
@@ -143,12 +143,11 @@
                     </div>
                     <div class="col-md-6">
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="file" name="Passport" id="filePassport" accept="image/*" class="form-control" placeholder="Choose Passport">
-                            </div>
+                            <input type="file" name="Passport" id="filePassport" accept="image/*" class="hidden">
+                            <label for="filePassport" class="form-control" >Select Passport</label>
                         </div>
                         <div class="col-md-6">
-                            <img id="blah" src="#" alt="Preview" width="150" height="150" />
+                            <img id="blah" src="#" alt="Selected Passport Preview" width="150" height="150" />
                         </div>
                     </div>
                     <div class="col-md-12 col-md-push-8">

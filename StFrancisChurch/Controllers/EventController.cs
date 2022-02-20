@@ -150,8 +150,132 @@ namespace StFrancisChurch.Controllers
                 {
                     Id = count,
                     Name = e.EventName,
-                    Description = e.EventDescription.Substring(0, 50) + "...",
+                    Description = e.EventDescription.Length < 65 ? e.EventDescription : e.EventDescription.Substring(0, 65) + "...",
                     CreateDate = e.CreateDate.ToString("d")
+                });
+            }
+
+            return Json(new
+            {
+                param.draw,
+                recordsFiltered = totalcount,
+                recordsTotal = totalcount,
+                data = allItems,
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult DailyVerse()
+        {
+            var returnData = (ReturnData)TempData["returnMessage"] ?? new ReturnData
+            {
+                HasValue = false
+            };
+            ViewBag.returns = returnData;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult DailyVerse(DailyVerseModel model)
+        {
+            try
+            {
+                var dailyVerse = new DailyVerse
+                {
+                    Text = model.Text,
+                    Quote = model.Quote,
+                    Active = model.Active
+                };
+
+                if (_eventRepository.AddDailyVerse(dailyVerse) > 0)
+                {
+                    var returnData = new ReturnData
+                    {
+                        HasValue = true,
+                        Message = "Daily verse was successfully added"
+                    };
+                    TempData["returnMessage"] = returnData;
+                    return Redirect("DailyVerse");
+                }
+            }
+            catch (Exception e)
+            {
+                var returnData = new ReturnData
+                {
+                    HasValue = true,
+                    Message = "There was an error adding the verse"
+                };
+                TempData["returnMessage"] = returnData;
+                return Redirect("DailyVerse");
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult GetDailyVerses(DatatableParam param)
+        {
+            var dailyVerses = _eventRepository.GetDailyVerses();
+            var allItems = new List<DailyVerseModel>();
+            //Apply Searching 
+            if (!string.IsNullOrEmpty(param.search.value))
+            {
+                var searchTerm = param.search.value;
+                dailyVerses = dailyVerses.Where(m => m.Quote.Contains(searchTerm) || m.Text.Contains(searchTerm));
+            }
+
+            var totalcount = dailyVerses.Count();
+            dailyVerses = dailyVerses.OrderBy(m => m.Active);
+
+            //Apply Sorting/Ordering
+            //IEnumerable<UserTableModel> entryTables = allItems;
+            var orderColumnIndex = Convert.ToInt32(param.order[0].column);
+            var orderDir = param.order[0].dir;
+            if (orderDir.Equals("asc"))
+            {
+                if (orderColumnIndex == 1)
+                {
+                    dailyVerses = dailyVerses.OrderBy(m => m.Text);
+                }
+                if (orderColumnIndex == 2)
+                {
+                    dailyVerses = dailyVerses.OrderBy(m => m.Quote);
+                }
+                if (orderColumnIndex == 3)
+                {
+                    dailyVerses = dailyVerses.OrderBy(m => m.Active);
+                }
+            }
+            else
+            {
+                if (orderColumnIndex == 1)
+                {
+                    dailyVerses = dailyVerses.OrderByDescending(m => m.Text);
+                }
+                if (orderColumnIndex == 2)
+                {
+                    dailyVerses = dailyVerses.OrderByDescending(m => m.Quote);
+                }
+                if (orderColumnIndex == 3)
+                {
+                    dailyVerses = dailyVerses.OrderByDescending(m => m.Active);
+                }
+            }
+
+            //Apply Pagination
+            //int.TryParse(param., out start);
+            dailyVerses = dailyVerses.Skip(param.start).Take(param.length);
+
+            int count = 0;
+
+            foreach (var e in dailyVerses)
+            {
+                count++;
+                allItems.Add(new DailyVerseModel
+                {
+                    Id = count,
+                    Text = e.Text,
+                    Quote = e.Quote,
+                    Active = e.Active
                 });
             }
 

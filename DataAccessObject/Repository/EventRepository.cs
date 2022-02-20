@@ -53,5 +53,17 @@ namespace DataAccessObject.Repository
         {
             return _entities.ParishEvents.OrderByDescending(m => m.Id).Take(6).Where(m => m.Active == 1 && m.Deleted == 0);
         }
+
+        public int AddDailyVerse(DailyVerse dailyVerse)
+        {
+            _entities.DailyVerses.Add(dailyVerse);
+            _entities.SaveChanges();
+            return dailyVerse.Id;
+        }
+
+        public IQueryable<DailyVerse> GetDailyVerses()
+        {
+            return _entities.DailyVerses;
+        }
     }
 }

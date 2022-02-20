@@ -93,4 +93,12 @@ namespace StFrancisChurch.Models.Utility
         public string Friday { get; set; }
         public string Saturday { get; set; }
     }
+
+    public class DailyVerseModel
+    {
+        public int Id { get; set; }
+        public string Text { get; set; }
+        public string Quote { get; set; }
+        public int Active { get; set; }
+    }
 }

@@ -1853,6 +1853,10 @@
     <Content Include="Views\Home\StationEvent.cshtml" />
     <Content Include="Views\Home\StationContact.cshtml" />
     <Content Include="Views\Shared\StationMenuBar.cshtml" />
+    <Content Include="Views\Home\Schedule.cshtml" />
+    <Content Include="Views\Event\DailyVerse.cshtml" />
+    <Content Include="Views\Home\Donations.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessObject\DataAccessObject.csproj">

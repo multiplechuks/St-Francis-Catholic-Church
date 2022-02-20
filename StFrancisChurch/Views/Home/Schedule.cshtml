@@ -1,0 +1,40 @@
+﻿@using StFrancisChurch.Models.Utility
+@{
+    var mass_schedules = (List<MassSchedules>)ViewBag.MassSchedules;
+}
+
+<div class="container-wrap">
+    <div id="fh5co-services" class="fh5co-light-grey">
+        <div class="row animate-box">
+            <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+                <h2>Mass Schedule</h2>
+                <p>Our mass schedule in the parish and stations are as follows</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-4 col-xs-6 animate-box">
+                <div class="services">
+                    <a href="#" class="img-holder"><img class="img-responsive" src="~/Content/images/img-1.jpg" alt=""></a>
+                    <div class="desc">
+                        <h3><a href="#">Parish Center</a></h3>
+                        <p>Sunday | 6:00am, 10:00am</p>
+                        <a href="#">more Schedules <i class="icon-arrow-right3"></i></a>
+                    </div>
+                </div>
+            </div>
+            @foreach (var _ in mass_schedules)
+            {
+                <div class="col-md-3 col-sm-4 col-xs-6 animate-box">
+                    <div class="services">
+                        <a href="#" class="img-holder"><img class="img-responsive" src="~/Content/images/img-3.jpg" alt=""></a>
+                        <div class="desc">
+                            <h3><a href="#">@_.StationName</a></h3>
+                            <p>@_.DayOfTheWeek | @_.Time</p>
+                            <a href="#">more Schedules <i class="icon-arrow-right3"></i></a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

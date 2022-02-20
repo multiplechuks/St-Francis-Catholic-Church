@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="StFrancisCCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="StFrancisCCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -137,6 +137,15 @@
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="Sponsor" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DailyVerse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Quote" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="LookUpTable">
           <Key>
@@ -610,6 +619,7 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
           <EntitySet Name="Baptism" EntityType="Self.Baptism" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Communion" EntityType="Self.Communion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Confirmation" EntityType="Self.Confirmation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DailyVerse" EntityType="Self.DailyVerse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LookUpTable" EntityType="Self.LookUpTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Matrimony" EntityType="Self.Matrimony" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MemberFamilyMetaData" EntityType="Self.MemberFamilyMetaData" Schema="dbo" store:Type="Tables" />
@@ -815,6 +825,7 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="DailyVerses" EntityType="StFrancisCCModel.DailyVerse" />
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -1413,6 +1424,15 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
           <End Type="StFrancisCCModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="StFrancisCCModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
+        <EntityType Name="DailyVerse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Quote" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Int32" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1792,6 +1812,16 @@ warning 6002: The table/view 'StFrancisCC.dbo.Reflection' does not have a primar
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="DailyVerses">
+            <EntityTypeMapping TypeName="StFrancisCCModel.DailyVerse">
+              <MappingFragment StoreEntitySet="DailyVerse">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Quote" ColumnName="Quote" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

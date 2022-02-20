@@ -1,0 +1,114 @@
+﻿@using StFrancisChurch.Models.Utility
+@{
+    ViewBag.Title = "Event Page";
+    var returns = (ReturnData)ViewBag.returns;
+}
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-table"></i>
+                Daily Verses
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="eventTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Text</th>
+                                <th>Quote</th>
+                                <th>Active</th>
+                                <td>Action</td>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>Text</th>
+                                <th>Quote</th>
+                                <th>Active</th>
+                                <td>Action</td>
+                            </tr>
+                        </tfoot>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-header">
+                Add Daily Verse
+                <div>
+                    @if (returns.HasValue)
+                    {
+                        <b class="text-info">@returns.Message</b>
+                    }
+                </div>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm("DailyVerse", "Event", FormMethod.Post, new { @role = "form", @class = "form-horizontal", @enctype = "multipart/form-data" }))
+                {
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="Text">Text</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" name="Text" id="Text" placeholder="Enter the verse" required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="Quote">Quote</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="Quote" id="Quote" placeholder="Enter the qootation of the verse" required />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="control-label col-md-4 text-right" for="Active">Active</label>
+                        <div class="col-md-8">
+                            <select class="form-control" required>
+                                <option>Select</option>
+                                <option value="1">Yes</option>
+                                <option value="2">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            $('#eventTable').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    url: "@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))/Event/GetDailyVerses/",
+                    type: "POST",
+                    dataSrc: "data"
+                },
+                "columns": [
+                    { "data": "Id" },
+                    { "data": "Text" },
+                    { "data": "Quote" },
+                    { "data": "Active" },
+                    {
+                        "data": "Action",
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-info" title="View this Event details"><i class="fas fa-fw fa-eye"></i></a>&nbsp;' +
+                                '<a class="btn btn-warning" title="Edit this Event"><i class="fas fa-fw fa-edit"></i></a>';
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+}

@@ -49,5 +49,6 @@ namespace DataAccessObject.DataModel
         public virtual DbSet<StationEvent> StationEvents { get; set; }
         public virtual DbSet<WeeklySchedule> WeeklySchedules { get; set; }
         public virtual DbSet<Reflection> Reflections { get; set; }
+        public virtual DbSet<DailyVerse> DailyVerses { get; set; }
     }
 }

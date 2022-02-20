@@ -59,6 +59,12 @@ namespace StFrancisChurch.Controllers
             return View();
         }
 
+        public ActionResult Schedule()
+        {
+            GetSundayMassSchedules();
+            return View();
+        }
+
         [HttpGet]
         public ActionResult MemberRegistration()
         {
@@ -217,6 +223,11 @@ namespace StFrancisChurch.Controllers
             }
 
             ViewBag.MassSchedules = massSchedules;
+        }
+
+        public ActionResult Donations()
+        {
+            return View();
         }
     }
 }

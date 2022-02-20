@@ -15,5 +15,7 @@ namespace DataAccessObject.IRepository
         IQueryable<ParishEvent> GetAllActiveParishEvents();
         IQueryable<ParishEvent> GetAllParishEvents();
         IQueryable<ParishEvent> GetRecentEvents();
+        int AddDailyVerse(DailyVerse dailyVerse);
+        IQueryable<DailyVerse> GetDailyVerses();
     }
 }
